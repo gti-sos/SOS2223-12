@@ -1,2 +1,3 @@
 # SOS2223-12
-Slack enlazado con github.
+
+Sesión de Feedback 03 en proceso.
