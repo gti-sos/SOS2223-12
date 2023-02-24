@@ -47,7 +47,7 @@ console.log("Primera forma -> La media del identificador de las localidades es: 
 
 //Segunda forma
 
-var id_localidades = [
+var bibliotecas = [
     {
         address_name: "Calle Velarde 43, 41460 Navas de la ConcepciÃ³n (Las) (Sevilla)",
         identifier: 872,
@@ -173,7 +173,7 @@ var id_localidades = [
 
 var resultado = 0;
 
-id_localidades.forEach(function(a) {
+bibliotecas.forEach(function(a) {
     resultado += a.locality_id;
 });
 
