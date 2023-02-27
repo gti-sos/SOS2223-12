@@ -134,13 +134,56 @@ var bibliotecas = [
         name: "Biblioteca PÃºblica Municipal de Pilas",
         postcode: 41840,
         province_name: "Sevilla"
+    },
+    {
+        address_name: "Calle Antonio Becerril 22, 41840 Pilas (Sevilla)",
+        identifier: 881,
+        locality_id: 181,
+        locality_name: "Pilas",
+        modified: 21/09/2021,
+        municipality_id: 6132,
+        municipaity_ine: 41075,
+        municipality_name: "Pilas",
+        name: "Biblioteca PÃºblica Municipal de Pilas",
+        postcode: 41840,
+        province_name: "Almería"
+    },
+    {
+        address_name: "Calle Antonio Becerril 22, 41840 Pilas (Sevilla)",
+        identifier: 881,
+        locality_id: 181,
+        locality_name: "Pilas",
+        modified: 21/09/2021,
+        municipality_id: 6132,
+        municipaity_ine: 41075,
+        municipality_name: "Pilas",
+        name: "Biblioteca PÃºblica Municipal de Pilas",
+        postcode: 41840,
+        province_name: "Granada"
+    },{
+        address_name: "Calle Antonio Becerril 22, 41840 Pilas (Sevilla)",
+        identifier: 881,
+        locality_id: 181,
+        locality_name: "Pilas",
+        modified: 21/09/2021,
+        municipality_id: 6132,
+        municipaity_ine: 41075,
+        municipality_name: "Pilas",
+        name: "Biblioteca PÃºblica Municipal de Pilas",
+        postcode: 41840,
+        province_name: "Almería"
     }
-];
+]
 
-var resultado = 0;
 
-bibliotecas.forEach(function(a) {
-    resultado += a.locality_id;
-});
+function mediaFiltrada(province, bibliotecas) {
+    let filtro = bibliotecas.filter(x => x.province_name == province);
+    total = 0;
+    filtro.forEach(x => {
+        total += x.locality_id;
+    });
 
-console.log("Segunda forma -> La media del identificador de las localidades es: ", resultado/bibliotecas.length);
+    return total / filtro.length;
+}
+
+console.log("La media del id de las localidades es: " + mediaFiltrada("Sevilla", bibliotecas))
