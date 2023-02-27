@@ -1,28 +1,4 @@
-// Temperatura media de Sevilla en 10 días.
-
-// 1ª Forma: Array con datos numéricos:
-var lista1 = [27.57, 27.19, 27.57, 26.11, 26.05, 27.23, 25.52, 27.19, 27.72, 27.76];
-
-var resultado1 = 0.0;
-
-lista1.forEach(function(a){
-    resultado1 += a;
-});
-console.log("1ª Forma -> La temperatura media de Sevilla en 10 días es: ", resultado1/lista1.length, "grados");
-
-/*
-//Prueba 1.1: Otro ejemplo
-var resultado1_1 = 0;
-var i = 0;
-function aa(){
-    resultado1_1 += lista1[i];
-    i++;
-}
-lista.forEach(aa);
-console.log("Prueba 1.1 -> La temperatura media de Sevilla en 10 días es: " +resultado1_1/lista1.length);
-*/
-
-// 2ª Forma: Array con varios datos distintos filtrando por un numérico para hacer la media:
+// Array con varios datos distintos filtrando por un numérico para hacer la media:
 var lista2 = [
     {
         province: "Sevilla",
@@ -124,13 +100,37 @@ var lista2 = [
         maximun_humidity: 76.5,
         minimun_humidity: 14.84,
         medium_humidity: 46.43
+    },{
+        province: "Malaga",
+        zone: "Los Palacios y Villafranca",
+        date: 13/07/2021,
+        maximun_temperature: 37.77,
+        minimun_temperature: 18.3,
+        medium_temperature: 27.76,
+        maximun_humidity: 76.5,
+        minimun_humidity: 14.84,
+        medium_humidity: 46.43
+    },{
+        province: "Almería",
+        zone: "Los Palacios y Villafranca",
+        date: 13/07/2021,
+        maximun_temperature: 37.77,
+        minimun_temperature: 18.3,
+        medium_temperature: 27.76,
+        maximun_humidity: 76.5,
+        minimun_humidity: 14.84,
+        medium_humidity: 46.43
     }
 ]
 
-var resultado2 = 0.0;
+function mediaFiltrada(province, lista2) {
+    let filtro = lista2.filter(x => x.province == province);
+    temp = 0;
+    filtro.forEach(x => {
+        temp += x.medium_temperature;
+    });
 
-lista2.forEach(function(b){
-    resultado2 += b.medium_temperature;
-});
+    return temp / filtro.length;
+}
 
-console.log("2ª Forma -> La temperatura media de Sevilla en 10 días es: ", resultado2/lista2.length, "grados");
+console.log("La temperatura media de Sevilla en 10 días es: ",  mediaFiltrada("Sevilla", lista2), "grados")
