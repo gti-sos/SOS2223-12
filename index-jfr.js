@@ -1,15 +1,3 @@
-// 1.Array con valores numéricos. (Contaminación de NO2.)
-
-var valorNO = [45.0,20.0,4.0,43.0,5.0,74.0,36.0,40.0,47.0,25.0];
-
-var mediaNO = 0;
-
-valorNO.forEach((v)=>{
-    mediaNO += v;
-});
-
-console.log("1.La contaminación media en 10 dias de N0 es: ", mediaNO/valorNO.length);
-
 // 2.Array con varios datos incluidos los numéricos, escogemos solo el valor numérico para hacer la media.
 
 var valorNO2 = [
@@ -73,28 +61,35 @@ var valorNO2 = [
         NO2: 25.0,
         O3: 16.875,
         SO2: 10.1
+    },
+    {
+        province: "almeria",
+        date: 28/3/2021,
+        NO2: 25.0,
+        O3: 16.875,
+        SO2: 10.1
+    },
+    {
+        province: "almeria",
+        date: 28/3/2021,
+        NO2: 25.0,
+        O3: 16.875,
+        SO2: 10.1
     }
+
 ]
-
-var mediaNO2 = 0;
-
-valorNO2.forEach((v)=>{
-    mediaNO2 += v.NO2;
-});
-
-console.log("2.La contaminación media en 10 dias de N0 es: ", mediaNO2/valorNO2.length);
 
 function mediaFiltrada(province, valorNO2) {
     let filtro = valorNO2.filter(x => x.province == province);
-    total = 0;
+    mediaNO2 = 0;
     filtro.forEach(x => {
-        total += x.NO2;
+        mediaNO2 += x.NO2;
     });
 
-    return total / filtro.length;
+    return mediaNO2 / filtro.length;
 }
 
-console.log(mediaFiltrada("seville", valorNO2))
+console.log("La media de NO2 en Sevilla es: ",mediaFiltrada("seville", valorNO2))
 
 
 
