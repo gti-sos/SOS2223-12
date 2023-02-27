@@ -8,7 +8,7 @@ id_localidades.forEach(function(a) {
     resultado += a;
 });
 
-console.log("Primera forma -> La media del identificador de las localidades es: ", resultado/10);
+console.log("Primera forma -> La media del identificador de las localidades es: ", resultado/id_localidades.length);
 
 
 //Segunda forma
