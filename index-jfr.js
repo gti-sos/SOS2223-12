@@ -83,3 +83,18 @@ valorNO2.forEach((v)=>{
 });
 
 console.log("2.La contaminación media en 10 dias de N0 es: ", mediaNO2/valorNO2.length);
+
+function mediaFiltrada(province, valorNO2) {
+    let filtro = valorNO2.filter(x => x.province == province);
+    total = 0;
+    filtro.forEach(x => {
+        total += x.NO2;
+    });
+
+    return total / filtro.length;
+}
+
+console.log(mediaFiltrada("seville", valorNO2))
+
+
+
