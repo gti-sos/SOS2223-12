@@ -1,0 +1,20 @@
+{
+  "name": "sos2223-12",
+  "version": "0.0.0",
+  "description": "Modulo/paquete nodejs del grupo 12",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gti-sos/SOS2223-12.git"
+  },
+  "author": "aml, jfr, vem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gti-sos/SOS2223-12/issues"
+  },
+  "homepage": "https://github.com/gti-sos/SOS2223-12#readme"
+}
