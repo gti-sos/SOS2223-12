@@ -3,7 +3,7 @@ var cool = require("cool-ascii-faces");
 var express = require("express");
 
 var app = express();
-var port = 12345
+var port = 12345 // poner eso cuando este lo de google cloud -> process.env.PORT || 12345;
 
 app.get("/faces", (request, response) => {
     response.send(cool());
