@@ -26,7 +26,7 @@ app.listen(port, () => {
 
 
 // ruta del algortimo de Jorge
-
+app.use(require('./samples/index-jfr'));
 
 
 // ruta del algoritmo de Víctor
