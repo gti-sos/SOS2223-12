@@ -30,3 +30,5 @@ app.use(require('./samples/index-jfr'));
 
 
 // ruta del algoritmo de Víctor
+
+app.use(require('./samples/index-vem'));
