@@ -83,10 +83,12 @@ ejercicios.get('/samples/jfr', (req, res)=>{
     
     var mediaNO2 = 0;
     
-    valorNO2.filter(v => v.province == "seville").forEach((v)=>{
+    var filtro = valorNO2.filter(v => v.province == "seville")
+    filtro.forEach((v)=>{
         mediaNO2 += v.NO2;
     });
-    res.json('La media de contaminacion de N02 en 10 dias en Sevilla es: ' + mediaNO2);
+
+    res.json('La media de contaminacion de N02 en 10 dias en Sevilla es: ' + mediaNO2/filtro.length);
     
     })
 
