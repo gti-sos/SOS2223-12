@@ -5,7 +5,7 @@ var express = require("express");
 var app = express();
 var port = process.env.PORT || 12345;
 
-app.get("/faces", (request, response) => {
+app.get("/cool", (request, response) => {
     response.send(cool());
     console.log("Nueva carita");
 });
@@ -22,7 +22,7 @@ app.listen(port, () => {
 */
 
 // ruta del algoritmo de Álvaro
-
+app.use(require("./samples/index-aml"));
 
 
 // ruta del algortimo de Jorge
