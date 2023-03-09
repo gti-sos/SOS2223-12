@@ -23,7 +23,45 @@ app.listen(port, () => {
 
 // ruta del algoritmo de Álvaro
 app.use(require("./samples/index-aml"));
+// F05
+const BASE_API_URL = "/api/v1";
+var bodyParser = require("body-parser");
 
+app.use(bodyParser.json());
+
+var agroclimatic = [
+    {
+        province: "Sevilla",
+        zone: "Los Palacios y Villafranca",
+        date: "04/07/2021",
+        maximun_temperature: 37.57,
+        minimun_temperature: 18.77,
+        medium_temperature: 27.57,
+        maximun_humidity: 80.3,
+        minimun_humidity: 21.45,
+        medium_humidity: 52.3
+    }
+];
+
+// GET
+app.get(BASE_API_URL+"/agroclimatic", (request,response) => {
+    response.json(agroclimatic);
+    console.log("New GET to /agroclimatic");
+});
+
+// POST
+app.post(BASE_API_URL+"/agroclimatic", (request,response) => {
+    var newAgroclimatic = request.body;
+    
+    
+    console.log(`newAgroclimatic = ${JSON.stringify(newAgroclimatic, null, 2)}`);
+       
+    console.log("New POST to /newAgroclimatic");
+    
+    agroclimatic.push(newAgroclimatic);
+    
+    response.sendStatus(201);
+});
 
 // ruta del algortimo de Jorge
 app.use(require('./samples/index-jfr'));
