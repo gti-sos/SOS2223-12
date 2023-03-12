@@ -108,7 +108,7 @@ app.get(BASE_API_URL+"/agroclimatic", (request, response) => {
     const from = request.query.from;
     const to = request.query.to;
 
-    // Lógica para buscar todas las ciudades en el período especificado
+    // Buscar todas las ciudades en el período especificado
     if (from && to) {
         const provinciasAño = agroclimatic.filter(x => {
         return x.year >= from && x.year <= to;
@@ -119,17 +119,17 @@ app.get(BASE_API_URL+"/agroclimatic", (request, response) => {
         }else{
             response.status(200);
             response.json(provinciasAño);
-            console.log(`/GET en /agroclimatic?from=${from}&to=${to}`); //console.log en el servidor
+            console.log(`/GET en /agroclimatic?from=${from}&to=${to}`); 
         }
     }else{
         const { year } = request.query;
   
         if (year) {
             const filtradas = agroclimatic.filter(r => r.year === parseInt(year));
-            console.log("Nuevo GET en /agroclimatic con año"); //console.log en el servidor  
+            console.log("Nuevo GET en /agroclimatic con año");  
             response.status(200).json(filtradas);
         } else {
-            console.log("Nuevo GET en /agroclimatic"); //console.log en el servidor 
+            console.log("Nuevo GET en /agroclimatic"); 
             response.status(200).json(agroclimatic);
         }  
     }
@@ -149,17 +149,17 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
         } else {
             const datosFiltrados = agroclimatic.filter(x => x.province === province && x.year >= from && x.year <= to);
             response.status(200).json(datosFiltrados);
-            console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`); //console.log en el servidor
+            console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`);
         }
     } else if (year) {
         const datosFiltrados = agroclimatic.filter(x => x.province === province && x.year === year);
         response.status(200).json(datosFiltrados);
-        console.log(`Nuevo GET en /agroclimatic/${province} con año`); //console.log en el servidor  
+        console.log(`Nuevo GET en /agroclimatic/${province} con año`);   
 
     } else {
         const datosFiltrados = agroclimatic.filter(x => x.province === province);
         response.status(200).json(datosFiltrados);
-        console.log(`Nuevo GET en /agroclimatic/${province}`); //console.log en el servidor 
+        console.log(`Nuevo GET en /agroclimatic/${province}`); 
     }
 });
 
@@ -230,17 +230,12 @@ app.put(BASE_API_URL + "/agroclimatic/:province", (request, response) => {
     }
 });
 
-// PUT a 1 o varias años -> 200, sino -> 400
+// PUT a 1 o varios años -> 200, sino -> 400
 app.put(BASE_API_URL + "/agroclimatic/:province/:year", (request, response) => {
     var provinceId = request.params.province;
     var yearId = request.params.year;
     var body = request.body;
     var updated = false;
-  
-    console.log("URL provincia: ", provinceId);
-    console.log("URL año: ", yearId);
-    console.log("Solicitud provincia: ", body.province);
-    console.log("Solicitud año: ", body.year);
   
     if (provinceId === body.province && yearId == parseInt(body.year)) { // verifica si los valores de año coinciden
       agroclimatic = agroclimatic.map(x => {
@@ -262,7 +257,6 @@ app.put(BASE_API_URL + "/agroclimatic/:province/:year", (request, response) => {
       }
     } else {
       console.log("El año en la URL no coincide con el año en la solicitud");
-      console.log("Valor en URL:", yearId, "Valor en body:", body.year);
       response.status(400).send("El año en la URL no coincide con el año en la solicitud");
     }
   });
@@ -279,7 +273,7 @@ app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
         agroclimatic = [];
         response.status(200).send("Los datos se han borrado correctamente");
     }else{
-        const { year, province } = request.body; // Buscar el objeto en la matriz     
+        const { year, province } = request.body; // Buscar el objeto     
         const objectIndex = agroclimatic.findIndex(x => x.year === year && x.province === province);
 
         if (objectIndex.length == 0) { // Si el objeto no se encuentra devuelve 404    
