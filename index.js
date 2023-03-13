@@ -141,7 +141,7 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
     const province = request.params.province;
     const from = request.query.from;
     const to = request.query.to;
-    const year = request.query.year;
+    //const year = request.query.year;
     
     if (from && to) {
         if (from > to) {
@@ -151,7 +151,7 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
             response.status(200).json(datosFiltrados);
             console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`);
         }
-    } else if (year) {
+    } /*else if (year) {
         const datosFiltrados = agroclimatic.filter( x.year === year); //x => x.province === province &&
         if(datosFiltrados.length === 0){
             res.status(404).json('La ruta solicitada no existe');
@@ -159,8 +159,8 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
         response.status(200).json(datosFiltrados);
         console.log(`New GET /agroclimatic/${province} con año`);   
           }
-    }else {
-        const datosFiltrados = agroclimatic.filter(x => x.province === province);
+    }*/else {
+        const datosFiltrados = agroclimatic.filter(x => x.province == province);
         
         if(datosFiltrados.length === 0){
             res.status(404).json('La ruta solicitada no existe');
