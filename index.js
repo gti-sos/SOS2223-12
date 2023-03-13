@@ -570,7 +570,7 @@ app.get(BASE_API_URL+"/pollutions", (request, response) => {
 
 //GET provincia y from-to
 
-app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
+app.get(BASE_API_URL+"/pollutions/:province", (request, response) => {
     const province = request.params.province;
     const from = request.query.from;
     const to = request.query.to;
@@ -601,7 +601,7 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
 
 // GET datos filtrados por provincia y año
 
-app.get(BASE_API_URL+"/agroclimatic/:province/:year", (request,response) => {
+app.get(BASE_API_URL+"/pollutions/:province/:year", (request,response) => {
     const province = request.params.province;
     const year = request.params.year;
     var filtro = pollution.filter(x => x.province == province && x.year == year);
