@@ -582,7 +582,7 @@ app.get(BASE_API_URL+"/pollutions/:province", (request, response) => {
         } else {
             const datosFiltrados = agroclimatic.filter(x => x.province === province && x.year >= from && x.year <= to);
             response.status(200).json(datosFiltrados);
-            console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`);
+            console.log(`/GET en /pollutions/${province}?from=${from}&to=${to}`);
         }
     } else {
         const datosFiltrados = pollution.filter(x => x.province == province);
