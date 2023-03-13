@@ -570,51 +570,48 @@ app.get(BASE_API_URL+"/pollutions", (request, response) => {
 
 //GET provincia y from-to
 
-app.get(BASE_API_URL+"/pollutions/:province", (request, response) => {
+app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
     const province = request.params.province;
     const from = request.query.from;
     const to = request.query.to;
-    const year = request.query.year;
+    //const year = request.query.year;
     
     if (from && to) {
         if (from > to) {
             response.status(400).json("El rango de años especificado es inválido");
         } else {
-            const datosFiltrados = pollution.filter(x => x.province === province && x.year >= from && x.year <= to);
+            const datosFiltrados = agroclimatic.filter(x => x.province === province && x.year >= from && x.year <= to);
             response.status(200).json(datosFiltrados);
-            console.log(`/GET /pollutions/${province}?from=${from}&to=${to}`);
+            console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`);
         }
-    } else if (year) {
-        const datosFiltrados = pollution.filter(x => x.province === province && x.year === year);
-        if(datosFiltrados.length === 0){
-            res.status(404).json('La ruta solicitada no existe');
-          }else{
-        response.status(200).json(datosFiltrados);
-        console.log(`New GET /pollutions/${province} con año`);   
-          }
-
     } else {
-        const datosFiltrados = pollution.filter(x => x.province === province);
-        if(datosFiltrados.length === 0){
+        const datosFiltrados = pollution.filter(x => x.province == province);
+        
+        if(datosFiltrados.length == 0){
             res.status(404).json('La ruta solicitada no existe');
           }else{
         response.status(200).json(datosFiltrados);
         console.log(`New GET /pollutions/${province}`); 
           }
+        //response.status(200).json(datosFiltrados);
+        console.log(`Nuevo GET en /pollutions/${province}`); 
     }
 });
 
+
 // GET datos filtrados por provincia y año
 
-app.get(BASE_API_URL+"/pollutions/:province/:year", (request,response) => {
+app.get(BASE_API_URL+"/agroclimatic/:province/:year", (request,response) => {
     const province = request.params.province;
     const year = request.params.year;
     var filtro = pollution.filter(x => x.province == province && x.year == year);
-    if (!filtro) {
-        response.status(200).json(filtro);
-      } else {
+    if (filtro.length == 0) {
+        
         response.status(404).json('La ruta solicitada no existe');
+      } else {
+        response.status(200).json(filtro);
       }
+      console.log("Datos de /pollutions/:province/:year");
 });
 
 //POST con error 409 (ya existe)
@@ -678,6 +675,8 @@ app.put(BASE_API_URL + "/pollutions/:province", (request, response) => {
         response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
     }
 });
+
+
 
 // PUT a 1 o varios años -> 200, sino -> 400
 app.put(BASE_API_URL + "/pollutions/:province/:year", (request, response) => {
