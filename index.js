@@ -30,7 +30,68 @@ var bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
 
-var agroclimatic = [];
+var agroclimatic = [/*{
+    province: "Sevilla",
+    year: 2021,
+    maximun_temperature: 37.57,
+    minimun_temperature: 18.77,
+    medium_temperature: 27.57 
+},{
+    province: "Huelva",
+    year: 2020,
+    maximun_temperature: 36.42,
+    minimun_temperature: 17.55,
+    medium_temperature: 27.19
+},{
+    province: "Sevilla",
+    year: 2021,
+    maximun_temperature: 36.16,
+    minimun_temperature: 18.69,
+    medium_temperature: 27.57
+},{
+    province: "Huelva",
+    year: 2021,
+    maximun_temperature: 34.63,
+    minimun_temperature: 17.62,
+    medium_temperature: 26.11
+},{
+    province: "Sevilla",
+    year: 2021,
+    maximun_temperature: 34.69,
+    minimun_temperature: 17.55,
+    medium_temperature: 26.05
+},{
+    province: "Sevilla",
+    year: 2020,
+    maximun_temperature: 37.76,
+    minimun_temperature: 16.95,
+    medium_temperature: 27.23
+},{
+    province: "Huelva",
+    year: 2021,
+    maximun_temperature: 34.68,
+    minimun_temperature: 16.62,
+    medium_temperature: 25.52
+},{
+    province: "Sevilla",
+    year: 2020,
+    maximun_temperature: 36.56,
+    minimun_temperature: 18.5,
+    medium_temperature: 27.19
+},{
+    province: "Huelva",
+    year: 2020,
+    maximun_temperature: 37.3,
+    minimun_temperature: 18.5,
+    medium_temperature: 27.72,
+},{
+    province: "Huelva",
+    year: 2020,
+    maximun_temperature: 37.77,
+    minimun_temperature: 18.3,
+    medium_temperature: 27.76
+}*/
+];
 
 var datos = [
     {
@@ -102,7 +163,80 @@ app.get(BASE_API_URL+"/agroclimatic/loadInitialData", (request,response) => {
     console.log("Datos cargados en /agroclimatic");
     response.sendStatus(200);
 });
-
+/*
+app.get(BASE_API_URL+"/agroclimatic/loadInitialData", (req, res) => {
+    if (agroclimatic.length == 0) {
+      agroclimatic.push({
+        province: "Sevilla",
+        year: 2021,
+        maximun_temperature: 37.57,
+        minimun_temperature: 18.77,
+        medium_temperature: 27.57 
+    },{
+        province: "Huelva",
+        year: 2020,
+        maximun_temperature: 36.42,
+        minimun_temperature: 17.55,
+        medium_temperature: 27.19
+    },{
+        province: "Sevilla",
+        year: 2021,
+        maximun_temperature: 36.16,
+        minimun_temperature: 18.69,
+        medium_temperature: 27.57
+    },{
+        province: "Huelva",
+        year: 2021,
+        maximun_temperature: 34.63,
+        minimun_temperature: 17.62,
+        medium_temperature: 26.11
+    },{
+        province: "Sevilla",
+        year: 2021,
+        maximun_temperature: 34.69,
+        minimun_temperature: 17.55,
+        medium_temperature: 26.05
+    },{
+        province: "Sevilla",
+        year: 2020,
+        maximun_temperature: 37.76,
+        minimun_temperature: 16.95,
+        medium_temperature: 27.23
+    },{
+        province: "Huelva",
+        year: 2021,
+        maximun_temperature: 34.68,
+        minimun_temperature: 16.62,
+        medium_temperature: 25.52
+    },{
+        province: "Sevilla",
+        year: 2020,
+        maximun_temperature: 36.56,
+        minimun_temperature: 18.5,
+        medium_temperature: 27.19
+    },{
+        province: "Huelva",
+        year: 2020,
+        maximun_temperature: 37.3,
+        minimun_temperature: 18.5,
+        medium_temperature: 27.72,
+    },{
+        province: "Huelva",
+        year: 2020,
+        maximun_temperature: 37.77,
+        minimun_temperature: 18.3,
+        medium_temperature: 27.76
+    });
+      res.json(agroclimatic)
+      //res.json('Se han creado ' + datos_random.length + ' datos');
+      console.log("Se han creado datos")
+    } else {
+      res.json('El arreglo ya contiene datos');
+      //res.json(datos_random)
+      console.log('El arreglo ya contiene datos')
+    }
+});
+*/
 // GET datos y tambien from y to
 app.get(BASE_API_URL+"/agroclimatic", (request, response) => {
     const from = request.query.from;
@@ -162,7 +296,7 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
     }*/else {
         const datosFiltrados = agroclimatic.filter(x => x.province == province);
         
-        if(datosFiltrados.length === 0){
+        if(datosFiltrados.length == 0){
             res.status(404).json('La ruta solicitada no existe');
           }else{
         response.status(200).json(datosFiltrados);
@@ -179,7 +313,7 @@ app.get(BASE_API_URL+"/agroclimatic/:province/:year", (request,response) => {
     const province = request.params.province;
     const year = request.params.year;
     var filtro = agroclimatic.filter(x => x.province == province && x.year == year);
-    if (!filtro) {
+    if (filtro.length == 0) {
         
         response.status(404).json('La ruta solicitada no existe');
       } else {
