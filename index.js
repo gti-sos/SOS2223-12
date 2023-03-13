@@ -437,13 +437,21 @@ app.get(BASE_API_URL+"/pollutions/:province", (request, response) => {
         }
     } else if (year) {
         const datosFiltrados = pollution.filter(x => x.province === province && x.year === year);
+        if(datosFiltrados.length === 0){
+            res.status(404).json('La ruta solicitada no existe');
+          }else{
         response.status(200).json(datosFiltrados);
         console.log(`New GET /pollutions/${province} con año`);   
+          }
 
     } else {
         const datosFiltrados = pollution.filter(x => x.province === province);
+        if(datosFiltrados.length === 0){
+            res.status(404).json('La ruta solicitada no existe');
+          }else{
         response.status(200).json(datosFiltrados);
         console.log(`New GET /pollutions/${province}`); 
+          }
     }
 });
 
@@ -453,9 +461,11 @@ app.get(BASE_API_URL+"/pollutions/:province/:year", (request,response) => {
     const province = request.params.province;
     const year = request.params.year;
     var filtro = pollution.filter(x => x.province == province && x.year == year);
-    response.json(filtro);
-    console.log("Datos de /pollutions/:province/:year");
-    response.status(200);
+    if (!filtro) {
+        response.status(200).json(filtro);
+      } else {
+        response.status(404).json('La ruta solicitada no existe');
+      }
 });
 
 //POST con error 409 (ya existe)
@@ -882,7 +892,7 @@ app.delete(BASE_API_URL+"/library/:province_name", (request, response) => {
     }
     console.log("Se ha borrado la provincia en /library/:province_name");
 });
-
+/*
 // Manejador de errores
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError) {
@@ -900,14 +910,14 @@ app.use((err, req, res, next) => {
   //VERIFICAR SI METODO POST ES A ESA URL
     app.use((req, res, next) => {
       // Verificar si la solicitud es un POST y si no es en la ruta correcta
-      if (req.method === 'POST' && req.originalUrl !== '/api/v1/evolution-stats') {
+      if (req.method === 'POST' && req.originalUrl !== '/api/v1/pollutions') {
         res.status(405).json('Método no permitido');
         return;
       }
     
       // Enviar una respuesta con un código de estado 404 Not Found si la ruta no se encuentra
       res.status(404).json('La ruta solicitada no existe');
-    });
+    });*/
     
   // Manejador de rutas no encontradas
   app.use((req, res) => {
