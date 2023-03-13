@@ -152,16 +152,27 @@ app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
             console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`);
         }
     } else if (year) {
-        const datosFiltrados = agroclimatic.filter(x => x.province === province && x.year === year);
+        const datosFiltrados = agroclimatic.filter( x.year === year); //x => x.province === province &&
+        if(datosFiltrados.length === 0){
+            res.status(404).json('La ruta solicitada no existe');
+          }else{
         response.status(200).json(datosFiltrados);
-        console.log(`Nuevo GET en /agroclimatic/${province} con año`);   
-
-    } else {
+        console.log(`New GET /agroclimatic/${province} con año`);   
+          }
+    }else {
         const datosFiltrados = agroclimatic.filter(x => x.province === province);
+        
+        if(datosFiltrados.length === 0){
+            res.status(404).json('La ruta solicitada no existe');
+          }else{
         response.status(200).json(datosFiltrados);
+        console.log(`New GET /agroclimatic/${province}`); 
+          }
+        //response.status(200).json(datosFiltrados);
         console.log(`Nuevo GET en /agroclimatic/${province}`); 
     }
 });
+
 
 // GET datos filtrados por provincia y año
 app.get(BASE_API_URL+"/agroclimatic/:province/:year", (request,response) => {
@@ -898,7 +909,7 @@ app.delete(BASE_API_URL+"/library/:province_name", (request, response) => {
     }
     console.log("Se ha borrado la provincia en /library/:province_name");
 });
-/*
+
 // Manejador de errores
 app.use((err, req, res, next) => {
     if (err instanceof SyntaxError) {
@@ -916,17 +927,18 @@ app.use((err, req, res, next) => {
   //VERIFICAR SI METODO POST ES A ESA URL
     app.use((req, res, next) => {
       // Verificar si la solicitud es un POST y si no es en la ruta correcta
-      if (req.method === 'POST' && req.originalUrl !== '/api/v1/pollutions') {
+      if (req.method === 'POST' && req.originalUrl !== '/api/v1/agroclimatic') {
         res.status(405).json('Método no permitido');
         return;
       }
     
       // Enviar una respuesta con un código de estado 404 Not Found si la ruta no se encuentra
       res.status(404).json('La ruta solicitada no existe');
-    });*/
+    });
     
   // Manejador de rutas no encontradas
   app.use((req, res) => {
     // Enviar una respuesta con un código de estado 404 Not Found si la ruta no se encuentra
     res.status(404).json('La ruta solicitada no existe');
   });
+  
