@@ -843,7 +843,7 @@ app.get(BASE_API_URL+"/library", (request, response) => {
 
     // Buscar todas las ciudades en el período especificado
     if (from && to) {
-        const provinciasAño = library.filter(x => {
+        const provinciasAño = agroclimatic.filter(x => {
         return x.modified >= from && x.modified <= to;
     }); 
         if (from >= to) {
@@ -874,7 +874,6 @@ app.get(BASE_API_URL+"/library/:province_name", (request, response) => {
     const province_name = request.params.province_name;
     const from = request.query.from;
     const to = request.query.to;
-    const modified = request.query.modified;
     
     if (from && to) {
         if (from > to) {
@@ -884,14 +883,16 @@ app.get(BASE_API_URL+"/library/:province_name", (request, response) => {
             response.status(200).json(datosFiltrados);
             console.log(`/GET en /library/${province_name}?from=${from}&to=${to}`);
         }
-    } else if (modified) {
-        const datosFiltrados = library.filter(x => x.province_name === province_name && x.modified === modified);
+    } 
+    else {
+        const datosFiltrados = library.filter(x => x.province_name == province_name);
+        
+        if(datosFiltrados.length == 0){
+            res.status(404).json('La ruta solicitada no existe');
+          }else{
         response.status(200).json(datosFiltrados);
-        console.log(`Nuevo GET en /agroclimatic/${province_name} con año`);   
-
-    } else {
-        const datosFiltrados = library.filter(x => x.province_name === province_name);
-        response.status(200).json(datosFiltrados);
+        console.log(`New GET /library/${province_name}`); 
+          }
         console.log(`Nuevo GET en /library/${province_name}`); 
     }
 });
@@ -902,12 +903,13 @@ app.get(BASE_API_URL+"/library/:province_name/:modified", (request,response) => 
     const province_name = request.params.province_name;
     const modified = request.params.modified;
     var filtro = library.filter(x => x.province_name == province_name && x.modified == modified);
-    if (!filtro) {
-        response.status(200).json(filtro);
-      } else {
+    if (filtro.length == 0) {
+        
         response.status(404).json('La ruta solicitada no existe');
+      } else {
+        response.status(200).json(filtro);
       }
-      console.log("Datos de /library/:province/:year");
+      console.log("Datos de /library/:province_name/:modified");
 });
 
 // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
