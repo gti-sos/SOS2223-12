@@ -168,9 +168,13 @@ app.get(BASE_API_URL+"/agroclimatic/:province/:year", (request,response) => {
     const province = request.params.province;
     const year = request.params.year;
     var filtro = agroclimatic.filter(x => x.province == province && x.year == year);
-    response.json(filtro);
-    console.log("Datos de /agroclimatic/:province/:year");
-    response.status(200);
+    if (!filtro) {
+        
+        response.status(404).json('La ruta solicitada no existe');
+      } else {
+        response.status(200).json(filtro);
+      }
+      console.log("Datos de /agroclimatic/:province/:year");
 });
 
 // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
@@ -753,11 +757,13 @@ app.get(BASE_API_URL+"/library/:province_name/:modified", (request,response) => 
     const province_name = request.params.province_name;
     const modified = request.params.modified;
     var filtro = library.filter(x => x.province_name == province_name && x.modified == modified);
-    response.json(filtro);
-    console.log("Datos de /library/:province_name/:modified");
-    response.status(200);
+    if (!filtro) {
+        response.status(200).json(filtro);
+      } else {
+        response.status(404).json('La ruta solicitada no existe');
+      }
+      console.log("Datos de /library/:province/:year");
 });
-
 
 // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
 app.post(BASE_API_URL + "/library", (request, response) => {
