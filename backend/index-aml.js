@@ -1,3 +1,5 @@
+var Datastore = require("nedb");
+var db = new Datastore();
 
 const BASE_API_URL = "/api/v1";
 
@@ -66,20 +68,73 @@ module.exports = (app) =>{
         }
     ];
     
+    db.insert(datos);
+    console.log("Insertados los datos");
+
     // GET carga de datos
     app.get(BASE_API_URL+"/agroclimatic/loadInitialData", (request,response) => {
-        agroclimatic = datos;
+        db.find({}, (err, agroclimatic)=>{
+            if(agroclimatic.length > 0){
+                response.json("Los datos ya se han cargado");
+                console.log("Los datos ya se han cargado");
+            }else if(err){
+                response.sendStatus(500);
+                console.log("Error al cargar los datos");
+            }else{
+                db.insert(datos);
+                console.log("Se han insertado los datos");
+                response.sendStatus(200);
+            }
+        });
+        /*agroclimatic = datos;
         console.log("Datos cargados en /agroclimatic");
-        response.sendStatus(200);
+        response.sendStatus(200);*/
     });
 
     // GET datos y tambien from y to
     app.get(BASE_API_URL+"/agroclimatic", (request, response) => {
         const from = request.query.from;
         const to = request.query.to;
-    
+        db.find({}, (err, agroclimatic)=>{
+            if (from && to && !err) {
+                const provinciasAño = agroclimatic.filter(x => {return x.year >= from && x.year <= to}); 
+                if (from >= to) {
+                    response.status(400).json("El rango de años especificado es inválido");
+                
+                }else{
+                    response.status(200);
+                    response.json(provinciasAño.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                    console.log(`/GET en /agroclimatic?from=${from}&to=${to}`); 
+                }
+            }else if(!err){
+                const { year } = request.query;
+          
+                if (year) {
+                    const filtradas = agroclimatic.filter(r => r.year === parseInt(year));
+                    console.log("Nuevo GET en /agroclimatic con año");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                } else {
+                    console.log("Nuevo GET en /agroclimatic"); 
+                    response.status(200);
+                    response.json(agroclimatic.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }  
+            }else{
+                console.log("Error al dar los datos");
+                response.sendStatus(500);
+            }
+        });
         // Buscar todas las ciudades en el período especificado
-        if (from && to) {
+        /*if (from && to) {
             const provinciasAño = agroclimatic.filter(x => {
             return x.year >= from && x.year <= to;
         }); 
@@ -102,7 +157,7 @@ module.exports = (app) =>{
                 console.log("Nuevo GET en /agroclimatic"); 
                 response.status(200).json(agroclimatic);
             }  
-        }
+        }*/
         console.log("GET con los datos");
     });
     
