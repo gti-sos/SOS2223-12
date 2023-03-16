@@ -116,8 +116,8 @@ module.exports = (app) =>{
                     console.log(`/GET en /agroclimatic?from=${from}&to=${to}`); 
                 }
             }else if(!err){
-                const { year } = request.query;
-          
+                const year = request.query.year;
+                const province = request.query.province;
                 if (year) {
                     const filtradas = agroclimatic.filter(r => r.year === parseInt(year));
                     console.log("Nuevo GET en /agroclimatic con año");  
@@ -126,7 +126,15 @@ module.exports = (app) =>{
                         delete c._id;
                         return c;
                     }));
-                } else {
+                } else if(province){
+                    const filtradas = agroclimatic.filter(r => r.province === province);
+                    console.log("Nuevo GET en /agroclimatic con año");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else {
                     console.log("Nuevo GET en /agroclimatic"); 
                     response.status(200);
                     response.json(agroclimatic.map((c)=>{
