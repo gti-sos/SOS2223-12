@@ -1,3 +1,4 @@
+const { request, response } = require("express");
 var Datastore = require("nedb");
 var db = new Datastore();
 
@@ -91,6 +92,11 @@ module.exports = (app) =>{
         response.sendStatus(200);*/
     });
 
+    app.get(BASE_API_URL+"/agroclimatic/docs",(req,res)=>
+    {
+        res.redirect("https://documenter.getpostman.com/view/20091922/UyrDCF8G")
+    });
+    
     // GET datos y tambien from y to
     app.get(BASE_API_URL+"/agroclimatic", (request, response) => {
         const from = request.query.from;
