@@ -21,6 +21,8 @@ app.listen(port, () => {
 })
 */
 var backend_aml = require("./backend/index-aml");
+var backend_jfr = require("./backend/index-jfr");
+
 
 // ruta del algoritmo de Álvaro F04
 app.use(require("./samples/index-aml"));
@@ -32,6 +34,7 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use("/", express.static("./public"));
 backend_aml(app);
+backend_jfr(app);
 /*
 var agroclimatic = [{
     province: "Sevilla",
