@@ -119,7 +119,100 @@ module.exports = (app) =>{
                 const year = request.query.year;
                 const province = request.query.province;
                 const temp_max = request.query.maximun_temperature;
-                if (year) {
+                const temp_min = request.query.minimun_temperature;
+                const temp_med = request.query.medium_temperature;
+                const limit = request.query.limit;
+                const offset = request.query.offset;
+                
+                if(limit && offset){ 
+                    const filtradas = pagination(request,agroclimatic);
+                    console.log("Nuevo GET en /agroclimatic con paginación");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                    delete c._id;
+                    return c;
+                    }));
+                }else if(province && year){
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.year == year);
+                    console.log("Nuevo GET en /agroclimatic con provincia y año");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && temp_max){
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.maximun_temperature == temp_max);
+                    console.log("Nuevo GET en /agroclimatic con provincia y temperatura maxima");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && temp_min){
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.minimun_temperature == temp_min);
+                    console.log("Nuevo GET en /agroclimatic con provincia y temperatura minima");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && temp_med){
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.medium_temperature == temp_med);
+                    console.log("Nuevo GET en /agroclimatic con provincia y temperatura media");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && temp_max){
+                    const filtradas = agroclimatic.filter(r => r.year == year && r.maximun_temperature == temp_max);
+                    console.log("Nuevo GET en /agroclimatic con año y temperatura maxima");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && temp_min){
+                    const filtradas = agroclimatic.filter(r => r.year == year && r.minimun_temperature == temp_min);
+                    console.log("Nuevo GET en /agroclimatic con año y temperatura minima");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && temp_med){
+                    const filtradas = agroclimatic.filter(r => r.year == year && r.medium_temperature == temp_med);
+                    console.log("Nuevo GET en /agroclimatic con año y temperatura media");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(temp_max && temp_min){
+                    const filtradas = agroclimatic.filter(r => r.maximun_temperature == temp_max && r.minimun_temperature == temp_min);
+                    console.log("Nuevo GET en /agroclimatic con temperatura maxima y temperatura minima");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(temp_max && temp_med){
+                    const filtradas = agroclimatic.filter(r => r.maximun_temperature == temp_max && r.medium_temperature == temp_med);
+                    console.log("Nuevo GET en /agroclimatic con temperatura maxima y temperatura media");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(temp_min && temp_med){
+                    const filtradas = agroclimatic.filter(r => r.minimun_temperature == temp_min && r.medium_temperature == temp_med);
+                    console.log("Nuevo GET en /agroclimatic con temperatura minima y temperatura media");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if (year) {
                     const filtradas = agroclimatic.filter(r => r.year === parseInt(year));
                     console.log("Nuevo GET en /agroclimatic con año");  
                     response.status(200);
@@ -127,6 +220,7 @@ module.exports = (app) =>{
                         delete c._id;
                         return c;
                     }));
+                    
                 } else if(province){
                     const filtradas = agroclimatic.filter(r => r.province === province);
                     console.log("Nuevo GET en /agroclimatic con provincia");  
@@ -143,6 +237,22 @@ module.exports = (app) =>{
                         delete c._id;
                         return c;
                     }));
+                }else if(temp_min){
+                    const filtradas = agroclimatic.filter(r => r.minimun_temperature == temp_min);
+                    console.log("Nuevo GET en /agroclimatic con temperatura minima");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(temp_med){
+                    const filtradas = agroclimatic.filter(r => r.medium_temperature == temp_med);
+                    console.log("Nuevo GET en /agroclimatic con temperatura media");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
                 }else {
                     console.log("Nuevo GET en /agroclimatic"); 
                     response.status(200);
@@ -151,29 +261,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }  
-            }/*else if(limit && offset){
-                const limit = parseInt(request.query.limit);
-                const offset = parseInt(request.query.offset);
-                if (limit > 0 && offset > 0) {
-                    const resultadoPaginado = agroclimatic.slice(offset, offset + limit);
-                    console.log("Datos devueltos con limit y offset");
-                    response.status(200);
-                    response.json(resultadoPaginado.map((c)=>{
-                        delete c._id;
-                        return c;
-                    }));
-                } else {
-                    console.log("Fallo en los parametros de limit y offset");
-                    response.sendStatus(400);
-                    //console.log("Nuevo GET en /agroclimatic"); 
-                    //response.status(200);
-                    //response.json(agroclimatic.map((c)=>{
-                        //delete c._id;
-                        //return c;
-                    //}));
-                }
-              
-            }*/else{
+            }else{
                 console.log("Error al dar los datos");
                 response.sendStatus(500);
             }
@@ -182,20 +270,20 @@ module.exports = (app) =>{
     });
     
     // Paginacion
-    /*function pagination(request, agroclimatic){
-
+    function pagination(request, lista){
         var res = [];
         const limit = request.query.limit;
         const offset = request.query.offset;
         
-        if(limit < 1 || offset < 0 || offset > agroclimatic.length){
+        if(limit < 1 || offset < 0 || offset > lista.length){
             res.push("Hay un error en los parametros offset y limit");
             return res;
-        }
-        res = agroclimatic.slice(offset,parseInt(limit)+parseInt(offset));
+        }else{
+        res = lista.slice(offset,parseInt(limit)+parseInt(offset));
         return res;
-      
-    };*/
+        }     
+    };
+
     // GET datos, provincia y from y to
     app.get(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
         const province = request.params.province;
@@ -261,7 +349,10 @@ module.exports = (app) =>{
     app.post(BASE_API_URL + "/agroclimatic", (request, response) => {
         const province = request.body.province;
         const year = request.body.year;
-        
+        const temp_max = request.body.maximun_temperature;
+        const temp_min = request.body.minimun_temperature;
+        const temp_med = request.body.medium_temperature;
+
         db.find({},function(err,filteredList){
 
             if(err){
@@ -276,7 +367,7 @@ module.exports = (app) =>{
                 }
             }
             // Verificar que la solicitud se hizo en la ruta correcta
-            if (request.originalUrl !== '/api/v1/agroclimatic') {
+            if (request.originalUrl != BASE_API_URL+"/agroclimatic") {
                 response.status(405).json('Url no permitida');
             }else{ 
 
@@ -284,7 +375,8 @@ module.exports = (app) =>{
                 //const existingObject = evolution_stats.find(obj => obj.territory === territory && obj.period === period);
                 filteredList = filteredList.filter((obj)=>
                                 {
-                                    return(province == obj.province && year == obj.year)
+                                    return(province == obj.province && year == obj.year && temp_max == obj.maximun_temperature &&
+                                        temp_min == obj.minimun_temperature && temp_med == obj.medium_temperature)
                                 });
                 //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
                 if (filteredList.length !=0) {
@@ -299,23 +391,7 @@ module.exports = (app) =>{
                 }
             }
         });
-        /*var nuevo_dato = request.body;
-        var nuevo_dato_Str = JSON.stringify(nuevo_dato);
-        var numero_parametros = 5;
-    
-        if (Object.keys(nuevo_dato).length !== numero_parametros) {
-            response.status(400).send("El número de parámetros es incorrecto");
-    
-        }else if (agroclimatic.some(x => JSON.stringify(x) === nuevo_dato_Str)) {
-            response.status(409).send("El elemento ya existe");
-    
-        } else {
-            console.log(`nuevo_dato = ${JSON.stringify(nuevo_dato, null, 2)}`);
-            console.log("Nuevo dato en /agroclimatic");
-            agroclimatic.push(nuevo_dato);
-            response.sendStatus(201);
-        }*/
-        console.log("New POST to /agroclimatic"); //console.log en el servidor
+        console.log("New POST to /agroclimatic"); 
     });
     
     // POST prohibido -> 405
