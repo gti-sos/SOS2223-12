@@ -118,6 +118,7 @@ module.exports = (app) =>{
             }else if(!err){
                 const year = request.query.year;
                 const province = request.query.province;
+                const temp_max = request.query.maximun_temperature;
                 if (year) {
                     const filtradas = agroclimatic.filter(r => r.year === parseInt(year));
                     console.log("Nuevo GET en /agroclimatic con año");  
@@ -129,6 +130,14 @@ module.exports = (app) =>{
                 } else if(province){
                     const filtradas = agroclimatic.filter(r => r.province === province);
                     console.log("Nuevo GET en /agroclimatic con provincia");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(temp_max){
+                    const filtradas = agroclimatic.filter(r => r.maximun_temperature == temp_max);
+                    console.log("Nuevo GET en /agroclimatic con temperatura maxima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
                         delete c._id;
