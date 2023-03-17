@@ -719,4 +719,3 @@ app.use((err, req, res, next) => {
     // Enviar una respuesta con un código de estado 404 Not Found si la ruta no se encuentra
     res.status(404).json('La ruta solicitada no existe');
   });
-  

@@ -469,43 +469,114 @@ module.exports = (app) =>{
     });
     
     // DELETE entero -> 200, si no se encuentra  -> 404
-    app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
-        if (!request.body || Object.keys(request.body).length === 0) {
-            agroclimatic = [];
-            response.status(200).send("Los datos se han borrado correctamente");
-        }else{
-            const { year, province } = request.body; // Buscar el objeto     
-            const objectIndex = agroclimatic.findIndex(x => x.year === year && x.province === province);
-    
-            if (objectIndex.length == 0) { // Si el objeto no se encuentra devuelve 404    
-                response.status(404).send("El objeto no existe");
-    
-            } else { // Si se encuentra el objeto, eliminarlo y devolver 200    
-                agroclimatic.splice(objectIndex, 1);
-                response.sendStatus(200);
+    /*app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
+        db.remove({}, {multi : true}, (err, numRemoved) =>{
+      
+            if(err){
+                response.sendStatus(500);   
             }
-        }
+            if (!request.body || Object.keys(request.body).length === 0) {
+                db.remove({}, {multi : true}, (err, numRemoved)=>{
+                if (err){
+                    response.sendStatus(500);
+                    return;
+                }else {
+                    response.sendStatus(200);
+                }
+            
+                });
+            }else{
+                const { year, province } = request.body;
+                db.find({},function(err, filteredList){
+            
+                    if(err){
+                        response.sendStatus(500);   
+                    }
+                    // Buscar el objeto en la matriz evolution_stats
+                    filteredList = filteredList.filter((obj)=>{
+                                return(obj.province === province && obj.year == year);
+                            });
+                    db.remove({province: province, year: year}, {}, (err, numRemoved)=>{
+                        if (err){
+                            response.sendStatus(500);
+                            return;
+                        }
+                        if (filteredList == []) {
+                        // Si el objeto no se encuentra, devolver un código de respuesta 404 Not Found
+                            response.status(404).json('El objeto no existe');
+                        }else {
+                            response.sendStatus(200,"DELETED");
+                        return;
+                        }
+                    });   
+                });
+            }
+        });
+        console.log("Se han borrado todos los datos");
+    });*/
+    app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
+        db.remove({}, {multi : true},(err, numRemoved)=>{
+            if(err){
+                console.log("Error para borrar todos los datos");
+                response.sendStatus(500);
+            }else if(numRemoved == 0){
+                response.status(500).send("No hay mas datos para borrar");
+                console.log("No se encuentran mas contactos para borrar");
+            }else{
+                console.log("Borrados todos los datos");
+                response.json(200);
+                console.log(numRemoved);
+            }
+        
+            /*if (!request.body || Object.keys(request.body).length === 0) {
+                agroclimatic = [];
+                response.status(200).send("Los datos se han borrado correctamente");
+            }else{
+                const { year, province } = request.body; // Buscar el objeto     
+                const objectIndex = agroclimatic.findIndex(x => x.year === year && x.province === province);
+        
+                if (objectIndex.length == 0) { // Si el objeto no se encuentra devuelve 404    
+                    response.status(404).send("El objeto no existe");
+        
+                } else { // Si se encuentra el objeto, eliminarlo y devolver 200    
+                    agroclimatic.splice(objectIndex, 1);
+                    response.sendStatus(200);
+                }
+            }*/
+        });
         console.log("Se ha borrado /agroclimatic");
     });
     
     // DELETE de una provincia -> 204 (borrado), si no se encuentra -> 404
     app.delete(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
         const province = request.params.province;
-        const filtro = agroclimatic.filter(r => r.province === province);
-      
-        if (filtro.length === 0) {
-            response.status(404).json("No se encontraron datos para esa provincia");
-        } else {
-            const dato = agroclimatic.filter(r => r.province !== province);
-            const borrar = dato.length !== agroclimatic.length;
-            agroclimatic = dato;
-    
-            if (borrar) {
-                response.status(204).send("Se ha borrado la provincia");
-            } else {
-                response.status(404).send("No se encontraron datos que coincidan con los criterios de eliminación para esa provincia");
+        db.remove({province : province}, {}, (err, numRemoved)=>{
+            if(err){
+                console.log("Error para borrar todos los datos");
+                response.status(500).send("Error");
+
+            }else if(numRemoved === 0){
+                console.log("No se encuentran datos");
+                response.status(400).send("No se encuentran datos");
+            }else{
+                console.log("Borrado el dato");
+                response.status(200).send("Se ha borrado el dato");
             }
-        }
+        
+            /*if (filtro.length === 0) {
+                response.status(404).json("No se encontraron datos para esa provincia");
+            } else {
+                const dato = agroclimatic.filter(r => r.province !== province);
+                const borrar = dato.length !== agroclimatic.length;
+                agroclimatic = dato;
+        
+                if (borrar) {
+                    response.status(204).send("Se ha borrado la provincia");
+                } else {
+                    response.status(404).send("No se encontraron datos que coincidan con los criterios de eliminación para esa provincia");
+                }
+            }*/
+        });
         console.log("Se ha borrado la provincia en /agroclimatic/:province");
     });
 }
