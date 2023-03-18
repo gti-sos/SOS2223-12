@@ -22,6 +22,7 @@ app.listen(port, () => {
 */
 var backend_aml = require("./backend/index-aml");
 var backend_jfr = require("./backend/index-jfr");
+var backend_vem = require("./backend/index-vem");
 
 
 // ruta del algoritmo de Álvaro F04
@@ -37,6 +38,7 @@ app.use("/", express.static("./public"));
 
 backend_aml(app);
 backend_jfr(app);
+backend_vem(app);
 
 
 /*
@@ -182,318 +184,70 @@ var datos3= [
 
 app.use(require('./samples/index-vem'));
 
+/*
+
 var library = [];
-
-var datos2 = [
-    {
-        identifier: 872,
-        locality_id: 160,
-        modified: 2021,
-        postcode: 41460,
-        province_name: "Sevilla"
-    },{
-        identifier: 873,
-        locality_id: 161,
-        modified: 2021,
-        postcode: 41804,
-        province_name: "Huelva"
-    }, {
-        identifier: 874,
-        locality_id: 162,
-        modified: 2021,
-        postcode: 41640,
-        province_name: "Sevilla"
-    }, {
-        identifier: 875,
-        locality_id: 166,
-        modified: 2021,
-        postcode: 41720,
-        province_name: "Huelva"
-    }, {
-        identifier: 876,
-        locality_id: 168,
-        modified: 2021,
-        postcode: 41928,
-        province_name: "Sevilla"
-    },{
-        identifier: 877,
-        locality_id: 172,
-        modified: 2020,
-        postcode: 41610,
-        province_name: "Sevilla"
-    },{
-        identifier: 878,
-        locality_id: 173,
-        modified: 2020,
-        postcode: 41566,
-        province_name: "Sevilla"
-    },{
-        identifier: 879,
-        locality_id: 177,
-        modified: 2020,
-        postcode: 41360,
-        province_name: "Sevilla"
-    }, {
-        identifier: 880,
-        locality_id: 178,
-        modified: 2020,
-        postcode: 41470,
-        province_name: "Huelva"
-    },{
-        identifier: 881,
-        locality_id: 181,
-        modified: 2020,
-        postcode: 41840,
-        province_name: "Huelva"
-    }
-];
-
-
-// GET carga de datos
-app.get(BASE_API_URL+"/library/loadInitialData", (request,response) => {
-    library = datos2;
-    console.log("Datos cargados en /library");
-    response.sendStatus(200);
-});
-
-// GET datos y tambien from y to
-app.get(BASE_API_URL+"/library", (request, response) => {
-    const from = request.query.from;
-    const to = request.query.to;
-
-    // Buscar todas las ciudades en el período especificado
-    if (from && to) {
-        const provinciasAño = agroclimatic.filter(x => {
-        return x.modified >= from && x.modified <= to;
-    }); 
-        if (from >= to) {
-            response.status(400).json("El rango de años especificado es inválido");
-        
-        }else{
-            response.status(200);
-            response.json(provinciasAño);
-            console.log(`/GET en /library?from=${from}&to=${to}`); 
+var datos2= [
+        {
+            identifier: 872,
+            locality_id: 160,
+            modified: 2021,
+            postcode: 41460,
+            province_name: "Sevilla"
+        },{
+            identifier: 873,
+            locality_id: 161,
+            modified: 2021,
+            postcode: 41804,
+            province_name: "Huelva"
+        }, {
+            identifier: 874,
+            locality_id: 162,
+            modified: 2021,
+            postcode: 41640,
+            province_name: "Sevilla"
+        }, {
+            identifier: 875,
+            locality_id: 166,
+            modified: 2021,
+            postcode: 41720,
+            province_name: "Huelva"
+        }, {
+            identifier: 876,
+            locality_id: 168,
+            modified: 2021,
+            postcode: 41928,
+            province_name: "Sevilla"
+        },{
+            identifier: 877,
+            locality_id: 172,
+            modified: 2020,
+            postcode: 41610,
+            province_name: "Sevilla"
+        },{
+            identifier: 878,
+            locality_id: 173,
+            modified: 2020,
+            postcode: 41566,
+            province_name: "Sevilla"
+        },{
+            identifier: 879,
+            locality_id: 177,
+            modified: 2020,
+            postcode: 41360,
+            province_name: "Sevilla"
+        }, {
+            identifier: 880,
+            locality_id: 178,
+            modified: 2020,
+            postcode: 41470,
+            province_name: "Huelva"
+        },{
+            identifier: 881,
+            locality_id: 181,
+            modified: 2020,
+            postcode: 41840,
+            province_name: "Huelva"
         }
-    }else{
-        const { modified } = request.query;
-  
-        if (modified) {
-            const filtradas = library.filter(r => r.modified === parseInt(modified));
-            console.log("Nuevo GET en /library con año");  
-            response.status(200).json(filtradas);
-        } else {
-            console.log("Nuevo GET en /library"); 
-            response.status(200).json(library);
-        }  
-    }
-    console.log("GET con los datos");
-});
-
-// GET datos, provincia y from y to
-app.get(BASE_API_URL+"/library/:province_name", (request, response) => {
-    const province_name = request.params.province_name;
-    const from = request.query.from;
-    const to = request.query.to;
-    
-    if (from && to) {
-        if (from > to) {
-            response.status(400).json("El rango de años especificado es inválido");
-        } else {
-            const datosFiltrados = library.filter(x => x.province_name === province_name && x.modified >= from && x.modified <= to);
-            response.status(200).json(datosFiltrados);
-            console.log(`/GET en /library/${province_name}?from=${from}&to=${to}`);
-        }
-    } 
-    else {
-        const datosFiltrados = library.filter(x => x.province_name == province_name);
-        
-        if(datosFiltrados.length == 0){
-            res.status(404).json('La ruta solicitada no existe');
-          }else{
-        response.status(200).json(datosFiltrados);
-        console.log(`New GET /library/${province_name}`); 
-          }
-        console.log(`Nuevo GET en /library/${province_name}`); 
-    }
-});
-
-
-// GET datos filtrados por provincia y año
-app.get(BASE_API_URL+"/library/:province_name/:modified", (request,response) => {
-    const province_name = request.params.province_name;
-    const modified = request.params.modified;
-    var filtro = library.filter(x => x.province_name == province_name && x.modified == modified);
-    if (filtro.length == 0) {
-        
-        response.status(404).json('La ruta solicitada no existe');
-      } else {
-        response.status(200).json(filtro);
-      }
-      console.log("Datos de /library/:province_name/:modified");
-});
-
-// POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
-app.post(BASE_API_URL + "/library", (request, response) => {
-    var nuevo_dato2 = request.body;
-    var nuevo_dato2_Str = JSON.stringify(nuevo_dato2);
-    var numero_parametros = 5;
-
-    if (Object.keys(nuevo_dato2).length !== numero_parametros) {
-        response.status(400).send("El número de parámetros es incorrecto");
-
-    }else if (library.some(x => JSON.stringify(x) === nuevo_dato2_Str)) {
-        response.status(409).send("El elemento ya existe");
-
-    } else {
-        console.log(`nuevo_dato = ${JSON.stringify(nuevo_dato2, null, 2)}`);
-        console.log("Nuevo dato en /library");
-        library.push(nuevo_dato2);
-        response.sendStatus(201);
-    }
-});
-
-// POST prohibido -> 405
-app.post(BASE_API_URL+"/library/:province_name", (request, response) =>{
-    console.log("No se puede hacer este POST /library/:province_name");
-    response.sendStatus(405);
-});
-
-// PUT a 1 o varias provincias -> 200, sino -> 400
-app.put(BASE_API_URL + "/library/:province_name", (request, response) => {
-    var provinceId = request.params.province_name;
-    var body = request.body;
-    var updated = false;
-    
-    if (provinceId === body.province_name) { // verifica si los valores de provincia coinciden
-        library = library.map(x => {
-            if (x.province_name === provinceId) {
-                x.identifier = body.identifier;
-                x.locality_id = body.locality_id;
-                x.modified = body.modified;
-                x.postcode = body.postcode;
-                updated = true;
-            }
-            return x;
-        });
-    
-        if (updated) {
-            console.log("Nuevo PUT a /library/:province_name");
-            response.sendStatus(200);
-        } else {
-            console.log("No se ha encontrado el objeto con la provincia especificada");
-            response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
-        }
-    } else {
-        console.log("La provincia en la URL no coincide con la provincia en la solicitud");
-        response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
-    }
-});
-
-// PUT a 1 o varios años -> 200, sino -> 400
-app.put(BASE_API_URL + "/library/:province_name/:modified", (request, response) => {
-    var provinceId = request.params.province_name;
-    var yearId = request.params.modified;
-    var body = request.body;
-    var updated = false;
-  
-    if (provinceId === body.province_name && yearId == parseInt(body.modified)) { // verifica si los valores de año coinciden
-      library = library.map(x => {
-        if (x.province_name === provinceId && x.modified == yearId) {
-            x.identifier = body.identifier;
-            x.locality_id = body.locality_id;
-            x.postcode = body.postcode;
-          updated = true;
-        }
-        return x;
-      });
-  
-      if (updated) {
-        console.log("Nuevo PUT a /library/:province_name/:modified");
-        response.status(200).send("Actualizado");
-      } else {
-        console.log("No se ha encontrado el objeto con la provincia y año especificados");
-        response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
-      }
-    } else {
-      console.log("El año en la URL no coincide con el año en la solicitud");
-      response.status(400).send("El año en la URL no coincide con el año en la solicitud");
-    }
-});
-
-app.put(BASE_API_URL+"/library", (request,response) =>{
-    console.log("No se puede hacer este PUT /library");
-    response.sendStatus(405);
-});
-
-// DELETE entero -> 200, si no se encuentra  -> 404
-app.delete(BASE_API_URL+"/library", (request, response) => {
-    if (!request.body || Object.keys(request.body).length === 0) {
-        library = [];
-        response.status(200).send("Los datos se han borrado correctamente");
-    }else{
-        const { modified, province_name } = request.body; // Buscar el objeto     
-        const objectIndex = library.findIndex(x => x.modified === modified && x.province_name === province_name);
-
-        if (objectIndex.length == 0) { // Si el objeto no se encuentra devuelve 404    
-            response.status(404).send("El objeto no existe");
-
-        } else { // Si se encuentra el objeto, eliminarlo y devolver 200    
-            library.splice(objectIndex, 1);
-            response.sendStatus(200);
-        }
-    }
-    console.log("Se ha borrado /library");
-});
-
-// DELETE de una provincia -> 204 (borrado), si no se encuentra -> 404
-app.delete(BASE_API_URL+"/library/:province_name", (request, response) => {
-    const province_name = request.params.province_name;
-    const filtro = library.filter(r => r.province_name === province_name);
-  
-    if (filtro.length === 0) {
-        response.status(404).json("No se encontraron datos para esa provincia");
-    } else {
-        const dato2 = library.filter(r => r.province_name !== province_name);
-        const borrar = dato2.length !== library.length;
-        library = dato2;
-
-        if (borrar) {
-            response.status(204).send("Se ha borrado la provincia");
-        } else {
-            response.status(404).send("No se encontraron datos que coincidan con los criterios de eliminación para esa provincia");
-        }
-    }
-    console.log("Se ha borrado la provincia en /library/:province_name");
-});
-
-// Manejador de errores
-app.use((err, req, res, next) => {
-    if (err instanceof SyntaxError) {
-    // Enviar una respuesta con un código de estado 400 Bad Request si hay un error de sintaxis en el JSON
-    res.status(400).json('La solicitud contiene un JSON no válido');
-    } else if (err.status === 401) {
-    // Enviar una respuesta con un código de estado 401 Unauthorized si no se proporcionó un token de autenticación válido
-    res.status(401).json('No se proporcionó un token de autenticación válido');
-    } else {
-    // Enviar una respuesta con un código de estado 500 Internal Server Error si ocurrió un error no previsto
-    res.status(500).json('Ha ocurrido un error interno en el servidor');
-    }
-    });
-  
-  //VERIFICAR SI METODO POST ES A ESA URL
-    app.use((req, res, next) => {
-      // Verificar si la solicitud es un POST y si no es en la ruta correcta
-      if (req.method === 'POST' && req.originalUrl !== '/api/v1/agroclimatic') {
-        res.status(405).json('Método no permitido');
-        return;
-      }
-    
-      // Enviar una respuesta con un código de estado 404 Not Found si la ruta no se encuentra
-      res.status(404).json('La ruta solicitada no existe');
-    });
-    
-  // Manejador de rutas no encontradas
-  app.use((req, res) => {
-    // Enviar una respuesta con un código de estado 404 Not Found si la ruta no se encuentra
-    res.status(404).json('La ruta solicitada no existe');
-  });
+    ] 
+*/
