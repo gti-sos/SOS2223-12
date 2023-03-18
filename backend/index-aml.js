@@ -70,7 +70,7 @@ module.exports = (app) =>{
     ];
     
     db.insert(datos);
-    console.log("Insertados los datos");
+    console.log("Insertados los datos en Agroclimatic");
 
     // GET carga de datos
     app.get(BASE_API_URL+"/agroclimatic/loadInitialData", (request,response) => {
@@ -87,14 +87,11 @@ module.exports = (app) =>{
                 response.sendStatus(200);
             }
         });
-        /*agroclimatic = datos;
-        console.log("Datos cargados en /agroclimatic");
-        response.sendStatus(200);*/
     });
 
     app.get(BASE_API_URL+"/agroclimatic/docs",(req,res)=>
     {
-        res.redirect("https://documenter.getpostman.com/view/20091922/UyrDCF8G")
+        res.redirect("https://documenter.getpostman.com/view/25974627/2s93JzLg1D");
     });
     
     // GET datos y tambien from y to
@@ -141,7 +138,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(province && temp_max){
-                    const filtradas = agroclimatic.filter(r => r.province == province && r.maximun_temperature == temp_max);
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.maximun_temperature >= temp_max);
                     console.log("Nuevo GET en /agroclimatic con provincia y temperatura maxima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -149,7 +146,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(province && temp_min){
-                    const filtradas = agroclimatic.filter(r => r.province == province && r.minimun_temperature == temp_min);
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.minimun_temperature >= temp_min);
                     console.log("Nuevo GET en /agroclimatic con provincia y temperatura minima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -157,7 +154,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(province && temp_med){
-                    const filtradas = agroclimatic.filter(r => r.province == province && r.medium_temperature == temp_med);
+                    const filtradas = agroclimatic.filter(r => r.province == province && r.medium_temperature >= temp_med);
                     console.log("Nuevo GET en /agroclimatic con provincia y temperatura media");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -165,7 +162,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(year && temp_max){
-                    const filtradas = agroclimatic.filter(r => r.year == year && r.maximun_temperature == temp_max);
+                    const filtradas = agroclimatic.filter(r => r.year == year && r.maximun_temperature >= temp_max);
                     console.log("Nuevo GET en /agroclimatic con año y temperatura maxima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -173,7 +170,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(year && temp_min){
-                    const filtradas = agroclimatic.filter(r => r.year == year && r.minimun_temperature == temp_min);
+                    const filtradas = agroclimatic.filter(r => r.year == year && r.minimun_temperature >= temp_min);
                     console.log("Nuevo GET en /agroclimatic con año y temperatura minima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -181,7 +178,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(year && temp_med){
-                    const filtradas = agroclimatic.filter(r => r.year == year && r.medium_temperature == temp_med);
+                    const filtradas = agroclimatic.filter(r => r.year == year && r.medium_temperature >= temp_med);
                     console.log("Nuevo GET en /agroclimatic con año y temperatura media");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -189,7 +186,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(temp_max && temp_min){
-                    const filtradas = agroclimatic.filter(r => r.maximun_temperature == temp_max && r.minimun_temperature == temp_min);
+                    const filtradas = agroclimatic.filter(r => r.maximun_temperature >= temp_max && r.minimun_temperature >= temp_min);
                     console.log("Nuevo GET en /agroclimatic con temperatura maxima y temperatura minima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -197,7 +194,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(temp_max && temp_med){
-                    const filtradas = agroclimatic.filter(r => r.maximun_temperature == temp_max && r.medium_temperature == temp_med);
+                    const filtradas = agroclimatic.filter(r => r.maximun_temperature >= temp_max && r.medium_temperature >= temp_med);
                     console.log("Nuevo GET en /agroclimatic con temperatura maxima y temperatura media");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -205,7 +202,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(temp_min && temp_med){
-                    const filtradas = agroclimatic.filter(r => r.minimun_temperature == temp_min && r.medium_temperature == temp_med);
+                    const filtradas = agroclimatic.filter(r => r.minimun_temperature >= temp_min && r.medium_temperature >= temp_med);
                     console.log("Nuevo GET en /agroclimatic con temperatura minima y temperatura media");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -230,7 +227,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(temp_max){
-                    const filtradas = agroclimatic.filter(r => r.maximun_temperature == temp_max);
+                    const filtradas = agroclimatic.filter(r => r.maximun_temperature >= temp_max);
                     console.log("Nuevo GET en /agroclimatic con temperatura maxima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -238,7 +235,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(temp_min){
-                    const filtradas = agroclimatic.filter(r => r.minimun_temperature == temp_min);
+                    const filtradas = agroclimatic.filter(r => r.minimun_temperature >= temp_min);
                     console.log("Nuevo GET en /agroclimatic con temperatura minima");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -246,7 +243,7 @@ module.exports = (app) =>{
                         return c;
                     }));
                 }else if(temp_med){
-                    const filtradas = agroclimatic.filter(r => r.medium_temperature == temp_med);
+                    const filtradas = agroclimatic.filter(r => r.medium_temperature >= temp_med);
                     console.log("Nuevo GET en /agroclimatic con temperatura media");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
@@ -372,20 +369,19 @@ module.exports = (app) =>{
             }else{ 
 
                 // Verificar si el recurso ya existe
-                //const existingObject = evolution_stats.find(obj => obj.territory === territory && obj.period === period);
                 filteredList = filteredList.filter((obj)=>
                                 {
                                     return(province == obj.province && year == obj.year && temp_max == obj.maximun_temperature &&
                                         temp_min == obj.minimun_temperature && temp_med == obj.medium_temperature)
                                 });
-                //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
+                
                 if (filteredList.length !=0) {
                     // Si el recurso ya existe, devolver un código de respuesta 409
                     response.status(409).json(`El recurso ya existe.`);
                 } else {
                     // Si el recurso no existe, agregarlo a la lista y devolver un código de respuesta 201
                     db.insert(request.body);
-                    //evolution_stats.push(request.body);
+                   
                     response.sendStatus(201);
                     console.log("Se ha insertado un nuevo dato");
                 }
@@ -402,65 +398,58 @@ module.exports = (app) =>{
     
     // PUT a 1 o varias provincias -> 200, sino -> 400
     app.put(BASE_API_URL + "/agroclimatic/:province", (request, response) => {
-        var provinceId = request.params.province;
-        var body = request.body;
-        var updated = false;
-        
-        if (provinceId === body.province) { // verifica si los valores de provincia coinciden
-            agroclimatic = agroclimatic.map(x => {
-                if (x.province === provinceId) {
-                    x.year = body.year;
-                    x.maximun_temperature = body.maximun_temperature;
-                    x.minimun_temperature = body.minimun_temperature;
-                    x.medium_temperature = body.medium_temperature;
-                    updated = true;
-                }
-                return x;
-            });
-        
-            if (updated) {
-                console.log("Nuevo PUT a /agroclimatic/:province");
-                response.sendStatus(200);
-            } else {
+        const province = request.params.province;
+        const body = request.body;
+    
+        db.update({ province: province }, { $set: { year: body.year, maximun_temperature: body.maximun_temperature, 
+            minimun_temperature: body.minimun_temperature, medium_temperature: body.medium_temperature} }, {}, (err, numAffected) => {
+            if (err) {
+                console.log("Error actualizando el objeto: ", err);
+                response.status(500).send("Error actualizando el objeto");
+            } else if (numAffected === 0) {
                 console.log("No se ha encontrado el objeto con la provincia especificada");
                 response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
+            } else {
+                console.log("Nuevo objeto actualizado en la base de datos");
+                response.sendStatus(200);
             }
-        } else {
-            console.log("La provincia en la URL no coincide con la provincia en la solicitud");
-            response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
-        }
+        });
     });
     
     // PUT a 1 o varios años -> 200, sino -> 400
     app.put(BASE_API_URL + "/agroclimatic/:province/:year", (request, response) => {
-        var provinceId = request.params.province;
-        var yearId = request.params.year;
-        var body = request.body;
-        var updated = false;
-      
-        if (provinceId === body.province && yearId == parseInt(body.year)) { // verifica si los valores de año coinciden
-          agroclimatic = agroclimatic.map(x => {
-            if (x.province === provinceId && x.year == yearId) {
-              x.maximun_temperature = body.maximun_temperature;
-              x.minimun_temperature = body.minimun_temperature;
-              x.medium_temperature = body.medium_temperature;
-              updated = true;
-            }
-            return x;
-          });
-      
-          if (updated) {
-            console.log("Nuevo PUT a /agroclimatic/:province/:year");
-            response.status(200).send("Actualizado");
-          } else {
-            console.log("No se ha encontrado el objeto con la provincia y año especificados");
-            response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
-          }
+        const province = request.params.province;
+        const year = parseInt(request.params.year);
+        const body = request.body;
+
+        // Verifica si los valores de año coinciden
+        if (province === body.province && year === body.year) {
+            // Actualiza el registro en la base de datos
+            db.update(
+                { province: province, year: year},
+                { $set: {
+                    maximun_temperature: body.maximun_temperature,
+                    minimun_temperature: body.minimun_temperature,
+                    medium_temperature: body.medium_temperature}},{},
+
+                function (err, numReplaced) {
+                    if(err){
+                        console.log("Se ha producido un error al actualizar el dato");
+                        response.sendStatus(500);
+                    }else if (numReplaced === 1) {
+                        console.log("Nuevo PUT a /agroclimatic/:province/:year");
+                        response.status(200).send("Actualizado");
+                    } else {
+                        console.log("No se ha encontrado el objeto con la provincia y año especificados");
+                        response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
+                    }
+                }
+            );
         } else {
-          console.log("El año en la URL no coincide con el año en la solicitud");
-          response.status(400).send("El año en la URL no coincide con el año en la solicitud");
+            console.log("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
+            response.status(400).send("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
         }
-      });
+    });
     
     // PUT prohibido -> 405
     app.put(BASE_API_URL+"/agroclimatic", (request,response) =>{
@@ -469,51 +458,6 @@ module.exports = (app) =>{
     });
     
     // DELETE entero -> 200, si no se encuentra  -> 404
-    /*app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
-        db.remove({}, {multi : true}, (err, numRemoved) =>{
-      
-            if(err){
-                response.sendStatus(500);   
-            }
-            if (!request.body || Object.keys(request.body).length === 0) {
-                db.remove({}, {multi : true}, (err, numRemoved)=>{
-                if (err){
-                    response.sendStatus(500);
-                    return;
-                }else {
-                    response.sendStatus(200);
-                }
-            
-                });
-            }else{
-                const { year, province } = request.body;
-                db.find({},function(err, filteredList){
-            
-                    if(err){
-                        response.sendStatus(500);   
-                    }
-                    // Buscar el objeto en la matriz evolution_stats
-                    filteredList = filteredList.filter((obj)=>{
-                                return(obj.province === province && obj.year == year);
-                            });
-                    db.remove({province: province, year: year}, {}, (err, numRemoved)=>{
-                        if (err){
-                            response.sendStatus(500);
-                            return;
-                        }
-                        if (filteredList == []) {
-                        // Si el objeto no se encuentra, devolver un código de respuesta 404 Not Found
-                            response.status(404).json('El objeto no existe');
-                        }else {
-                            response.sendStatus(200,"DELETED");
-                        return;
-                        }
-                    });   
-                });
-            }
-        });
-        console.log("Se han borrado todos los datos");
-    });*/
     app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
         db.remove({}, {multi : true},(err, numRemoved)=>{
             if(err){
@@ -527,22 +471,6 @@ module.exports = (app) =>{
                 response.json(200);
                 console.log(numRemoved);
             }
-        
-            /*if (!request.body || Object.keys(request.body).length === 0) {
-                agroclimatic = [];
-                response.status(200).send("Los datos se han borrado correctamente");
-            }else{
-                const { year, province } = request.body; // Buscar el objeto     
-                const objectIndex = agroclimatic.findIndex(x => x.year === year && x.province === province);
-        
-                if (objectIndex.length == 0) { // Si el objeto no se encuentra devuelve 404    
-                    response.status(404).send("El objeto no existe");
-        
-                } else { // Si se encuentra el objeto, eliminarlo y devolver 200    
-                    agroclimatic.splice(objectIndex, 1);
-                    response.sendStatus(200);
-                }
-            }*/
         });
         console.log("Se ha borrado /agroclimatic");
     });
@@ -562,20 +490,6 @@ module.exports = (app) =>{
                 console.log("Borrado el dato");
                 response.status(200).send("Se ha borrado el dato");
             }
-        
-            /*if (filtro.length === 0) {
-                response.status(404).json("No se encontraron datos para esa provincia");
-            } else {
-                const dato = agroclimatic.filter(r => r.province !== province);
-                const borrar = dato.length !== agroclimatic.length;
-                agroclimatic = dato;
-        
-                if (borrar) {
-                    response.status(204).send("Se ha borrado la provincia");
-                } else {
-                    response.status(404).send("No se encontraron datos que coincidan con los criterios de eliminación para esa provincia");
-                }
-            }*/
         });
         console.log("Se ha borrado la provincia en /agroclimatic/:province");
     });
