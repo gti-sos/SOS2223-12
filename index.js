@@ -27,14 +27,18 @@ var backend_jfr = require("./backend/index-jfr");
 // ruta del algoritmo de Álvaro F04
 app.use(require("./samples/index-aml"));
 
+
 // F05
 const BASE_API_URL = "/api/v1";
 var bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
 app.use("/", express.static("./public"));
+
 backend_aml(app);
 backend_jfr(app);
+
+
 /*
 var agroclimatic = [{
     province: "Sevilla",
@@ -103,6 +107,8 @@ var agroclimatic = [{
 // ruta del algortimo de Jorge
 app.use(require('./samples/index-jfr'));
 
+
+/*
 var pollution = [];
 
 var datos3= [
@@ -169,235 +175,7 @@ var datos3= [
     }
 ]
 
-//GET carga de datos
-
-app.get(BASE_API_URL+"/pollutions/loadInitialData", (request, response)=>{
-    pollution = datos3;
-    console.log("GET de carga en /pollutions");
-    response.sendStatus(200);
-});
-
-//GET normal y from-to
-
-app.get(BASE_API_URL+"/pollutions", (request, response) => {
-    const from = request.query.from;
-    const to = request.query.to;
-
-    // Buscar todas las ciudades en el período especificado
-    if (from && to) {
-        const provinceYear = pollution.filter(x => {
-        return x.year >= from && x.year <= to;
-    }); 
-        if (from >= to) {
-            response.status(400).json("El rango de años especificado es inválido.");
-        
-        }else{
-            response.status(200);
-            response.json(provinceYear);
-            console.log(`/GET /pollutions?from=${from}&to=${to}`); 
-        }
-    }else{
-        const { year } = request.query;
-  
-        if (year) {
-            const filtradas = pollution.filter(r => r.year === parseInt(year));
-            console.log("New GET /pollutions con año");  
-            response.status(200).json(filtradas);
-        } else {
-            console.log("New GET /pollutions"); 
-            response.status(200).json(pollution);
-        }  
-    }
-    console.log("GET datos");
-});
-
-//GET provincia y from-to
-
-app.get(BASE_API_URL+"/pollutions/:province", (request, response) => {
-    const province = request.params.province;
-    const from = request.query.from;
-    const to = request.query.to;
-    //const year = request.query.year;
-    
-    if (from && to) {
-        if (from > to) {
-            response.status(400).json("El rango de años especificado es inválido");
-        } else {
-            const datosFiltrados = agroclimatic.filter(x => x.province === province && x.year >= from && x.year <= to);
-            response.status(200).json(datosFiltrados);
-            console.log(`/GET en /pollutions/${province}?from=${from}&to=${to}`);
-        }
-    } else {
-        const datosFiltrados = pollution.filter(x => x.province == province);
-        
-        if(datosFiltrados.length == 0){
-            res.status(404).json('La ruta solicitada no existe');
-          }else{
-        response.status(200).json(datosFiltrados);
-        console.log(`New GET /pollutions/${province}`); 
-          }
-        //response.status(200).json(datosFiltrados);
-        console.log(`Nuevo GET en /pollutions/${province}`); 
-    }
-});
-
-
-// GET datos filtrados por provincia y año
-
-app.get(BASE_API_URL+"/pollutions/:province/:year", (request,response) => {
-    const province = request.params.province;
-    const year = request.params.year;
-    var filtro = pollution.filter(x => x.province == province && x.year == year);
-    if (filtro.length == 0) {
-        
-        response.status(404).json('La ruta solicitada no existe');
-      } else {
-        response.status(200).json(filtro);
-      }
-      console.log("Datos de /pollutions/:province/:year");
-});
-
-//POST con error 409 (ya existe)
-app.post(BASE_API_URL + "/pollutions", (request, response) => {
-    var newPollution = request.body;
-    var newPollutionStr = JSON.stringify(newPollution);
-    var expectedParams = 5;
-
-    
-    if (Object.keys(newPollution).length !== expectedParams) {
-        
-        response.status(400).send("El número de parámetros es incorrecto");
-
-    }else if (pollution.some(x => JSON.stringify(x) === newPollutionStr)) {
-        
-        response.status(409).send("El elemento ya existe");
-
-    } else {
-        
-        console.log(`newPollution = ${JSON.stringify(newPollution, null, 2)}`);
-        console.log("New POST to /pollutions");
-        pollution.push(newPollution);
-        response.sendStatus(201);
-    }
-});
-
-//POST prohibido 405
-
-app.post(BASE_API_URL+"/pollutions/:province", (request, response) =>{
-    console.log("No se puede hacer este POST /pollutions/:province");
-    response.sendStatus(405);
-});
-
-// PUT a 1 o varias provincias -> 200, sino -> 400
-app.put(BASE_API_URL + "/pollutions/:province", (request, response) => {
-    var provinceId = request.params.province;
-    var body = request.body;
-    var updated = false;
-    
-    if (provinceId === body.province) { // verifica si los valores de provincia coinciden
-        pollution = pollution.map(x => {
-            if (x.province === provinceId) {
-                x.year = body.year;
-                x.NO2 = body.NO2;
-                x.O3 = body.O3;
-                x.SO2 = body.SO2;
-                updated = true;
-            }
-            return x;
-        });
-    
-        if (updated) {
-            console.log("New PUT /pollutions/:province");
-            response.sendStatus(200);
-        } else {
-            console.log("No se ha encontrado el objeto con la provincia especificada");
-            response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
-        }
-    } else {
-        console.log("La provincia en la URL no coincide con la provincia en la solicitud");
-        response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
-    }
-});
-
-
-
-// PUT a 1 o varios años -> 200, sino -> 400
-app.put(BASE_API_URL + "/pollutions/:province/:year", (request, response) => {
-    var provinceId = request.params.province;
-    var yearId = request.params.year;
-    var body = request.body;
-    var updated = false;
-  
-    if (provinceId === body.province && yearId == parseInt(body.year)) { // verifica si los valores de año coinciden
-      pollution = pollution.map(x => {
-        if (x.province === provinceId && x.year == yearId) {
-            x.NO2 = body.NO2;
-            x.O3 = body.O3;
-            x.SO2 = body.SO2;
-          updated = true;
-        }
-        return x;
-      });
-  
-      if (updated) {
-        console.log("New PUT /pollutions/:province/:year");
-        response.status(200).send("Actualizado");
-      } else {
-        console.log("No se ha encontrado el objeto con la provincia y año especificados");
-        response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
-      }
-    } else {
-      console.log("El año en la URL no coincide con el año en la solicitud");
-      response.status(400).send("El año en la URL no coincide con el año en la solicitud");
-    }
-  });
-
-// PUT prohibido -> 405
-app.put(BASE_API_URL+"/pollutions", (request,response) =>{
-    console.log("No se puede hacer este PUT /pollutions");
-    response.sendStatus(405);
-});
-
-// DELETE entero -> 200, si no se encuentra  -> 404
-app.delete(BASE_API_URL+"/pollutions", (request, response) => {
-    if (!request.body || Object.keys(request.body).length === 0) {
-        pollution = [];
-        response.status(200).send("Los datos se han borrado correctamente");
-    }else{
-        const { year, province } = request.body; // Buscar el objeto     
-        const objectIndex = pollution.findIndex(x => x.year === year && x.province === province);
-
-        if (objectIndex.length == 0) { // Si el objeto no se encuentra devuelve 404    
-            response.status(404).send("El objeto no existe");
-
-        } else { // Si se encuentra el objeto, eliminarlo y devolver 200    
-            pollution.splice(objectIndex, 1);
-            response.sendStatus(200);
-        }
-    }
-    console.log("Se ha borrado /pollution");
-});
-
-// DELETE de una provincia -> 204 (borrado), si no se encuentra -> 404
-app.delete(BASE_API_URL+"/pollutions/:province", (request, response) => {
-    const province = request.params.province;
-    const filtro = pollution.filter(r => r.province === province);
-  
-    if (filtro.length === 0) {
-        response.status(404).json("No se encontraron datos para esa provincia");
-    } else {
-        const dato = pollution.filter(r => r.province !== province);
-        const borrar = dato.length !== pollution.length;
-        pollution = dato;
-
-        if (borrar) {
-            response.status(204).send("Se ha borrado la provincia");
-        } else {
-            response.status(404).send("No se encontraron datos que coincidan con los criterios de eliminación para esa provincia");
-        }
-    }
-    console.log("Se ha borrado la provincia en /pollutions/:province");
-});
+*/
 
 
 // ruta del algoritmo de Víctor
