@@ -74,9 +74,7 @@ module.exports = (app) =>{
     console.log("Datos insertados de library.")
 
     //Redireccionar
-    app.get(BASE_API_URL+'/library/docs', (req, res) => {
-        res.redirect('https://documenter.getpostman.com/view/25989524/2s93JzLfha');
-    });
+
     //GET carga
 
     app.get(BASE_API_URL+"/library/loadInitialData", (request,response) => {
@@ -135,6 +133,155 @@ module.exports = (app) =>{
                 }else if(province_name && modified){
                     const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified);
                     console.log("Nuevo GET en /library con provincia y año");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && identifier && locality_id && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.identifier >= identifier
+                        && r.locality_id >= locality_id && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, año, identificador, id de la localidad y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && identifier && locality_id){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.identifier >= identifier
+                        && r.locality_id >= locality_id);
+                    console.log("Nuevo GET en /library con provincia, año, identicador e id de la localidad");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && identifier && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.identifier >= identifier
+                        && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, año, identicador y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && locality_id && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.locality_id >= locality_id
+                        && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, año, id de la localidad y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && identifier && locality_id && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.identifier >= identifier && 
+                        r.locality_id >= locality_id && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, identificador, id de la provincia y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && identifier){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.identifier >= identifier);
+                    console.log("Nuevo GET en /library con provincia, año e identificador");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && locality_id){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.locality_id >= locality_id);
+                    console.log("Nuevo GET en /library con provincia, año e id de la localidad");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, año y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && identifier && locality_id){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.identifier >= identifier && 
+                        r.locality_id >= locality_id);
+                    console.log("Nuevo GET en /library con provincia, identificador e id de la localidad");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && identifier && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.identifier >= identifier && 
+                        r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, identificador y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && locality_id && postcode){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.locality_id >= locality_id &&
+                        r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con provincia, id de la localidad y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(modified && identifier && locality_id){
+                    const filtradas = library.filter(r => r.modified == modified && r.identifier >= identifier &&
+                        r.locality_id >= locality_id);
+                    console.log("Nuevo GET en /library con año, identificador e id de la localidad");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(modified && identifier && postcode){
+                    const filtradas = library.filter(r => r.modified == modified && r.identifier >= identifier &&
+                        r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con año, identificador y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(modified && locality_id && postcode){
+                    const filtradas = library.filter(r => r.modified == modified && r.locality_id >= locality_id &&
+                        r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con año, id de la localidad y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(identifier && locality_id && postcode){
+                    const filtradas = library.filter(r => r.identifier >= identifier && r.locality_id >= locality_id
+                        && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con identificador, id de la localidad y código postal");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province_name && modified){
+                    const filtradas = library.filter(r => r.province_name == province_name && r.modified == modified);
+                    console.log("Nuevo GET en /library con provincia y año");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(modified && identifier && locality_id && postcode){
+                    const filtradas = library.filter(r => r.modified == modified && r.identifier >= identifier && r.locality_id >= locality_id
+                        && r.postcode >= postcode);
+                    console.log("Nuevo GET en /library con año, identificador, id de la localidad y código postal");  
                     response.status(200);
                     response.json(filtradas.map((c)=>{
                         delete c._id;
