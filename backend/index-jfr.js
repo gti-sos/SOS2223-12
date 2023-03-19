@@ -142,6 +142,155 @@ module.exports = (app) =>{
                         delete c._id;
                         return c;
                     }));
+                }else if(province && year && NO2 && O3 && SO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year && r.NO2 >= NO2
+                        && r.O3 >= O3 && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, año, NO2, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year && NO2 && O3){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year && r.NO2 >= NO2
+                        && r.O3 >= O3);
+                    console.log("Nuevo GET en /pollutions con provincia, año, NO2 y O3");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year && NO2 && SO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year && r.NO2 >= NO2
+                        && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, año, NO2 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year && O3 && SO2){
+                    const filtradas = pollutions.filter(r => r.province == province && r.year == year && r.O3 >= O3
+                        && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, año, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && NO2 && O3 && SO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.NO2 >= NO2 && 
+                        r.O3 >= O3 && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, NO2, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year && NO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year && r.NO2 >= NO2);
+                    console.log("Nuevo GET en /pollutions con provincia, año y NO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year && O3){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year && r.O3 >= O3);
+                    console.log("Nuevo GET en /pollutions con provincia, año y O3");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year && SO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, año y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && NO2 && O3){
+                    const filtradas = pollution.filter(r => r.province == province && r.NO2 >= NO2 && 
+                        r.O3 >= O3);
+                    console.log("Nuevo GET en /pollutions con provincia, NO2 y O3");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && NO2 && SO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.NO2 >= NO2 && 
+                        r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, NO2 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && O3 && SO2){
+                    const filtradas = pollution.filter(r => r.province == province && r.O3 >= O3 &&
+                        r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con provincia, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && NO2 && O3){
+                    const filtradas = pollution.filter(r => r.year == year && r.NO2 >= NO2 &&
+                        r.O3 >= O3);
+                    console.log("Nuevo GET en /pollutions con año, NO2 y O3");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && NO2 && SO2){
+                    const filtradas = pollution.filter(r => r.year == year && r.NO2 >= NO2 &&
+                        r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con año, NO2 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && O3 && SO2){
+                    const filtradas = pollution.filter(r => r.year == year && r.O3 >= O3 &&
+                        r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con año, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(NO2 && O3 && SO2){
+                    const filtradas = pollution.filter(r => r.NO2 >= NO2 && r.O3 >= O3
+                        && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con NO2, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(province && year){
+                    const filtradas = pollution.filter(r => r.province == province && r.year == year);
+                    console.log("Nuevo GET en /pollutions con provincia y año");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
+                }else if(year && NO2 && O3 && SO2){
+                    const filtradas = pollution.filter(r => r.year == year && r.NO2 >= NO2 && r.O3 >= O3
+                        && r.SO2 >= SO2);
+                    console.log("Nuevo GET en /pollutions con año, NO2, O3 y SO2");  
+                    response.status(200);
+                    response.json(filtradas.map((c)=>{
+                        delete c._id;
+                        return c;
+                    }));
                 }else if(province && NO2){
                     const filtradas = pollution.filter(r => r.province == province && r.NO2 == NO2);
                     console.log("Nuevo GET en /pollutions con provincia y NO2");  
@@ -423,7 +572,7 @@ module.exports = (app) =>{
     });
     // PUT a 1 o varios años -> 200, sino -> 400
 
-    // Ruta PUT para actualizar un registro de agroclimatic en NeDB
+    // Ruta PUT para actualizar un registro de pollutions en NeDB
     app.put(BASE_API_URL + "/pollutions/:province/:year", (request, response) => {
         const provinceId = request.params.province;
         const yearId = parseInt(request.params.year);
