@@ -11,3 +11,4 @@
 - **APIs**:
    - [http://sos2223-12.appspot.com/api/v1/agroclimatic/docs](https://sos2223-12.appspot.com/api/v1/agroclimatic/docs) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
    - [http://sos2223-12.appspot.com/api/v1/pollutions/docs](https://sos2223-12.appspot.com/api/v1/pollutions/docs) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
+   - [http://sos2223-12.appspot.com/api/v1/library/docs](https://sos2223-12.appspot.com/api/v1/library/docs) (developed by [Víctor Egea Moncayo](https://github.com/victoregea))
