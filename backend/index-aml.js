@@ -605,7 +605,7 @@ module.exports = (app) =>{
                 console.log("Error para borrar todos los datos");
                 response.sendStatus(500);
             }else if(numRemoved == 0){
-                response.status(500).send("No hay mas datos para borrar");
+                response.status(404).send("No hay mas datos para borrar");
                 console.log("No se encuentran mas contactos para borrar");
             }else{
                 console.log("Borrados todos los datos");
