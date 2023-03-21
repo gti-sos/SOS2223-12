@@ -634,4 +634,23 @@ module.exports = (app) =>{
         });
         console.log("Se ha borrado la provincia en /agroclimatic/:province");
     });
+    // DELETE de provincia y año
+    app.delete(BASE_API_URL+"/agroclimatic/:province/:year", (request, response) => {
+        const province = request.params.province;
+        const year = request.params.year;
+        db.remove({province : province , year : parseInt(year)}, {}, (err, numRemoved)=>{
+            if(err){
+                console.log("Error para borrar todos los datos");
+                response.status(500).send("Error");
+
+            }else if(numRemoved == 0){
+                console.log("No se encuentran datos");
+                response.status(400).send("No se encuentran datos");
+            }else{
+                console.log("Borrado el dato");
+                response.status(200).send("Se ha borrado el dato");
+            }
+        });
+        console.log("Se ha borrado la provincia en /agroclimatic/:province");
+    });
 }
