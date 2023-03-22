@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test": "npx newman run ./tests/backend-pollutions.json -e ./tests/env/localhost-jfr.json"
+    "test-agroclimatic": "npx newman run ./tests/backend-agroclimatic.json -e ./tests/env/localhost-aml.json",
+    "test-pollutions": "npx newman run ./tests/backend-pollutions.json -e ./tests/env/localhost-jfr.json",
+    "test": "npm run test-agroclimatic && npm run test-pollutions"
   },
   "repository": {
     "type": "git",
