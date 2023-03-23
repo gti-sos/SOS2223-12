@@ -642,7 +642,7 @@ module.exports = (app) =>{
         console.log("Se ha borrado /agroclimatic");
     });
     
-    // DELETE de una provincia -> 204 (borrado), si no se encuentra -> 404
+    // DELETE de una provincia -> 200 (borrado), si no se encuentra -> 404
     app.delete(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
         const province = request.params.province;
         db.remove({province : province}, {}, (err, numRemoved)=>{
