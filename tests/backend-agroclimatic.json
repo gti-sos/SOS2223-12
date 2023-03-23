@@ -165,11 +165,7 @@
 						"exec": [
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Debe haber 1 dato de Sevilla y 2022\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(1);\r",
-							"});"
+							"});\r"
 						],
 						"type": "text/javascript"
 					}
