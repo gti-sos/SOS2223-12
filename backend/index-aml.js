@@ -469,7 +469,12 @@ module.exports = (app) =>{
                 var filtro = agroclimatic.filter(x => x.province == province && x.year == year);
                 if (filtro.length == 0) {            
                     response.status(404).json('La ruta solicitada no existe');
-                } else {
+                }else if(filtro.length == 1){
+                    filtro.forEach(element => {
+                        delete element._id;
+                    });
+                    response.send(JSON.stringify(filtro[0], null, 2));
+                }else {
                     response.status(200).json(filtro.map((c)=>{
                         delete c._id;
                         return c;
@@ -501,7 +506,7 @@ module.exports = (app) =>{
             const requiredFields = ['province', 'year', 'maximun_temperature', 'minimun_temperature', 'medium_temperature'];
             for (const field of requiredFields) {
                 if (!request.body.hasOwnProperty(field)) {
-                return response.status(400).json(`Missing required field: ${field}`);
+                return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
             }
             // Verificar que la solicitud se hizo en la ruta correcta
@@ -541,20 +546,35 @@ module.exports = (app) =>{
     app.put(BASE_API_URL + "/agroclimatic/:province", (request, response) => {
         const province = request.params.province;
         const body = request.body;
-    
-        db.update({ province: province }, { $set: { year: body.year, maximun_temperature: body.maximun_temperature, 
-            minimun_temperature: body.minimun_temperature, medium_temperature: body.medium_temperature} }, {}, (err, numAffected) => {
-            if (err) {
-                console.log("Error actualizando el objeto: ", err);
-                response.status(500).send("Error actualizando el objeto");
-            } else if (numAffected === 0) {
-                console.log("No se ha encontrado el objeto con la provincia especificada");
-                response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
-            } else {
-                console.log("Nuevo objeto actualizado en la base de datos");
-                response.sendStatus(200);
-            }
-        });
+        if (province === body.province) {
+            const requiredFields = ['province', 'year', 'maximun_temperature', 'minimun_temperature', 'medium_temperature'];
+                for (const field of requiredFields) {
+                    if (!request.body.hasOwnProperty(field)) {
+                    return response.status(400).json(`Falta alguno de los campos: ${field}`);
+                    }
+                }
+        
+            db.update({ province: province }, 
+                { $set: 
+                    { year: body.year, 
+                    maximun_temperature: body.maximun_temperature, 
+                    minimun_temperature: body.minimun_temperature, 
+                    medium_temperature: body.medium_temperature} }, {}, (err, numAffected) => {
+                if (err) {
+                    console.log("Error actualizando el objeto: ", err);
+                    response.status(500).send("Error actualizando el objeto");
+                } else if (numAffected === 0) {
+                    console.log("No se ha encontrado el objeto con la provincia especificada");
+                    response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
+                } else {
+                    console.log("Nuevo objeto actualizado en la base de datos");
+                    response.status(200).send("Actualizado");
+                }
+            });
+        }else {
+            console.log("La provincia en la URL no coincide con la provincia en la solicitud");
+            response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
+        }
     });
     
     // PUT a 1 o varios años -> 200, sino -> 400
@@ -566,26 +586,32 @@ module.exports = (app) =>{
         // Verifica si los valores de año coinciden
         if (province === body.province && year === body.year) {
             // Actualiza el registro en la base de datos
-            db.update(
-                { province: province, year: year},
-                { $set: {
-                    maximun_temperature: body.maximun_temperature,
-                    minimun_temperature: body.minimun_temperature,
-                    medium_temperature: body.medium_temperature}},{},
-
-                function (err, numReplaced) {
-                    if(err){
-                        console.log("Se ha producido un error al actualizar el dato");
-                        response.sendStatus(500);
-                    }else if (numReplaced === 1) {
-                        console.log("Nuevo PUT a /agroclimatic/:province/:year");
-                        response.status(200).send("Actualizado");
-                    } else {
-                        console.log("No se ha encontrado el objeto con la provincia y año especificados");
-                        response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
-                    }
+            const requiredFields = ['province', 'year', 'maximun_temperature', 'minimun_temperature', 'medium_temperature'];
+            for (const field of requiredFields) {
+                if (!request.body.hasOwnProperty(field)) {
+                return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
-            );
+            }
+                db.update(
+                    { province: province, year: year},
+                    { $set: {
+                        maximun_temperature: body.maximun_temperature,
+                        minimun_temperature: body.minimun_temperature,
+                        medium_temperature: body.medium_temperature}},{},
+
+                    function (err, numReplaced) {
+                        if(err){
+                            console.log("Se ha producido un error al actualizar el dato");
+                            response.sendStatus(500);
+                        }else if (numReplaced === 1) {
+                            console.log("Nuevo PUT a /agroclimatic/:province/:year");
+                            response.status(200).send("Actualizado");
+                        } else {
+                            console.log("No se ha encontrado el objeto con la provincia y año especificados");
+                            response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
+                        }
+                    }
+                );   
         } else {
             console.log("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
             response.status(400).send("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
