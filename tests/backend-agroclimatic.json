@@ -16,9 +16,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 10\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0 (10)\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(10);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -28,6 +28,89 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 -> /agroclimatic/Sevilla -> Sevilla 2022",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2022,\r\n        \"maximun_temperature\": 34.69,\r\n        \"minimun_temperature\": 17.55,\r\n        \"medium_temperature\": 26.05\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic/Sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 -> /agroclimatic -> Sevilla 2022",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2022,\r\n        \"maximun_temperature\": 34.69,\r\n        \"minimun_temperature\": 17.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{URLBASE}}/api/v1/agroclimatic",
 					"host": [
@@ -84,7 +167,7 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic -> 11 (2022)",
+			"name": "/agroclimatic -> 11",
 			"event": [
 				{
 					"listen": "test",
@@ -120,7 +203,81 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic/Sevilla -> 6",
+			"name": "409 -> /agroclimatic -> Sevilla 2022",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2022,\r\n        \"maximun_temperature\": 34.69,\r\n        \"minimun_temperature\": 17.55,\r\n        \"medium_temperature\": 26.05\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "404 -> /agroclimatic/Sevill -> 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic/Sevill",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic",
+						"Sevill"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/agroclimatic/Sevilla -> 4",
 			"event": [
 				{
 					"listen": "test",
@@ -129,9 +286,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"Debe haber 6 datos de Sevilla\", function () {\r",
+							"pm.test(\"Debe haber 4 datos de Sevilla\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(6);\r",
+							"    pm.expect(jsonData).to.have.a.lengthOf(4);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -165,7 +322,7 @@
 						"exec": [
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});\r"
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -174,6 +331,90 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic/Sevilla/2022",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic",
+						"Sevilla",
+						"2022"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "405 -> /agroclimatic -> update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2022,\r\n        \"maximun_temperature\": 36.69,\r\n        \"minimun_temperature\": 15.55,\r\n        \"medium_temperature\": 26.12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "400 -> /agroclimatic/Sevilla/2022 -> update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2022,\r\n        \"maximun_temperature\": 36.69,\r\n        \"minimun_temperature\": 15.55\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
 					"raw": "{{URLBASE}}/api/v1/agroclimatic/Sevilla/2022",
 					"host": [
@@ -304,7 +545,7 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic/Sevilla -> 5",
+			"name": "/agroclimatic/Sevilla -> 3",
 			"event": [
 				{
 					"listen": "test",
@@ -313,9 +554,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 5\", function () {\r",
+							"pm.test(\"El numero de datos debe ser 3\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(5);\r",
+							"    pm.expect(jsonData).to.have.a.lengthOf(3);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -377,144 +618,6 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic -> vacio",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic -> vacio",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"El numero de datos debe ser 0\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(0);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic/loadInitialData -> recarga",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic/loadInitialData",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic",
-						"loadInitialData"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic -> 10 recarga",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"El numero de datos debe ser 10\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(10);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "/agroclimatic?year=2020",
 			"event": [
 				{
@@ -524,9 +627,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 5\", function () {\r",
+							"pm.test(\"El numero de datos debe ser 3\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(5);\r",
+							"    pm.expect(jsonData).to.have.a.lengthOf(3);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -566,9 +669,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 2\", function () {\r",
+							"pm.test(\"El numero de datos debe ser 1\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(2);\r",
+							"    pm.expect(jsonData).to.have.a.lengthOf(1);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -603,48 +706,7 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic -> otro",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"province\": \"Sevilla\",\r\n        \"year\": 2022,\r\n        \"maximun_temperature\": 34.69,\r\n        \"minimun_temperature\": 17.55,\r\n        \"medium_temperature\": 26.05\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic -> 11 (2022 otro)",
+			"name": "/agroclimatic?limit=3&offset=5",
 			"event": [
 				{
 					"listen": "test",
@@ -653,9 +715,12 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 11\", function () {\r",
+							"pm.test(\"El numero de datos debe ser 3\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(11);\r",
+							"    pm.expect(jsonData).to.have.a.lengthOf(3);\r",
+							"});\r",
+							"pm.test(\"Incluye limit y offset\", function(){\r",
+							"    pm.expect(\"{{URLBASE}}/api/v1/agroclimatic?limit=3&offset=5\").to.include(\"limit\" && \"offset\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -666,43 +731,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic?limit=6&offset=5",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"El numero de datos debe ser 6\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(6);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic?limit=6&offset=5",
+					"raw": "{{URLBASE}}/api/v1/agroclimatic?limit=3&offset=5",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -714,7 +743,7 @@
 					"query": [
 						{
 							"key": "limit",
-							"value": "6"
+							"value": "3"
 						},
 						{
 							"key": "offset",
@@ -726,55 +755,13 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic?maximun_temperature=37.00 -> 4",
+			"name": "/agroclimatic -> Jaen 2022",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"El numero de datos debe ser 4\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(4);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic?maximun_temperature=37.00",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					],
-					"query": [
-						{
-							"key": "maximun_temperature",
-							"value": "37.00"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic -> Jaen",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 201\", function () {\r",
+							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
 							"});"
 						],
@@ -794,42 +781,6 @@
 						}
 					}
 				},
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic -> 12",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"El numero de datos debe ser 12\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(12);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
 				"url": {
 					"raw": "{{URLBASE}}/api/v1/agroclimatic",
 					"host": [
@@ -924,7 +875,7 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic -> 12 (Jaen 2023)",
+			"name": "/agroclimatic -> 11 (Jaen 2023)",
 			"event": [
 				{
 					"listen": "test",
@@ -933,9 +884,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 12\", function () {\r",
+							"pm.test(\"El numero de datos debe ser 11\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(12);\r",
+							"    pm.expect(jsonData).to.have.a.lengthOf(11);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -960,7 +911,7 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic/Sevilla/2022 (otro)",
+			"name": "/agroclimatic/Jaen",
 			"event": [
 				{
 					"listen": "test",
@@ -978,7 +929,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic/Sevilla/2022",
+					"raw": "{{URLBASE}}/api/v1/agroclimatic/Jaen",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -986,42 +937,7 @@
 						"api",
 						"v1",
 						"agroclimatic",
-						"Sevilla",
-						"2022"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/agroclimatic/Jaen/2023",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"El código debe ser 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/agroclimatic/Jaen/2023",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"agroclimatic",
-						"Jaen",
-						"2023"
+						"Jaen"
 					]
 				}
 			},

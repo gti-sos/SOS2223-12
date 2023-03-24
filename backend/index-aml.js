@@ -1,4 +1,4 @@
-const { request, response } = require("express");
+//const { request, response } = require("express");
 var Datastore = require("nedb");
 var db = new Datastore();
 
@@ -8,12 +8,12 @@ module.exports = (app) =>{
     var datos = [
         {
             province: "Sevilla",
-            year: 2021,
+            year: 2019,
             maximun_temperature: 37.57,
             minimun_temperature: 18.77,
             medium_temperature: 27.57 
         },{
-            province: "Huelva",
+            province: "Sevilla",
             year: 2020,
             maximun_temperature: 36.42,
             minimun_temperature: 17.55,
@@ -26,43 +26,43 @@ module.exports = (app) =>{
             medium_temperature: 27.57
         },{
             province: "Huelva",
-            year: 2021,
+            year: 2019,
             maximun_temperature: 34.63,
             minimun_temperature: 17.62,
             medium_temperature: 26.11
         },{
-            province: "Sevilla",
-            year: 2021,
+            province: "Huelva",
+            year: 2020,
             maximun_temperature: 34.69,
             minimun_temperature: 17.55,
             medium_temperature: 26.05
         },{
-            province: "Sevilla",
-            year: 2020,
+            province: "Huelva",
+            year: 2021,
             maximun_temperature: 37.76,
             minimun_temperature: 16.95,
             medium_temperature: 27.23
         },{
-            province: "Huelva",
-            year: 2021,
+            province: "Malaga",
+            year: 2019,
             maximun_temperature: 34.68,
             minimun_temperature: 16.62,
             medium_temperature: 25.52
         },{
-            province: "Sevilla",
+            province: "Malaga",
             year: 2020,
             maximun_temperature: 36.56,
             minimun_temperature: 18.5,
             medium_temperature: 27.19
         },{
-            province: "Huelva",
-            year: 2020,
+            province: "Malaga",
+            year: 2021,
             maximun_temperature: 37.3,
             minimun_temperature: 18.5,
             medium_temperature: 27.72,
         },{
-            province: "Huelva",
-            year: 2020,
+            province: "Cordoba",
+            year: 2019,
             maximun_temperature: 37.77,
             minimun_temperature: 18.3,
             medium_temperature: 27.76
@@ -110,7 +110,7 @@ module.exports = (app) =>{
                         delete c._id;
                         return c;
                     }));
-                    console.log(`/GET en /agroclimatic?from=${from}&to=${to}`); 
+                    console.log(`GET en /agroclimatic?from=${from}&to=${to}`); 
                 }
             }else if(!err){
                 const year = request.query.year;
@@ -437,19 +437,19 @@ module.exports = (app) =>{
                         delete c._id;
                         return c;
                     }));
-                    console.log(`/GET en /agroclimatic/${province}?from=${from}&to=${to}`);
+                    console.log(`GET en /agroclimatic/${province}?from=${from}&to=${to}`);
                 }
             }else if(!err){
                 const datosFiltrados = agroclimatic.filter(x => x.province == province);
                 
                 if(datosFiltrados.length == 0){
-                    res.status(404).json('La ruta solicitada no existe');
+                    response.status(404).json('La ruta solicitada no existe');
                 }else{
                 response.status(200).json(datosFiltrados.map((c)=>{
                     delete c._id;
                     return c;
                 }));
-                console.log(`New GET /agroclimatic/${province}`); 
+                console.log(`Nuevo GET en /agroclimatic/${province}`); 
                 }
                 console.log(`Nuevo GET en /agroclimatic/${province}`); 
             }else{
@@ -473,7 +473,7 @@ module.exports = (app) =>{
                     filtro.forEach(element => {
                         delete element._id;
                     });
-                    response.send(JSON.stringify(filtro[0], null, 2));
+                    response.status(200).send(JSON.stringify(filtro[0], null, 2));
                 }else {
                     response.status(200).json(filtro.map((c)=>{
                         delete c._id;
@@ -533,7 +533,7 @@ module.exports = (app) =>{
                 }
             }
         });
-        console.log("New POST to /agroclimatic"); 
+        console.log("Nuevo POST en /agroclimatic"); 
     });
     
     // POST prohibido -> 405
@@ -635,7 +635,7 @@ module.exports = (app) =>{
                 console.log("No se encuentran mas contactos para borrar");
             }else{
                 console.log("Borrados todos los datos");
-                response.json(200);
+                response.status(200).send("Borrados todos los datos");
                 console.log(numRemoved);
             }
         });
