@@ -10,15 +10,15 @@ module.exports = (app) =>{
         {
             identifier: 872,
             locality_id: 160,
-            modified: 2021,
+            modified: 2019,
             postcode: 41460,
             province_name: "Sevilla"
         },{
             identifier: 873,
             locality_id: 161,
-            modified: 2021,
+            modified: 2020,
             postcode: 41804,
-            province_name: "Huelva"
+            province_name: "Sevilla"
         }, {
             identifier: 874,
             locality_id: 162,
@@ -28,45 +28,45 @@ module.exports = (app) =>{
         }, {
             identifier: 875,
             locality_id: 166,
-            modified: 2021,
+            modified: 2019,
             postcode: 41720,
             province_name: "Huelva"
         }, {
             identifier: 876,
             locality_id: 168,
-            modified: 2021,
+            modified: 2020,
             postcode: 41928,
-            province_name: "Sevilla"
+            province_name: "Huelva"
         },{
             identifier: 877,
             locality_id: 172,
-            modified: 2020,
+            modified: 2021,
             postcode: 41610,
-            province_name: "Sevilla"
+            province_name: "Huelva"
         },{
             identifier: 878,
             locality_id: 173,
-            modified: 2020,
+            modified: 2019,
             postcode: 41566,
-            province_name: "Sevilla"
+            province_name: "Malaga"
         },{
             identifier: 879,
             locality_id: 177,
             modified: 2020,
             postcode: 41360,
-            province_name: "Sevilla"
+            province_name: "Malaga"
         }, {
             identifier: 880,
             locality_id: 178,
-            modified: 2020,
+            modified: 2021,
             postcode: 41470,
-            province_name: "Huelva"
+            province_name: "Malaga"
         },{
             identifier: 881,
             locality_id: 181,
-            modified: 2020,
+            modified: 2019,
             postcode: 41840,
-            province_name: "Huelva"
+            province_name: "Cordoba"
         }
     ]
 
@@ -74,6 +74,9 @@ module.exports = (app) =>{
     console.log("Datos insertados de library.")
 
     //Redireccionar
+    app.get(BASE_API_URL+'/library/docs', (req, res) => {
+        res.redirect('https://documenter.getpostman.com/view/25989524/2s93JzLfha');
+    });
 
     //GET carga
 
@@ -403,7 +406,7 @@ module.exports = (app) =>{
                 }else {
                     console.log("Nuevo GET en /library"); 
                     response.status(200);
-                    response.json(pollution.map((c)=>{
+                    response.json(library.map((c)=>{
                         delete c._id;
                         return c;
                     }));
@@ -475,12 +478,20 @@ module.exports = (app) =>{
                 var filtro = library.filter(x => x.province_name == province_name && x.modified == modified);
                 if (filtro.length == 0) {            
                     response.status(404).json('La ruta solicitada no existe');
+                    
                 } else {
                     response.status(200).json(filtro.map((c)=>{
                         delete c._id;
                         return c;
                     }));
                 }
+
+                if(datos.length!=0){
+                    console.log(`data returned ${datos.length}`);
+                    delete datos[0]._id;
+                    response.json(datos[0]);
+                }
+                
             }else{
                 console.log("No se ha podido obtener los datos");
                 response.sendStatus(500);
@@ -546,55 +557,78 @@ module.exports = (app) =>{
 
     // PUT a 1 o varias provincias -> 200, sino -> 400
     app.put(BASE_API_URL + "/library/:province_name", (request, response) => {
-        const provinceId = request.params.province_name;
+        const province_name = request.params.province_name;
         const body = request.body;
-    
-        db.update({ province_name: provinceId }, { $set: { modified: body.modified, identifier: body.identifier, 
-            locality_id: body.locality_id, postcode: body.postcode } }, {}, (err, numAffected) => {
-            if (err) {
-                console.log("Error actualizando el objeto: ", err);
-                response.status(500).send("Error actualizando el objeto");
-            } else if (numAffected === 0) {
-                console.log("No se ha encontrado el objeto con la provincia especificada");
-                response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
-            } else {
-                console.log("Nuevo objeto actualizado en la base de datos");
-                response.sendStatus(200);
-            }
-        });
+        if (province_name === body.province_name) {
+            const requiredFields = ['province_name', 'modified', 'identifier', 'locality_id', 'postcode'];
+                for (const field of requiredFields) {
+                    if (!request.body.hasOwnProperty(field)) {
+                    return response.status(400).json(`Falta alguno de los campos: ${field}`);
+                    }
+                }
+        
+            db.update({ province_name: province_name}, 
+                { $set: 
+                    { modified: body.modified, 
+                    identifier: body.identifier, 
+                    locality_id: body.locality_id, 
+                    postcode: body.postcode} }, {}, (err, numAffected) => {
+                if (err) {
+                    console.log("Error actualizando el objeto: ", err);
+                    response.status(500).send("Error actualizando el objeto");
+                } else if (numAffected === 0) {
+                    console.log("No se ha encontrado el objeto con la provincia especificada");
+                    response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
+                } else {
+                    console.log("Nuevo objeto actualizado en la base de datos");
+                    response.status(200).send("Actualizado");
+                }
+            });
+        }else {
+            console.log("La provincia en la URL no coincide con la provincia en la solicitud");
+            response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
+        }
     });
+
     // PUT a 1 o varios años -> 200, sino -> 400
 
-    // Ruta PUT para actualizar un registro de agroclimatic en NeDB
     app.put(BASE_API_URL + "/library/:province_name/:modified", (request, response) => {
-        const provinceId = request.params.province_name;
-        const yearId = parseInt(request.params.modified);
+        const province_name = request.params.province_name;
+        const modified = parseInt(request.params.modified);
         const body = request.body;
 
         // Verifica si los valores de año coinciden
-        if (provinceId === body.province_name && yearId === body.modified) {
+        if (province_name === body.province_name && modified === body.modified) {
             // Actualiza el registro en la base de datos
-            db.update(
-                { province_name: provinceId, modified: yearId },
-                { $set: {
-                    identifier: body.identifier,
-                    locality_id: body.locality_id,
-                    postcode: body.postcode
-                }},
-                {},
-                function (err, numReplaced) {
-                    if (numReplaced === 1) {
-                        console.log("Nuevo PUT a /library/:province_name/:modified");
-                        response.status(200).send("Actualizado");
-                    } else {
-                        console.log("No se ha encontrado el objeto con la provincia y año especificados");
-                        response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
-                    }
+            const requiredFields = ['province_name', 'modified', 'identifier', 'locality_id', 'postcode'];
+            for (const field of requiredFields) {
+                if (!request.body.hasOwnProperty(field)) {
+                return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
-            );
+            }
+                db.update(
+                    { province_name: province_name, modified: modified},
+                    { $set: {
+                        identifier: body.identifier,
+                        locality_id: body.locality_id,
+                        postcode: body.postcode}},{},
+
+                    function (err, numReplaced) {
+                        if(err){
+                            console.log("Se ha producido un error al actualizar el dato");
+                            response.sendStatus(500);
+                        }else if (numReplaced === 1) {
+                            console.log("Nuevo PUT a /library/:province_name/:modified");
+                            response.status(200).send("Actualizado");
+                        } else {
+                            console.log("No se ha encontrado el objeto con la provincia y año especificados");
+                            response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
+                        }
+                    }
+                );   
         } else {
-            console.log("El año en la URL no coincide con el año en la solicitud");
-            response.status(400).send("El año en la URL no coincide con el año en la solicitud");
+            console.log("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
+            response.status(400).send("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
         }
     });
 
@@ -637,6 +671,25 @@ module.exports = (app) =>{
                 response.status(200).send("Se ha borrado el dato");
             }
         
+        });
+        console.log("Se ha borrado la provincia en /library/:province_name");
+    });
+
+    app.delete(BASE_API_URL+"/library/:province_name/:modified", (request, response) => {
+        const province_name = request.params.province_name;
+        const modified = request.params.modified;
+        db.remove({province_name : province_name , modified : parseInt(modified)}, {}, (err, numRemoved)=>{
+            if(err){
+                console.log("Error para borrar todos los datos");
+                response.status(500).send("Error");
+
+            }else if(numRemoved == 0){
+                console.log("No se encuentran datos");
+                response.status(400).send("No se encuentran datos");
+            }else{
+                console.log("Borrado el dato");
+                response.status(200).send("Se ha borrado el dato");
+            }
         });
         console.log("Se ha borrado la provincia en /library/:province_name");
     });
