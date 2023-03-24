@@ -1,4 +1,3 @@
-//const { request, response } = require("express");
 var Datastore = require("nedb");
 var db = new Datastore();
 
@@ -488,7 +487,7 @@ module.exports = (app) =>{
         console.log("Datos de /agroclimatic/:province/:year");
     });
     
-    // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
+    // POST nuevo dato
     app.post(BASE_API_URL + "/agroclimatic", (request, response) => {
         const province = request.body.province;
         const year = request.body.year;
@@ -501,20 +500,15 @@ module.exports = (app) =>{
             if(err){
                 response.sendStatus(500);
             }
-
-            // Validar que se envíen todos los campos necesarios
             const requiredFields = ['province', 'year', 'maximun_temperature', 'minimun_temperature', 'medium_temperature'];
             for (const field of requiredFields) {
                 if (!request.body.hasOwnProperty(field)) {
                 return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
             }
-            // Verificar que la solicitud se hizo en la ruta correcta
             if (request.originalUrl != BASE_API_URL+"/agroclimatic") {
                 response.status(405).json('Url no permitida');
             }else{ 
-
-                // Verificar si el recurso ya existe
                 filteredList = filteredList.filter((obj)=>
                                 {
                                     return(province == obj.province && year == obj.year && temp_max == obj.maximun_temperature &&
@@ -522,12 +516,9 @@ module.exports = (app) =>{
                                 });
                 
                 if (filteredList.length !=0) {
-                    // Si el recurso ya existe, devolver un código de respuesta 409
                     response.status(409).json(`El recurso ya existe.`);
                 } else {
-                    // Si el recurso no existe, agregarlo a la lista y devolver un código de respuesta 201
                     db.insert(request.body);
-                   
                     response.sendStatus(201);
                     console.log("Se ha insertado un nuevo dato");
                 }
@@ -542,7 +533,7 @@ module.exports = (app) =>{
         response.sendStatus(405);
     });
     
-    // PUT a 1 o varias provincias -> 200, sino -> 400
+    // PUT provincia
     app.put(BASE_API_URL + "/agroclimatic/:province", (request, response) => {
         const province = request.params.province;
         const body = request.body;
@@ -552,8 +543,7 @@ module.exports = (app) =>{
                     if (!request.body.hasOwnProperty(field)) {
                     return response.status(400).json(`Falta alguno de los campos: ${field}`);
                     }
-                }
-        
+                }      
             db.update({ province: province }, 
                 { $set: 
                     { year: body.year, 
@@ -577,15 +567,12 @@ module.exports = (app) =>{
         }
     });
     
-    // PUT a 1 o varios años -> 200, sino -> 400
+    // PUT provincia y año
     app.put(BASE_API_URL + "/agroclimatic/:province/:year", (request, response) => {
         const province = request.params.province;
         const year = parseInt(request.params.year);
         const body = request.body;
-
-        // Verifica si los valores de año coinciden
         if (province === body.province && year === body.year) {
-            // Actualiza el registro en la base de datos
             const requiredFields = ['province', 'year', 'maximun_temperature', 'minimun_temperature', 'medium_temperature'];
             for (const field of requiredFields) {
                 if (!request.body.hasOwnProperty(field)) {
@@ -624,7 +611,7 @@ module.exports = (app) =>{
         response.sendStatus(405);
     });
     
-    // DELETE entero -> 200, si no se encuentra  -> 404
+    // DELETE entero
     app.delete(BASE_API_URL+"/agroclimatic", (request, response) => {
         db.remove({}, {multi : true},(err, numRemoved)=>{
             if(err){
@@ -642,7 +629,7 @@ module.exports = (app) =>{
         console.log("Se ha borrado /agroclimatic");
     });
     
-    // DELETE de una provincia -> 200 (borrado), si no se encuentra -> 404
+    // DELETE de una provincia
     app.delete(BASE_API_URL+"/agroclimatic/:province", (request, response) => {
         const province = request.params.province;
         db.remove({province : province}, {}, (err, numRemoved)=>{
@@ -660,6 +647,7 @@ module.exports = (app) =>{
         });
         console.log("Se ha borrado la provincia en /agroclimatic/:province");
     });
+
     // DELETE de provincia y año
     app.delete(BASE_API_URL+"/agroclimatic/:province/:year", (request, response) => {
         const province = request.params.province;
