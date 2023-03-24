@@ -554,54 +554,77 @@ module.exports = (app) =>{
 
     // PUT a 1 o varias provincias -> 200, sino -> 400
     app.put(BASE_API_URL + "/pollutions/:province", (request, response) => {
-        const provinceId = request.params.province;
+        const province = request.params.province;
         const body = request.body;
-    
-        db.update({ province: provinceId }, { $set: { year: body.year, NO2: body.NO2, O3: body.O3, SO2: body.SO2 } }, {}, (err, numAffected) => {
-            if (err) {
-                console.log("Error actualizando el objeto: ", err);
-                response.status(500).send("Error actualizando el objeto");
-            } else if (numAffected === 0) {
-                console.log("No se ha encontrado el objeto con la provincia especificada");
-                response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
-            } else {
-                console.log("Nuevo objeto actualizado en la base de datos");
-                response.sendStatus(200);
-            }
-        });
+        if (province === body.province) {
+            const requiredFields = ['province', 'year', 'NO2', 'O3', 'SO2'];
+                for (const field of requiredFields) {
+                    if (!request.body.hasOwnProperty(field)) {
+                    return response.status(400).json(`Falta alguno de los campos: ${field}`);
+                    }
+                }
+        
+            db.update({ province: province }, 
+                { $set: 
+                    { year: body.year, 
+                    NO2: body.NO2, 
+                    O3: body.O3, 
+                    SO2: body.SO2} }, {}, (err, numAffected) => {
+                if (err) {
+                    console.log("Error actualizando el objeto: ", err);
+                    response.status(500).send("Error actualizando el objeto");
+                } else if (numAffected === 0) {
+                    console.log("No se ha encontrado el objeto con la provincia especificada");
+                    response.status(400).send("No se ha encontrado el objeto con la provincia especificada");
+                } else {
+                    console.log("Nuevo objeto actualizado en la base de datos");
+                    response.status(200).send("Actualizado");
+                }
+            });
+        }else {
+            console.log("La provincia en la URL no coincide con la provincia en la solicitud");
+            response.status(400).send("La provincia en la URL no coincide con la provincia en la solicitud");
+        }
     });
     // PUT a 1 o varios años -> 200, sino -> 400
 
-    // Ruta PUT para actualizar un registro de pollutions en NeDB
     app.put(BASE_API_URL + "/pollutions/:province/:year", (request, response) => {
-        const provinceId = request.params.province;
-        const yearId = parseInt(request.params.year);
+        const province = request.params.province;
+        const year = parseInt(request.params.year);
         const body = request.body;
 
         // Verifica si los valores de año coinciden
-        if (provinceId === body.province && yearId === body.year) {
+        if (province === body.province && year === body.year) {
             // Actualiza el registro en la base de datos
-            db.update(
-                { province: provinceId, year: yearId },
-                { $set: {
-                    NO2: body.NO2,
-                    O3: body.O3,
-                    SO2: body.SO2
-                }},
-                {},
-                function (err, numReplaced) {
-                    if (numReplaced === 1) {
-                        console.log("Nuevo PUT a /pollutions/:province/:year");
-                        response.status(200).send("Actualizado");
-                    } else {
-                        console.log("No se ha encontrado el objeto con la provincia y año especificados");
-                        response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
-                    }
+            const requiredFields = ['province', 'year', 'NO2', 'O3', 'SO2'];
+            for (const field of requiredFields) {
+                if (!request.body.hasOwnProperty(field)) {
+                return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
-            );
+            }
+                db.update(
+                    { province: province, year: year},
+                    { $set: {
+                        NO2: body.NO2,
+                        O3: body.O3,
+                        SO2: body.SO2}},{},
+
+                    function (err, numReplaced) {
+                        if(err){
+                            console.log("Se ha producido un error al actualizar el dato");
+                            response.sendStatus(500);
+                        }else if (numReplaced === 1) {
+                            console.log("Nuevo PUT a /pollutions/:province/:year");
+                            response.status(200).send("Actualizado");
+                        } else {
+                            console.log("No se ha encontrado el objeto con la provincia y año especificados");
+                            response.status(400).send("No se ha encontrado el objeto con la provincia y año especificados");
+                        }
+                    }
+                );   
         } else {
-            console.log("El año en la URL no coincide con el año en la solicitud");
-            response.status(400).send("El año en la URL no coincide con el año en la solicitud");
+            console.log("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
+            response.status(400).send("El año o provincia en la URL no coincide con el año o provincia en la solicitud");
         }
     });
 
@@ -644,6 +667,26 @@ module.exports = (app) =>{
                 response.status(200).send("Se ha borrado el dato");
             }
         
+        });
+        console.log("Se ha borrado la provincia en /pollutions/:province");
+    });
+
+    // DELETE de provincia y año
+    app.delete(BASE_API_URL+"/pollutions/:province/:year", (request, response) => {
+        const province = request.params.province;
+        const year = request.params.year;
+        db.remove({province : province , year : parseInt(year)}, {}, (err, numRemoved)=>{
+            if(err){
+                console.log("Error para borrar todos los datos");
+                response.status(500).send("Error");
+
+            }else if(numRemoved == 0){
+                console.log("No se encuentran datos");
+                response.status(400).send("No se encuentran datos");
+            }else{
+                console.log("Borrado el dato");
+                response.status(200).send("Se ha borrado el dato");
+            }
         });
         console.log("Se ha borrado la provincia en /pollutions/:province");
     });
