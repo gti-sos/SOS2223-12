@@ -527,13 +527,13 @@ module.exports = (app) =>{
             }else{ 
 
                 // Verificar si el recurso ya existe
-                //const existingObject = evolution_stats.find(obj => obj.territory === territory && obj.period === period);
+                
                 filteredList = filteredList.filter((obj)=>
                                 {
                                     return(province_name == obj.province_name && modified == obj.modified && identifier == obj.identifier &&
                                         locality_id == obj.locality_id && postcode == obj.postcode)
                                 });
-                //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
+
                 if (filteredList.length !=0) {
                     // Si el recurso ya existe, devolver un código de respuesta 409
                     response.status(409).json(`El recurso ya existe.`);
