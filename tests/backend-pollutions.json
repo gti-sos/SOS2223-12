@@ -8,18 +8,27 @@
 	"item": [
 		{
 			"name": "/pollutions/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/loadInitialData",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions/loadInitialData",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -33,18 +42,32 @@
 		},
 		{
 			"name": "/pollutions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de datos debe ser mayor que 0.\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -56,19 +79,425 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions?year=2020",
+			"name": "/pollutions 201 CREATED",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 201 CREATED.\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"province\": \"sevilla\",\r\n        \"year\": 2027,\r\n        \"NO2\": 45,\r\n        \"O3\": 25.8,\r\n        \"SO2\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions >10 elementos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de datos debe ser mayor que 10.\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(10);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions?year=2020",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions 409 CONFLICT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 409 CONFLICT.\", function(){\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"province\": \"sevilla\",\r\n        \"year\": 2027,\r\n        \"NO2\": 45,\r\n        \"O3\": 25.8,\r\n        \"SO2\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions/sevilla/2027",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions/sevilla/2027",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions",
+						"sevilla",
+						"2027"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions 201 CREATED Almeria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 201 CREATED.\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"province\": \"almeria\",\r\n        \"year\": 2020,\r\n        \"NO2\": 45,\r\n        \"O3\": 25.8,\r\n        \"SO2\": 4\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions/almeria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de datos debe ser mayor que 0.\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions/almeria",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions",
+						"almeria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions/sevilla 200 ACTUALIZADO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"province\": \"almeria\",\r\n        \"year\": 2020,\r\n        \"NO2\": 45552222222222222222224,\r\n        \"O3\": 25.2348,\r\n        \"SO2\": 324\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions/almeria",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions",
+						"almeria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions/almeria actualizado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de datos debe ser mayor que 0.\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions/almeria",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions",
+						"almeria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions/almeria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions/almeria",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions",
+						"almeria"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions/sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions/sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"pollutions",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions?year=2020",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/pollutions?year=2020",
+					"host": [
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -86,44 +515,27 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions/sevilla",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/sevilla",
-					"protocol": "https",
-					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"pollutions",
-						"sevilla"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "/pollutions/sevilla/2021",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/sevilla/2021",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions/sevilla/2021",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -138,18 +550,26 @@
 		},
 		{
 			"name": "/pollutions?from=2020&to=2021",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions?from=2020&to=2021",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions?from=2020&to=2021",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -171,34 +591,34 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n        \"province\": \"sevilla\",\r\n        \"year\": 2020,\r\n        \"NO2\": 45,\r\n        \"O3\": 25.8,\r\n        \"SO2\": 4\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "/pollutions/madrid/2028 ruta inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 404 NOT FOUND.\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
 					}
-				},
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions/madrid/2028",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"pollutions",
-						"sevilla"
+						"madrid",
+						"2028"
 					]
 				}
 			},
@@ -206,6 +626,19 @@
 		},
 		{
 			"name": "/pollutions/sevilla (error 405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código de error debe ser 405\", function () {\r",
+							"\tpm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -219,14 +652,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions/sevilla",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -239,13 +667,26 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions/sevilla",
+			"name": "/pollutions missing field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 400 BAD REQUEST.\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"province\": \"sevilla\",\r\n        \"year\": 2020,\r\n        \"NO2\": 45,\r\n        \"O3\": 25.8,\r\n        \"SO2\": 3\r\n    }",
+					"raw": " {\r\n        \"province\": \"sevilla\",\r\n        \"year\": 2020,\r\n        \"O3\": 25.8,\r\n        \"SO2\": 4\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -253,20 +694,14 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"pollutions",
-						"sevilla"
+						"pollutions"
 					]
 				}
 			},
@@ -274,18 +709,26 @@
 		},
 		{
 			"name": "/pollutions (error 405)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 405.\", function(){\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -297,49 +740,38 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions (todo)",
+			"name": "/pollutions == 10 elementos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de datos debe ser 10.\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(10);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/pollutions",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"pollutions"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/pollutions/sevilla (1)",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/pollutions/sevilla",
-					"protocol": "https",
-					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"pollutions",
-						"sevilla"
 					]
 				}
 			},

@@ -9,12 +9,12 @@ module.exports = (app) =>{
     var datos= [
         {
             province: "sevilla",
-            year: 2021, 
+            year: 2019, 
             NO2: 45.0,
             O3: 25.875,
             SO2:3.0 
         },{
-            province: "huelva",
+            province: "sevilla",
             year: 2020, 
             NO2: 20.0,
             O3: 19.486,
@@ -27,43 +27,43 @@ module.exports = (app) =>{
             SO2: 7.0
         },{
             province: "huelva",
-            year: 2021, 
+            year: 2019, 
             NO2: 43.0,
             O3: 23.625,
             SO2: 2.0
         },{
-            province: "sevilla",
-            year: 2021, 
+            province: "huelva",
+            year: 2020, 
             NO2: 5.0,
             O3: 37.5,
             SO2: 6.0 
         },{
-            province: "sevilla",
-            year: 2020, 
+            province: "huelva",
+            year: 2021, 
             NO2: 74.0,
             O3: 10.25,
             SO2: 9.0
         },{
-            province: "huelva",
-            year: 2021, 
+            province: "malaga",
+            year: 2019, 
             NO2: 36.0,
             O3: 21.125,
             SO2: 2.0
         },{
-            province: "sevilla",
+            province: "malaga",
             year: 2020, 
             NO2: 40.0,
             O3: 16.875,
             SO2: 5.0
         },{
-            province: "huelva",
-            year: 2020, 
+            province: "malaga",
+            year: 2021, 
             NO2: 47.0,
             O3: 16.875,
             SO2: 10.0
         },{
-            province: "huelva",
-            year: 2020, 
+            province: "cordoba",
+            year: 2019, 
             NO2: 25.0,
             O3: 16.785,
             SO2: 10.1
@@ -456,7 +456,7 @@ module.exports = (app) =>{
                 const datosFiltrados = pollution.filter(x => x.province == province);
                 
                 if(datosFiltrados.length == 0){
-                    res.status(404).json('La ruta solicitada no existe');
+                    response.status(404).json('La ruta solicitada no existe');
                 }else{
                 response.status(200).json(datosFiltrados.map((c)=>{
                     delete c._id;
@@ -470,7 +470,8 @@ module.exports = (app) =>{
                 console.log("No se ha podido hacer la busqueda");
             }
         });    
-    });// GET datos filtrados por provincia y año
+    });
+    // GET datos filtrados por provincia y año
     app.get(BASE_API_URL+"/pollutions/:province/:year", (request,response) => {
         const province = request.params.province;
         const year = request.params.year;
@@ -479,7 +480,12 @@ module.exports = (app) =>{
                 var filtro = pollution.filter(x => x.province == province && x.year == year);
                 if (filtro.length == 0) {            
                     response.status(404).json('La ruta solicitada no existe');
-                } else {
+                }else if(filtro.length == 1){
+                    filtro.forEach(element => {
+                        delete element._id;
+                    });
+                    response.status(200).send(JSON.stringify(filtro[0], null, 2));
+                }else {
                     response.status(200).json(filtro.map((c)=>{
                         delete c._id;
                         return c;
@@ -490,7 +496,7 @@ module.exports = (app) =>{
                 response.sendStatus(500);
             }   
         });
-        console.log("Datos de /pollution/:province/:year");
+        console.log("Datos de /pollutions/:province/:year");
     });
 
     // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
@@ -547,11 +553,7 @@ module.exports = (app) =>{
         console.log("No se puede hacer este POST /pollutions/:province");
         response.sendStatus(405);
     });
-    app.post(BASE_API_URL+"/pollutions/:province", (request, response) =>{
-        console.log("No se puede hacer este POST /pollutions/:province");
-        response.sendStatus(405);
-    });
-
+    
     // PUT a 1 o varias provincias -> 200, sino -> 400
     app.put(BASE_API_URL + "/pollutions/:province", (request, response) => {
         const province = request.params.province;
@@ -628,10 +630,14 @@ module.exports = (app) =>{
         }
     });
 
+    //put prohibido
+
     app.put(BASE_API_URL+"/pollutions", (request,response) =>{
         console.log("No se puede hacer este PUT /pollutions");
         response.sendStatus(405);
     });
+
+    //delete todo
 
     app.delete(BASE_API_URL+"/pollutions", (request, response) => {
         db.remove({}, {multi : true},(err, numRemoved)=>{
