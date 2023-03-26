@@ -526,20 +526,17 @@ module.exports = (app) =>{
             }else{ 
 
                 // Verificar si el recurso ya existe
-                //const existingObject = evolution_stats.find(obj => obj.territory === territory && obj.period === period);
                 filteredList = filteredList.filter((obj)=>
                                 {
                                     return(province == obj.province && year == obj.year && NO2 == obj.NO2 &&
                                         O3 == obj.O3 && SO2 == obj.SO2)
                                 });
-                //const existingObject = db.find({territory : NewEvolution.territory, period : NewEvolution.period});
                 if (filteredList.length !=0) {
                     // Si el recurso ya existe, devolver un código de respuesta 409
                     response.status(409).json(`El recurso ya existe.`);
                 } else {
                     // Si el recurso no existe, agregarlo a la lista y devolver un código de respuesta 201
                     db.insert(request.body);
-                    //evolution_stats.push(request.body);
                     response.sendStatus(201);
                     console.log("Se ha insertado un nuevo dato");
                 }

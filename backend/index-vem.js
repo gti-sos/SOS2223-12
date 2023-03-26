@@ -502,11 +502,11 @@ module.exports = (app) =>{
 
     // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
     app.post(BASE_API_URL + "/library", (request, response) => {
-        const modified = request.query.modified;
-        const province_name = request.query.province_name;
-        const identifier = request.query.identifier;
-        const locality_id = request.query.locality_id;
-        const postcode = request.query.postcode;
+        const province_name = request.body.province_name;
+        const modified = request.body.modified;
+        const identifier = request.body.identifier;
+        const locality_id = request.body.locality_id;
+        const postcode = request.body.postcode;
 
         db.find({},function(err,filteredList){
 
@@ -527,20 +527,15 @@ module.exports = (app) =>{
             }else{ 
 
                 // Verificar si el recurso ya existe
-                
                 filteredList = filteredList.filter((obj)=>
                                 {
                                     return(province_name == obj.province_name && modified == obj.modified && identifier == obj.identifier &&
                                         locality_id == obj.locality_id && postcode == obj.postcode)
                                 });
-
                 if (filteredList.length !=0) {
-                    // Si el recurso ya existe, devolver un código de respuesta 409
                     response.status(409).json(`El recurso ya existe.`);
                 } else {
-                    // Si el recurso no existe, agregarlo a la lista y devolver un código de respuesta 201
                     db.insert(request.body);
-                    //evolution_stats.push(request.body);
                     response.sendStatus(201);
                     console.log("Se ha insertado un nuevo dato");
                 }
