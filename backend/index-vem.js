@@ -109,8 +109,7 @@ module.exports = (app) =>{
                     response.status(400).json("El rango de años especificado es inválido");
                 
                 }else{
-                    response.status(200);
-                    response.json(provinciasAño.map((c)=>{
+                    response.status(200).json(provinciasAño.map((c)=>{
                         delete c._id;
                         return c;
                     }));
