@@ -478,17 +478,16 @@ module.exports = (app) =>{
                 if (filtro.length == 0) {            
                     response.status(404).json('La ruta solicitada no existe');
                     
-                } else {
+                } else if(filtro.length == 1){
+                    filtro.forEach(element => {
+                        delete element._id;
+                    });
+                    response.status(200).send(JSON.stringify(filtro[0], null, 2));
+                }else {
                     response.status(200).json(filtro.map((c)=>{
                         delete c._id;
                         return c;
                     }));
-                }
-
-                if(datos.length!=0){
-                    console.log(`data returned ${datos.length}`);
-                    delete datos[0]._id;
-                    response.json(datos[0]);
                 }
                 
             }else{

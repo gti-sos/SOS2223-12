@@ -8,18 +8,28 @@
 	"item": [
 		{
 			"name": "/library/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/loadInitialData",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library/loadInitialData",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -33,18 +43,30 @@
 		},
 		{
 			"name": "/library",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -56,30 +78,355 @@
 			"response": []
 		},
 		{
-			"name": "/library?modified=2020",
+			"name": "/library 201 CREATED",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 201\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"identifier\": 9,\r\n    \"locality_id\": 66,\r\n    \"modified\": 2028,\r\n    \"postcode\": 412,\r\n    \"province_name\": \"Jaen\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library?modified=2020",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library 11 elementos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 10\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library",
+					"host": [
+						"{{URLBASE}}"
 					],
-					"query": [
-						{
-							"key": "modified",
-							"value": "2020"
+					"path": [
+						"api",
+						"v1",
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library 409 CONFLICT NO FUNCIONA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 409 CONFLICT\", function(){\r",
+							"    pm.response.to.have.status(409);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"identifier\": 9,\r\n    \"locality_id\": 66,\r\n    \"modified\": 2028,\r\n    \"postcode\": 412,\r\n    \"province_name\": \"Jaen\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
 						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library/Jaen/2028",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library/Jaen/2028",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library",
+						"Jaen",
+						"2028"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library CREATED Cadiz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 201 CREATED\", function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"identifier\": 876,\r\n    \"locality_id\": 169,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41724,\r\n    \"province_name\": \"Cadiz\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library/Cadiz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library/Cadiz",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library",
+						"Cadiz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library/Cadiz 200 OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"identifier\": 876,\r\n    \"locality_id\": 169,\r\n    \"modified\": 2019,\r\n    \"postcode\": 41724,\r\n    \"province_name\": \"Cadiz\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library/Cadiz",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library",
+						"Cadiz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library/Cadiz ACTUALIZADO",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library/Cadiz",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library",
+						"Cadiz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library/Cadiz",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library/Cadiz",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library",
+						"Cadiz"
 					]
 				}
 			},
@@ -87,18 +434,30 @@
 		},
 		{
 			"name": "/library/Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/Sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library/Sevilla",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -111,26 +470,76 @@
 			"response": []
 		},
 		{
-			"name": "/library/Sevilla/2020",
+			"name": "/library?modified=2019",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/Sevilla/2020",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library?modified=2019",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library"
+					],
+					"query": [
+						{
+							"key": "modified",
+							"value": "2019"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library/Sevilla/2021",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library/Sevilla/2021",
+					"host": [
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
 						"library",
 						"Sevilla",
-						"2020"
+						"2021"
 					]
 				}
 			},
@@ -138,18 +547,30 @@
 		},
 		{
 			"name": "/library?from=2020&to=2021",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library?from=2020&to=2021",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library?from=2020&to=2021",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -171,66 +592,35 @@
 			"response": []
 		},
 		{
-			"name": "/library ya existe",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"identifier\": 875,\r\n    \"locality_id\": 166,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41720,\r\n    \"province_name\": \"Huelva\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "/library/Jaen/2027 NO EXISTE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 404 NOT FOUND\", function(){\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
 					}
-				},
-				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library",
-					"protocol": "https",
-					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"library"
-					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "/library fallo parámetros",
+			],
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"identifier\": 875,\r\n    \"locality_id\": 166,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41720\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library/Jaen/2027",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"library"
+						"library",
+						"Jaen",
+						"2027"
 					]
 				}
 			},
@@ -238,12 +628,26 @@
 		},
 		{
 			"name": "/library/Sevilla 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 405\", function(){\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\r\n    \"identifier\": 875,\r\n    \"locality_id\": 166,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41720,\r\n    \"province_name\": \"Sevilla\"\r\n}",
+					"raw": "{\r\n\r\n    \"identifier\": 876,\r\n    \"locality_id\": 169,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41724,\r\n    \"province_name\": \"Sevilla\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -251,14 +655,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/Sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library/Sevilla",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -271,47 +670,27 @@
 			"response": []
 		},
 		{
-			"name": "/library/Sevilla 400",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"identifier\": 875,\r\n    \"locality_id\": 166,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41720,\r\n    \"province_name\": \"Huelva\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
+			"name": "/library missing field",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 400 BAD REQUEST\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
 					}
-				},
-				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/Sevilla",
-					"protocol": "https",
-					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"library",
-						"Sevilla"
-					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "/library/Sevilla",
+			],
 			"request": {
-				"method": "PUT",
+				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\r\n    \"identifier\": 875,\r\n    \"locality_id\": 167,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41720,\r\n    \"province_name\": \"Sevilla\"\r\n}",
+					"raw": "{\r\n\r\n    \"identifier\": 876,\r\n    \"locality_id\": 169,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41724\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -319,48 +698,9 @@
 					}
 				},
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/Sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"library",
-						"Sevilla"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/library",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\r\n    \"identifier\": 875,\r\n    \"locality_id\": 166,\r\n    \"modified\": 2021,\r\n    \"postcode\": 41720,\r\n    \"province_name\": \"Huelva\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library",
-					"protocol": "https",
-					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
@@ -372,25 +712,69 @@
 			"response": []
 		},
 		{
-			"name": "/library/Sevilla",
+			"name": "/library 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 405\", function(){\r",
+							"    pm.response.to.have.status(405);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-12.ew.r.appspot.com/api/v1/library/Sevilla",
-					"protocol": "https",
+					"raw": "{{URLBASE}}/api/v1/library",
 					"host": [
-						"sos2223-12",
-						"ew",
-						"r",
-						"appspot",
-						"com"
+						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"library",
-						"Sevilla"
+						"library"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/library 10 elementos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El codigo esperado es 200\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 0\", function(){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/library",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"library"
 					]
 				}
 			},
