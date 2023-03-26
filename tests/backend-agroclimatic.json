@@ -618,6 +618,52 @@
 			"response": []
 		},
 		{
+			"name": "/agroclimatic -> from=2020&to=2021",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"El código debe ser 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 3 (6)\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(3);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/agroclimatic?from=2020&to=2021",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"agroclimatic"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2020"
+						},
+						{
+							"key": "to",
+							"value": "2021"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/agroclimatic?year=2020",
 			"event": [
 				{
