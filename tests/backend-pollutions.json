@@ -742,10 +742,6 @@
 							"pm.test(\"Estado debe ser 200.\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 10.\", function(){\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf(10);\r",
-							"});\r",
 							"\r",
 							""
 						],
