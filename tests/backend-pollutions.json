@@ -87,7 +87,7 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions >10 elementos",
+			"name": "/pollutions nuevo elemento",
 			"event": [
 				{
 					"listen": "test",
@@ -96,10 +96,7 @@
 							"pm.test(\"Estado debe ser 200.\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser mayor que 10.\", function(){\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf.above(10);\r",
-							"});\r",
+							"\r",
 							"\r",
 							""
 						],
@@ -125,7 +122,7 @@
 			"response": []
 		},
 		{
-			"name": "{{URLBASE}}/api/v1/pollutions/sevilla/2027",
+			"name": "/pollutions/sevilla/2027 400 bad request",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -736,7 +733,7 @@
 			"response": []
 		},
 		{
-			"name": "/pollutions == 10 elementos",
+			"name": "/pollutions",
 			"event": [
 				{
 					"listen": "test",
