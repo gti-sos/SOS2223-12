@@ -1,3 +1,4 @@
+// && npm run test-pollutions && npm run test-library
 import express from "express";
 import cors from "cors";
 
