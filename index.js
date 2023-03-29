@@ -1,21 +1,30 @@
-var express = require("express");
+import express from "express";
+import cors from "cors";
 
 var app = express();
+app.use(cors());
+
 var port = process.env.PORT || 12345;
 
-app.listen(port);
-console.log("Servidor funcionando");
+import { loadBackend_aml } from "./backend/index-aml.js";
+//var backend_jfr = require("./backend/index-jfr");
+//var backend_vem = require("./backend/index-vem");
 
-var backend_aml = require("./backend/index-aml");
-var backend_jfr = require("./backend/index-jfr");
-var backend_vem = require("./backend/index-vem");
+import { handler } from "./frontend/build/handler.js";
 
-const BASE_API_URL = "/api/v1";
-var bodyParser = require("body-parser");
+//const BASE_API_URL = "/api/v1";
+//var bodyParser = require("body-parser");
 
-app.use(bodyParser.json());
-app.use("/", express.static("./public"));
+app.use(express.json()); //bodyParser
+// app.use("/", express.static("./public")); // quitar esta ruta cuando
+// todos cambiemos el backend_xxx por loadBackend_xxx
 
-backend_aml(app);
-backend_jfr(app);
-backend_vem(app);
+loadBackend_aml(app);
+//backend_jfr(app);
+//backend_vem(app);
+
+app.use(handler);
+
+app.listen(port, ()=>{
+    console.log(`Servidor funcionando en ${port}`);
+});

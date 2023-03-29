@@ -1,9 +1,9 @@
-var Datastore = require("nedb");
+import Datastore from "nedb";
 var db = new Datastore();
 
 const BASE_API_URL = "/api/v1";
 
-module.exports = (app) =>{
+function loadBackend_aml(app){
     var datos = [
         {
             province: "Sevilla",
@@ -668,3 +668,5 @@ module.exports = (app) =>{
         console.log("Se ha borrado la provincia en /agroclimatic/:province");
     });
 }
+
+export { loadBackend_aml };
