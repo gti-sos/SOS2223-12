@@ -16,10 +16,13 @@
 		"@sveltejs/kit": "^1.5.0",
 		"eslint": "^8.28.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"svelte": "^3.54.0",
+		"svelte": "^3.58.0",
 		"svelte-check": "^3.0.1",
 		"typescript": "^5.0.0",
 		"vite": "^4.2.0"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"sveltestrap": "^5.10.0"
+	}
 }

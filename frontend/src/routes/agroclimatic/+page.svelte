@@ -12,6 +12,7 @@
 
             
         let agroclimatics = [];
+    
         let result = "";
         let resultStatus = "";
 
