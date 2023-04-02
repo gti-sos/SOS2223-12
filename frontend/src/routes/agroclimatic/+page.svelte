@@ -65,7 +65,9 @@
             }else if(status==409){
                 mensajeUsuario = "El dato introducido ya existe";
                 getAgroclimatic();
-            }else{
+            }/*else if(status==400){
+                mensajeUsuario = "Faltan propiedades por poner al nuevo dato";
+            }*/else{
                 mensajeUsuario = "No se ha podido crear el dato introducido";
                 getAgroclimatic();
             }       
@@ -113,8 +115,8 @@
 
         {#each agroclimatics as agroclimatic }
           <tr>
-            <td>{agroclimatic.province}</td>
-            <td>{agroclimatic.year}</td>
+            <td><a href="/agroclimatic/{agroclimatic.province}">{agroclimatic.province}</a></td>
+            <td><a href="/agroclimatic/{agroclimatic.province}/{agroclimatic.year}">{agroclimatic.year}</a></td>
             <td>{agroclimatic.maximun_temperature}</td>
             <td>{agroclimatic.minimun_temperature}</td>
             <td>{agroclimatic.medium_temperature}</td>
