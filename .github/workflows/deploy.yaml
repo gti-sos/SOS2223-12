@@ -1,4 +1,9 @@
 # .github/workflows/deploy.yaml
+# Para no tener que hacer a mano siempre antes de hacer el push el:
+# npm run build -> -> -> poner en la linea 23 y 24
+# run: cd frontend; npm install; cd ..
+# run: cd frontend; npm run build; cd ..
+# lo demás no se quita, se deja igual
 name: Deploy to Cloud Run
 on:
   push:
@@ -15,6 +20,9 @@ jobs:
       
       - run: npm install
 
+      
+      
+      
       - run: npm start &
 
       - run: npm test
