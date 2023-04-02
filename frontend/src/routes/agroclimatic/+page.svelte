@@ -17,11 +17,11 @@
 
             
         let agroclimatics = [];
-        let newAgroclimaticProvince = "province";
-        let newAgroclimaticYear = "year";
-        let newAgroclimaticMaximunTemperature = "maximun_temperature";
-        let newAgroclimaticMinimunTemperature = "minimun_temperature";
-        let newAgroclimaticMediumTemperature = "medium_temperature";
+        let newAgroclimaticProvince = "provincia";
+        let newAgroclimaticYear = "año";
+        let newAgroclimaticMaximunTemperature = "temperatura máxima";
+        let newAgroclimaticMinimunTemperature = "temperatura mínima";
+        let newAgroclimaticMediumTemperature = "temperatura media";
 
         let result = "";
         let resultStatus = "";

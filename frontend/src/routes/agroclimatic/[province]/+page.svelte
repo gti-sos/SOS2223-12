@@ -10,6 +10,7 @@
             getAgroclimatic_dato();
         });
 
+        // linea 450 del index-aml (backend) poner entre los parentesis azul y morado -> [0]
         let mensajeUsuario = "";
         let province = $page.params.province;
         let API = "/api/v1/agroclimatic/"+province;
@@ -35,7 +36,7 @@
             try{
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
-                province = data.province;
+                updateAgroclimaticProvince = data.province;
                 updateAgroclimaticYear = data.year;
                 updateAgroclimaticMaximunTemperature = data.maximun_temperature;
                 updateAgroclimaticMinimunTemperature = data.minimun_temperature;
@@ -47,7 +48,7 @@
             resultStatus = status;
         }
 
-        async function updateAgroclimatic(){
+        async function updateAgroclimatic1(){
             resultStatus = result = "";
             const res = await fetch(API, {
                 method: "PUT",
@@ -69,7 +70,6 @@
                 mensajeUsuario = "Se ha actualizado el dato";
             }else{
                 mensajeUsuario = "No se ha podido actualizar el dato";
-                getAgroclimatic_dato();
             }       
         }
 
@@ -90,12 +90,12 @@
         </thead>
         <tbody>
             <tr>
-                <td>{updateAgroclimaticProvince}</td>
+                <td>{province}</td>
                 <td><input bind:value={updateAgroclimaticYear}></td>
                 <td><input bind:value={updateAgroclimaticMaximunTemperature}></td>
                 <td><input bind:value={updateAgroclimaticMinimunTemperature}></td>
                 <td><input bind:value={updateAgroclimaticMediumTemperature}></td>
-                <td><Button on:click={updateAgroclimatic}>Actualizar</Button></td>
+                <td><Button on:click={updateAgroclimatic1}>Actualizar</Button></td>
             </tr>
         </tbody>
     </Table>

@@ -36,12 +36,12 @@
             try{
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
-                province = data.province;
-                year = data.year;
+                updateAgroclimaticProvince = data.province;
+                updateAgroclimaticYear = data.year;
                 updateAgroclimaticMaximunTemperature = data.maximun_temperature;
                 updateAgroclimaticMinimunTemperature = data.minimun_temperature;
                 updateAgroclimaticMediumTemperature = data.medium_temperature;
-                //API = `/api/v1/agroclimatic/${province}/${year}`;
+                
             }catch(error){
                 console.log(`Error parseando el resultado: ${error}`);
             }
