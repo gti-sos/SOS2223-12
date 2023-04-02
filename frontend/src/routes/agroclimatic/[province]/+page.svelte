@@ -10,6 +10,7 @@
             getAgroclimatic_dato();
         });
 
+        
         // linea 450 del index-aml (backend) poner entre los parentesis azul y morado -> [0]
         let mensajeUsuario = "";
         let province = $page.params.province;
