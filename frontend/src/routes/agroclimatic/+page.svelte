@@ -115,8 +115,8 @@
 
         {#each agroclimatics as agroclimatic }
           <tr>
-            <td><a href="/agroclimatic/{agroclimatic.province}">{agroclimatic.province}</a></td>
-            <td><a href="/agroclimatic/{agroclimatic.province}/{agroclimatic.year}">{agroclimatic.year}</a></td>
+            <td><a href="/agroclimatic/{agroclimatic.province}/{agroclimatic.year}">{agroclimatic.province}</a></td>
+            <td>{agroclimatic.year}</td>
             <td>{agroclimatic.maximun_temperature}</td>
             <td>{agroclimatic.minimun_temperature}</td>
             <td>{agroclimatic.medium_temperature}</td>

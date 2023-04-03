@@ -7,7 +7,7 @@
         import { page } from "$app/stores";
 
         onMount(async () =>{
-            getAgroclimatic_dato2();
+            getAgroclimatic_dato();
         });
 
         let mensajeUsuario = "";
@@ -28,7 +28,7 @@
         let result = "";
         let resultStatus = "";
 
-        async function getAgroclimatic_dato2(){
+        async function getAgroclimatic_dato(){
             resultStatus = result = "";
             const res = await fetch(API, {
                 method: "GET"
@@ -67,7 +67,7 @@
             const status = await res.status;
             resultStatus = status;
             if(status==200){
-                getAgroclimatic_dato2();
+                getAgroclimatic_dato();
                 mensajeUsuario = "Se ha actualizado el dato";
             }else{
                 mensajeUsuario = "No se ha podido actualizar el dato";
