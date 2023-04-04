@@ -16,8 +16,8 @@
     }
     nav{
         text-align: center;
-        word-spacing: 80px;
-        font-size: 20px;
+        word-spacing: 150px;
+        font-size: 25px;
         
     }
 </style>

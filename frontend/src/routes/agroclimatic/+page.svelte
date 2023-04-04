@@ -17,11 +17,11 @@
 
             
         let agroclimatics = [];
-        let newAgroclimaticProvince = "provincia";
-        let newAgroclimaticYear = "año";
-        let newAgroclimaticMaximunTemperature = "temperatura máxima";
-        let newAgroclimaticMinimunTemperature = "temperatura mínima";
-        let newAgroclimaticMediumTemperature = "temperatura media";
+        let newAgroclimaticProvince = "Provincia";
+        let newAgroclimaticYear = "Año";
+        let newAgroclimaticMaximunTemperature = "Temperatura máxima";
+        let newAgroclimaticMinimunTemperature = "Temperatura mínima";
+        let newAgroclimaticMediumTemperature = "Temperatura media";
 
         let result = "";
         let resultStatus = "";
@@ -65,9 +65,12 @@
             }else if(status==409){
                 mensajeUsuario = "El dato introducido ya existe";
                 getAgroclimatic();
-            }/*else if(status==400){
+                // Poner aqui el 400
+            }else if(newAgroclimaticProvince == "" || newAgroclimaticYear == "" || newAgroclimaticMaximunTemperature == "" || 
+                newAgroclimaticMinimunTemperature == "" || newAgroclimaticMediumTemperature == ""){
                 mensajeUsuario = "Faltan propiedades por poner al nuevo dato";
-            }*/else{
+                //getAgroclimatic();
+            }else{
                 mensajeUsuario = "No se ha podido crear el dato introducido";
                 getAgroclimatic();
             }       
@@ -90,17 +93,21 @@
 
     </script>
 
-    <h1>Agroclimatic</h1>
-      
-    <Table>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Agroclimatic</h1>
+    <p></p>
+    {#if mensajeUsuario !=""}
+    <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
+    {/if}
+
+    <Table striped>
         <thead>
           <tr>
-            <th>Provincia:</th>
-            <th>Año:</th>
-            <th>Máxima Temperatura:</th>
-            <th>Mínima Temperatura:</th>
-            <th>Media Temperatura:</th>
-            <th>Acción</th>
+            <th style="text-decoration: underline;">Provincia:</th>
+            <th style="text-decoration: underline;">Año:</th>
+            <th style="text-decoration: underline;">Máxima Temperatura:</th>
+            <th style="text-decoration: underline;">Mínima Temperatura:</th>
+            <th style="text-decoration: underline;">Media Temperatura:</th>
+            <th style="text-decoration: underline;">Acción:</th>
           </tr>
         </thead>
         <tbody>
@@ -110,9 +117,9 @@
                 <td><input bind:value={newAgroclimaticMaximunTemperature}></td>
                 <td><input bind:value={newAgroclimaticMinimunTemperature}></td>
                 <td><input bind:value={newAgroclimaticMediumTemperature}></td>
-                <td><Button on:click={createAgroclimatic}>Crear</Button></td>
+                <td><Button id="createAgroclimatic" color="success" on:click={createAgroclimatic}>Crear</Button></td>
             </tr>
-
+        
         {#each agroclimatics as agroclimatic }
           <tr>
             <td><a href="/agroclimatic/{agroclimatic.province}/{agroclimatic.year}">{agroclimatic.province}</a></td>
@@ -120,26 +127,20 @@
             <td>{agroclimatic.maximun_temperature}</td>
             <td>{agroclimatic.minimun_temperature}</td>
             <td>{agroclimatic.medium_temperature}</td>
-            <td><Button on:click={deleteAgroclimatic(agroclimatic.province)}>Borrar</Button></td>
+            <td><Button color="danger"on:click={deleteAgroclimatic(agroclimatic.province)}>Borrar</Button></td>
           </tr>
         {/each}
         </tbody>
     </Table>
-    
-    {#if mensajeUsuario !=""}
-        <h2 style="color: red">{mensajeUsuario}</h2>
-    {/if}
 
+    
     {#if resultStatus != ""}
         <p>
-            Número de datos: {agroclimatics.length}
+            <strong>Número de datos: {agroclimatics.length}</strong>
         </p>
-        <p>
-            Result:
-        </p>
+        <strong>Result:</strong>
         <pre>
     {"Código de estado: "+resultStatus}
-    
 {result}
         </pre>
     {/if}

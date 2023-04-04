@@ -45,8 +45,12 @@
             }catch(error){
                 console.log(`Error parseando el resultado: ${error}`);
             }
+            
             const status = await res.status;
             resultStatus = status;
+            if(status==404){
+                mensajeUsuario = `La ruta solicitada "${province}/${year}" no existe`;
+            }
         }
 
         async function updateAgroclimatic(){
@@ -69,6 +73,8 @@
             if(status==200){
                 getAgroclimatic_dato();
                 mensajeUsuario = "Se ha actualizado el dato";
+            }else if(status==400){ // Verificar el 400
+                mensajeUsuario = "Los datos introducidos no son válidos";
             }else{
                 mensajeUsuario = "No se ha podido actualizar el dato";
             }       
@@ -76,17 +82,21 @@
 
     </script>
 
-    <h1>Agroclimatic Details</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Agroclimatic Cambios</h1>
       
-    <Table>
+    {#if mensajeUsuario !=""}
+        <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
+    {/if}
+
+    <Table striped>
         <thead>
           <tr>
-            <th>Provincia:</th>
-            <th>Año:</th>
-            <th>Máxima Temperatura:</th>
-            <th>Mínima Temperatura:</th>
-            <th>Media Temperatura:</th>
-            <th>Acción</th>
+            <th style="text-decoration: underline;">Provincia:</th>
+            <th style="text-decoration: underline;">Año:</th>
+            <th style="text-decoration: underline;">Máxima Temperatura:</th>
+            <th style="text-decoration: underline;">Mínima Temperatura:</th>
+            <th style="text-decoration: underline;">Media Temperatura:</th>
+            <th style="text-decoration: underline;">Acción:</th>
           </tr>
         </thead>
         <tbody>
@@ -96,22 +106,15 @@
                 <td><input bind:value={updateAgroclimaticMaximunTemperature}></td>
                 <td><input bind:value={updateAgroclimaticMinimunTemperature}></td>
                 <td><input bind:value={updateAgroclimaticMediumTemperature}></td>
-                <td><Button on:click={updateAgroclimatic}>Actualizar</Button></td>
+                <td><Button color="primary" on:click={updateAgroclimatic}>Actualizar</Button></td>
             </tr>
         </tbody>
     </Table>
-
-    {#if mensajeUsuario !=""}
-        <h2 style="color: red">{mensajeUsuario}</h2>
-    {/if}
     
     {#if resultStatus != ""}
-        <p>
-            Result:
-        </p>
+            <strong>Result:</strong>
         <pre>
-    {"Código de estado: "+resultStatus}
-    
+    {"Código de estado: "+resultStatus}    
 {result}
         </pre>
     {/if}
