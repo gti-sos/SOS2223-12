@@ -5,7 +5,7 @@
 
 <main>
     <Header></Header>
-    
+
     <hr/>
     <slot></slot>
     <hr/>

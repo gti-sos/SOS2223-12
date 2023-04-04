@@ -1,14 +1,23 @@
 <nav>
+    <strong>
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/agroclimatic">Agroclimatic</a>
-
+    <a href="/library">Library</a>
+    <a href="/pollutions">Pollutions</a>
+    </strong>
 </nav>
 
 
 <style>
     a{
-        color: blue;
+        color: rgb(0, 136, 255);
         text-decoration: none;
+    }
+    nav{
+        text-align: center;
+        word-spacing: 80px;
+        font-size: 20px;
+        
     }
 </style>

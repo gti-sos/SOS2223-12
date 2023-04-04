@@ -1,8 +1,59 @@
-<h1>BIENVENIDO a SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<body>
+    <h1>BIENVENIDO a SOS2223-12</h1>
+    <ul dir="auto">
+        <p></p>
+        <li><strong>Team</strong>
+        <ul dir="auto">
+        <li><a href="https://github.com/AlvaroMaraverLerma">Álvaro Maraver Lerma</a> (fuente de datos: Agroclimatic)</li>
+        <li><a href="https://github.com/victoregea">Víctor Egea Moncayo</a> (fuente de datos: Library)</li>
+        <li><a href="https://github.com/jorfigrom">Jorge Figueroa Romero</a> (fuente de datos: Pollutions)</li>
+        </ul>
+        </li>
+        <p></p>
+        <li><strong>Project description</strong>: Nuestro proyecto consistirá en un análisis del clima y contaminación atmosférica en diferentes librerias de Sevilla.
+        </li>
+        <p></p>
+        <li><strong>Repository</strong>: <a href="https://github.com/gti-sos/SOS2223-12">gti-sos/SOS2223-12</a></li>
+        <p></p>
+        <li><strong>URL</strong>: <a href="https://sos2223-12.appspot.com">http://sos2223-12.appspot.com</a></li>
+        <p></p>
+        <li><strong>APIs</strong>:
+        <ul dir="auto">
+        <li><a href="http://sos2223-12.appspot.com/api/v1/agroclimatic" rel="nofollow">http://sos2223-12.appspot.com/api/v1/agroclimatic</a> (desarrollado por <a href="https://github.com/AlvaroMaraverLerma">Álvaro Maraver Lerma</a>)</li>
+        <li><a href="http://sos2223-12.appspot.com/api/v1/library" rel="nofollow">http://sos2223-12.appspot.com/api/v1/library</a> (desarrollado por <a href="https://github.com/victoregea">Víctor Egea Moncayo</a>)</li>
+        <li><a href="http://sos2223-12.appspot.com/api/v1/pollutions" rel="nofollow">http://sos2223-12.appspot.com/api/v1/pollutions</a> (desarrollado por <a href="https://github.com/jorfigrom">Jorge Figueroa Romero</a>)</li>
+        </ul></li>
+        <p></p>
+        <li><strong>Documentación:</strong>:
+        <ul dir="auto">
+        <li><a href="http://sos2223-12.appspot.com/api/v1/agroclimatic/docs" rel="nofollow">http://sos2223-12.appspot.com/api/v1/agroclimatic/docs</a> (desarrollado por <a href="https://github.com/AlvaroMaraverLerma">Álvaro Maraver Lerma</a>)</li>
+        <li><a href="http://sos2223-12.appspot.com/api/v1/library/docs" rel="nofollow">http://sos2223-12.appspot.com/api/v1/library/docs</a> (desarrollado por <a href="https://github.com/victoregea">Víctor Egea Moncayo</a>)</li>
+        <li><a href="http://sos2223-12.appspot.com/api/v1/pollutions/docs" rel="nofollow">http://sos2223-12.appspot.com/api/v1/pollutions/docs</a> (desarrollado por <a href="https://github.com/jorfigrom">Jorge Figueroa Romero</a>)</li>
+       </ul></li>
+    </ul>
+</body>
+
 
 <style>
     h1{
-        color: red;
+        color: blue;
+        font-family:'Times New Roman', Times, serif;
+        font-size: 40px;
+        text-align: center;
+        text-decoration: underline;
+    }
+    
+    strong{
+        font-family:'Times New Roman', Times, serif;
+        font-size: 20px;
+    }
+
+    li{
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 17px;
+    }
+
+    a{
+        text-decoration: none;
     }
 </style>
