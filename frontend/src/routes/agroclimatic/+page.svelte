@@ -65,11 +65,9 @@
             }else if(status==409){
                 mensajeUsuario = "El dato introducido ya existe";
                 getAgroclimatic();
-                // Poner aqui el 400
-            }else if(newAgroclimaticProvince == "" || newAgroclimaticYear == "" || newAgroclimaticMaximunTemperature == "" || 
-                newAgroclimaticMinimunTemperature == "" || newAgroclimaticMediumTemperature == ""){
-                mensajeUsuario = "Faltan propiedades por poner al nuevo dato";
-                //getAgroclimatic();
+            }else if(status==400){
+                mensajeUsuario = "Las propiedades introducidas no tienen un formato correcto";
+                getAgroclimatic();
             }else{
                 mensajeUsuario = "No se ha podido crear el dato introducido";
                 getAgroclimatic();

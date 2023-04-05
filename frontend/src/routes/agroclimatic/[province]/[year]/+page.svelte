@@ -73,7 +73,7 @@
             if(status==200){
                 getAgroclimatic_dato();
                 mensajeUsuario = "Se ha actualizado el dato";
-            }else if(status==400){ // Verificar el 400
+            }else if(updateAgroclimaticMaximunTemperature !== Number || updateAgroclimaticMinimunTemperature !== Number || updateAgroclimaticMediumTemperature!== Number){ 
                 mensajeUsuario = "Los datos introducidos no son válidos";
             }else{
                 mensajeUsuario = "No se ha podido actualizar el dato";

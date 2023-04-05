@@ -2,16 +2,17 @@
 import express from "express";
 import cors from "cors";
 
+import { loadBackend_aml } from "./backend/index-aml.js";
+import { handler } from "./frontend/build/handler.js";
+
 var app = express();
 app.use(cors());
 
 var port = process.env.PORT || 12345;
 
-import { loadBackend_aml } from "./backend/index-aml.js";
 //var backend_jfr = require("./backend/index-jfr");
 //var backend_vem = require("./backend/index-vem");
 
-import { handler } from "./frontend/build/handler.js";
 
 //const BASE_API_URL = "/api/v1";
 //var bodyParser = require("body-parser");
