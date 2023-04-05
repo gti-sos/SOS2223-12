@@ -20,10 +20,10 @@
 
     
         let updateAgroclimaticProvince = province;
-        let updateAgroclimaticYear = year;
-        let updateAgroclimaticMaximunTemperature = "";
-        let updateAgroclimaticMinimunTemperature = "";
-        let updateAgroclimaticMediumTemperature = "";
+        let updateAgroclimaticYear = year; 
+        let updateAgroclimaticMaximunTemperature = "Temperatura máxima";
+        let updateAgroclimaticMinimunTemperature = "Temperatura mínima";
+        let updateAgroclimaticMediumTemperature = "Temperatura media";
 
         let result = "";
         let resultStatus = "";

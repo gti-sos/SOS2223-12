@@ -91,6 +91,21 @@
             }
         }
 
+        async function deleteAgroclimaticAll(){
+            resultStatus = result = "";
+            const res = await fetch(API, {
+                method: "DELETE"
+            });
+            const status = await res.status;
+            resultStatus = status;
+            if(status==200 || status == 204){
+                await getAgroclimatic();
+                mensajeUsuario = "Se han borrado correctamente los datos";
+            }else{
+                mensajeUsuario = "No se han podido borrar los datos";
+            }
+        }
+
     </script>
 
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Agroclimatic</h1>
@@ -132,7 +147,10 @@
         {/each}
         </tbody>
     </Table>
-
+    
+    <div style="text-align: center;">
+        <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
+    </div>
     
     {#if resultStatus != ""}
         <p>
