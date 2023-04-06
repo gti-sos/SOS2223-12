@@ -9,7 +9,7 @@
             getAgroclimatic();
         });
 
-        let API = "/api/v1/agroclimatic";
+        let API = "/api/v2/agroclimatic";
         let mensajeUsuario = "";
 
         if(dev)
@@ -42,8 +42,52 @@
             resultStatus = status;
         }
 
+        let insertedData = [];
         async function createAgroclimatic(){
             resultStatus = result = "";
+            const newAgroclimatic = {
+                province: newAgroclimaticProvince,
+                year: newAgroclimaticYear,
+                maximun_temperature: newAgroclimaticMaximunTemperature,
+                minimun_temperature: newAgroclimaticMinimunTemperature,
+                medium_temperature: newAgroclimaticMediumTemperature
+            };
+    
+            // Comprobar si el nuevo dato ya ha sido insertado previamente
+            const existingData = insertedData.find(data => 
+                data.province === newAgroclimaticProvince && data.year === newAgroclimaticYear && data.maximun_temperature === newAgroclimaticMaximunTemperature
+                    && data.minimun_temperature === newAgroclimaticMinimunTemperature && data.medium_temperature === newAgroclimaticMediumTemperature
+            );
+            if (existingData) {
+                mensajeUsuario = "Ya existe ese dato";
+                return;
+            }
+    
+            const res = await fetch(API, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(newAgroclimatic)
+            });
+    
+            const status = await res.status;
+            resultStatus = status;
+            if (status == 201) {
+                getAgroclimatic();
+                mensajeUsuario = "Se ha creado el nuevo dato introducido";
+                insertedData.push(newAgroclimatic);
+            } else if (status == 409) {
+                mensajeUsuario = "El dato introducido ya existe";
+                getAgroclimatic();
+            } else if (status == 400) {
+                mensajeUsuario = "Las propiedades introducidas no tienen un formato correcto";
+                getAgroclimatic();
+            } else {
+                mensajeUsuario = "No se ha podido crear el dato introducido";
+                getAgroclimatic();
+            }
+            /*resultStatus = result = "";
             const res = await fetch(API, {
                 method: "POST",
                 headers:{
@@ -71,7 +115,7 @@
             }else{
                 mensajeUsuario = "No se ha podido crear el dato introducido";
                 getAgroclimatic();
-            }       
+            }*/      
         }
 
         async function deleteAgroclimatic(agroclimaticProvince){
@@ -130,7 +174,7 @@
                 <td><input bind:value={newAgroclimaticMaximunTemperature}></td>
                 <td><input bind:value={newAgroclimaticMinimunTemperature}></td>
                 <td><input bind:value={newAgroclimaticMediumTemperature}></td>
-                <td><Button id="createAgroclimatic" color="success" on:click={createAgroclimatic}>Crear</Button></td>
+                <td><Button color="success" on:click={createAgroclimatic}>Crear</Button></td>
             </tr>
         
         {#each agroclimatics as agroclimatic }

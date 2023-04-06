@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 
 import { loadBackend_aml } from "./backend/index-aml.js";
+import { loadBackend_aml2 } from "./backend/v2/index-aml2.js";
 import { handler } from "./frontend/build/handler.js";
 
 var app = express();
@@ -22,6 +23,7 @@ app.use(express.json()); //bodyParser
 // todos cambiemos el backend_xxx por loadBackend_xxx
 
 loadBackend_aml(app);
+loadBackend_aml2(app);
 //backend_jfr(app);
 //backend_vem(app);
 

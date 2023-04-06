@@ -13,7 +13,7 @@
         let mensajeUsuario = "";
         let province = $page.params.province;
         let year = $page.params.year;
-        let API = "/api/v1/agroclimatic/"+province+ "/" +year;
+        let API = "/api/v2/agroclimatic/"+province+ "/" +year;
 
         if(dev)
             API = "http://localhost:12345"+API
@@ -73,7 +73,7 @@
             if(status==200){
                 getAgroclimatic_dato();
                 mensajeUsuario = "Se ha actualizado el dato";
-            }else if(updateAgroclimaticMaximunTemperature !== Number || updateAgroclimaticMinimunTemperature !== Number || updateAgroclimaticMediumTemperature!== Number){ 
+            }else if(status==400){ 
                 mensajeUsuario = "Los datos introducidos no son válidos";
             }else{
                 mensajeUsuario = "No se ha podido actualizar el dato";
