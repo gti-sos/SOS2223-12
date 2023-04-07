@@ -87,12 +87,14 @@
                 mensajeUsuario = "No se ha podido crear el dato introducido";
                 getPollution();
             }
-            
+                 
         }
 
-        async function deletePollution(pollutionProvince){
+        
+
+        async function deletePollution(PollutionProvince){
             resultStatus = result = "";
-            const res = await fetch(API+"/"+pollutionProvince, {
+            const res = await fetch(API+"/"+PollutionProvince, {
                 method: "DELETE"
             });
             const status = await res.status;
@@ -122,7 +124,7 @@
 
     </script>
 
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Pollutions</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Pollution</h1>
     <p></p>
     {#if mensajeUsuario !=""}
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
@@ -153,9 +155,9 @@
           <tr>
             <td><a href="/pollutions/{pollution.province}/{pollution.year}">{pollution.province}</a></td>
             <td>{pollution.year}</td>
-            <td>{pollution.maximun_temperature}</td>
-            <td>{pollution.minimun_temperature}</td>
-            <td>{pollution.medium_temperature}</td>
+            <td>{pollution.NO2}</td>
+            <td>{pollution.O3}</td>
+            <td>{pollution.SO2}</td>
             <td><Button color="danger"on:click={deletePollution(pollution.province)}>Borrar</Button></td>
           </tr>
         {/each}

@@ -93,9 +93,9 @@
           <tr>
             <th style="text-decoration: underline;">Provincia:</th>
             <th style="text-decoration: underline;">Año:</th>
-            <th style="text-decoration: underline;">SO2:</th>
-            <th style="text-decoration: underline;">O3:</th>
             <th style="text-decoration: underline;">NO2:</th>
+            <th style="text-decoration: underline;">O3:</th>
+            <th style="text-decoration: underline;">SO2:</th>
             <th style="text-decoration: underline;">Acción:</th>
           </tr>
         </thead>
