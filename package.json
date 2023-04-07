@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node index",
     "test-agroclimatic": "npx newman run ./tests/v2/backend-agroclimatic-v2.json -e ./tests/env/gcloud-aml.json",
-    "test-pollutions": "npx newman run ./tests/backend-pollutions.json -e ./tests/env/gcloud-jfr.json",
+    "test-pollutions": "npx newman run ./tests/v2/backend-pollutions-v2.json -e ./tests/env/gcloud-jfr.json",
     "test-library": "npx newman run ./tests/backend-library.json -e ./tests/env/gcloud-vem.json",
-    "test": "npm run test-agroclimatic"
+    "test": "npm run test-agroclimatic && npm run test-pollutions"
   },
   "repository": {
     "type": "git",
