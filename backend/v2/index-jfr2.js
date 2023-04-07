@@ -1,9 +1,9 @@
 import Datastore from "nedb";
 var db = new Datastore();
 
-const BASE_API_URL = "/api/v1";
+const BASE_API_URL = "/api/v2";
 
-function loadBackend_jfr (app){
+function loadBackend_jfr2 (app){
 
     var datos= [
         {
@@ -70,7 +70,7 @@ function loadBackend_jfr (app){
     ]
 
     db.insert(datos);
-    console.log("Datos insertados Pollutions.")
+    console.log("Datos insertados Pollutions-V2.")
 
     //Redireccionar
 
@@ -697,4 +697,4 @@ function loadBackend_jfr (app){
 
 }
 
-export { loadBackend_jfr };
+export { loadBackend_jfr2 };

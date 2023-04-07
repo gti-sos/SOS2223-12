@@ -4,6 +4,10 @@ import cors from "cors";
 
 import { loadBackend_aml } from "./backend/index-aml.js";
 import { loadBackend_aml2 } from "./backend/v2/index-aml2.js";
+
+import { loadBackend_jfr } from "./backend/index-jfr.js";
+import { loadBackend_jfr2 } from "./backend/v2/index-jfr2.js";
+
 import { handler } from "./frontend/build/handler.js";
 
 var app = express();
@@ -24,7 +28,10 @@ app.use(express.json()); //bodyParser
 
 loadBackend_aml(app);
 loadBackend_aml2(app);
-//backend_jfr(app);
+
+loadBackend_jfr(app);
+loadBackend_jfr2(app);
+
 //backend_vem(app);
 
 app.use(handler);
