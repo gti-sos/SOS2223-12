@@ -582,7 +582,8 @@ function loadBackend_aml2(app){
                 return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
             }
-            if (isNaN(body.maximun_temperature) || isNaN(body.minimun_temperature) || isNaN(body.medium_temperature)) {
+            if (isNaN(body.maximun_temperature) || isNaN(body.minimun_temperature) || isNaN(body.medium_temperature)
+                || body.maximun_temperature == "" || body.minimun_temperature == "" || body.medium_temperature == "") {
                 return response.status(400).json("La temperatura máxima, mínima o media no es un número");
             }
                 db.update(
