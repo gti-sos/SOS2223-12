@@ -1,14 +1,31 @@
 # SOS2223-12
 
 - **Team:**
-   - [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma)
-   - [Jorge Figueroa Romero](https://github.com/jorfigrom)
-   - [Víctor Egea Moncayo](https://github.com/victoregea)
+   - [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma) (fuente de datos: Agroclimatic)
+   - [Jorge Figueroa Romero](https://github.com/jorfigrom) (fuente de datos: Library)
+   - [Víctor Egea Moncayo](https://github.com/victoregea) (fuente de datos: Pollutions)
 
-- **Project description**: Our project will consist of an analysis of the climate and air pollution in different libraries of Seville.
-- **Repository**: [gti-sos/SOS2223-12](https://github.com/gti-sos/SOS2223-12)
+- **Project description:** Our project will consist of an analysis of the climate and air pollution in different libraries of Seville.
+
+- **Repository:** [gti-sos/SOS2223-12](https://github.com/gti-sos/SOS2223-12)
+
 - **URL**: [https://sos2223-12.ew.r.appspot.com/](https://sos2223-12.ew.r.appspot.com/)
-- **APIs**:
-   - [http://sos2223-12.appspot.com/api/v1/agroclimatic/docs](https://sos2223-12.appspot.com/api/v1/agroclimatic/docs) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
-   - [http://sos2223-12.appspot.com/api/v1/pollutions/docs](https://sos2223-12.appspot.com/api/v1/pollutions/docs) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
-   - [http://sos2223-12.appspot.com/api/v1/library/docs](https://sos2223-12.appspot.com/api/v1/library/docs) (developed by [Víctor Egea Moncayo](https://github.com/victoregea))
+
+- **APIs-V1:**
+   - [https://sos2223-12.appspot.com/api/v1/agroclimatic](https://sos2223-12.appspot.com/api/v1/agroclimatic) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
+   - [https://sos2223-12.appspot.com/api/v1/library](https://sos2223-12.appspot.com/api/v1/library) (developed by [Víctor Egea Moncayo](https://github.com/victoregea))
+   - [https://sos2223-12.appspot.com/api/v1/pollutions](https://sos2223-12.appspot.com/api/v1/pollutions) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
+
+- **Documentación-V1:**
+   - [https://sos2223-12.appspot.com/api/v1/agroclimatic/docs](https://sos2223-12.appspot.com/api/v1/agroclimatic/docs) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
+   - [https://sos2223-12.appspot.com/api/v1/pollutions/docs](https://sos2223-12.appspot.com/api/v1/pollutions/docs) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
+   - [https://sos2223-12.appspot.com/api/v1/library/docs](https://sos2223-12.appspot.com/api/v1/library/docs) (developed by [Víctor Egea Moncayo](https://github.com/victoregea))
+
+- **APIs-V2:**
+   - [https://sos2223-12.appspot.com/api/v2/agroclimatic](https://sos2223-12.appspot.com/api/v2/agroclimatic) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
+
+- **Documentación-V2:**
+   - [https://sos2223-12.appspot.com/api/v2/agroclimatic/docs](https://sos2223-12.appspot.com/api/v2/agroclimatic/docs) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
+
+- **Frontends:**
+   - [https://sos2223-12.appspot.com/agroclimatic](https://sos2223-12.appspot.com/agroclimatic) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))

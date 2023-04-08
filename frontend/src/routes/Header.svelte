@@ -17,7 +17,7 @@
     nav{
         text-align: center;
         word-spacing: 150px;
-        font-size: 25px;
-        
+        font-size: 30px;
+        font-family: 'Times New Roman', Times, serif;
     }
 </style>
