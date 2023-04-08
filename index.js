@@ -8,6 +8,8 @@ import { loadBackend_aml2 } from "./backend/v2/index-aml2.js";
 import { loadBackend_jfr } from "./backend/index-jfr.js";
 import { loadBackend_jfr2 } from "./backend/v2/index-jfr2.js";
 
+import { loadBackend_vem } from "./backend/index-vem.js";
+
 import { handler } from "./frontend/build/handler.js";
 
 var app = express();
@@ -31,6 +33,8 @@ loadBackend_aml2(app);
 
 loadBackend_jfr(app);
 loadBackend_jfr2(app);
+
+loadBackend_vem(app);
 
 //backend_vem(app);
 

@@ -1,10 +1,9 @@
-const { request, response } = require("express");
-var Datastore = require("nedb");
+import Datastore from "nedb";
 var db = new Datastore();
 
 const BASE_API_URL = "/api/v1";
 
-module.exports = (app) =>{
+function loadBackend_vem (app){
 
     var datos= [
         {
@@ -689,4 +688,6 @@ module.exports = (app) =>{
     
 
 
-}
+};
+
+export { loadBackend_vem };
