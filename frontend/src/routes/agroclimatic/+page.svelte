@@ -47,10 +47,10 @@
             resultStatus = result = "";
             const newAgroclimatic = {
                 province: newAgroclimaticProvince,
-                year: newAgroclimaticYear,
-                maximun_temperature: newAgroclimaticMaximunTemperature,
-                minimun_temperature: newAgroclimaticMinimunTemperature,
-                medium_temperature: newAgroclimaticMediumTemperature
+                year: parseInt(newAgroclimaticYear),
+                maximun_temperature: parseFloat(newAgroclimaticMaximunTemperature),
+                minimun_temperature: parseFloat(newAgroclimaticMinimunTemperature),
+                medium_temperature: parseFloat(newAgroclimaticMediumTemperature)
             };
     
             // Comprobar si el nuevo dato ya ha sido insertado previamente

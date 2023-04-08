@@ -491,9 +491,9 @@ function loadBackend_aml2(app){
     app.post(BASE_API_URL + "/agroclimatic", (request, response) => {
         const province = request.body.province;
         const year = parseInt(request.body.year);
-        const temp_max = parseInt(request.body.maximun_temperature);
-        const temp_min = parseInt(request.body.minimun_temperature);
-        const temp_med = parseInt(request.body.medium_temperature);
+        const temp_max = parseFloat(request.body.maximun_temperature);
+        const temp_min = parseFloat(request.body.minimun_temperature);
+        const temp_med = parseFloat(request.body.medium_temperature);
 
         if (!isNaN(province) || isNaN(year) || isNaN(temp_max) || isNaN(temp_min) || isNaN(temp_med)) {
             return response.status(400).json("Uno o más campos no son números");
