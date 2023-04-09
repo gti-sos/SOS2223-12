@@ -24,11 +24,14 @@
 - **APIs-V2:**
    - [https://sos2223-12.appspot.com/api/v2/agroclimatic](https://sos2223-12.appspot.com/api/v2/agroclimatic) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
    -  [https://sos2223-12.appspot.com/api/v2/pollutions](https://sos2223-12.appspot.com/api/v2/pollutions) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
+   -  [https://sos2223-12.appspot.com/api/v2/library](https://sos2223-12.appspot.com/api/v2/library) (developed by [Víctor Egea Moncayo](https://github.com/victoregea))
 
 - **Documentación-V2:**
    - [https://sos2223-12.appspot.com/api/v2/agroclimatic/docs](https://sos2223-12.appspot.com/api/v2/agroclimatic/docs) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
    - [https://sos2223-12.appspot.com/api/v2/pollutions/docs](https://sos2223-12.appspot.com/api/v2/pollutions/docs) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
+   - [https://sos2223-12.appspot.com/api/v2/library/docs](https://sos2223-12.appspot.com/api/v2/library/docs) (developed by [Victor Egea Moncayo](https://github.com/victoregea))
 
 - **Frontends:**
    - [https://sos2223-12.appspot.com/agroclimatic](https://sos2223-12.appspot.com/agroclimatic) (developed by [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma))
    - [https://sos2223-12.appspot.com/pollutions](https://sos2223-12.appspot.com/pollutions) (developed by [Jorge Figueroa Romero](https://github.com/jorfigrom))
+   - [https://sos2223-12.appspot.com/library](https://sos2223-12.appspot.com/library) (developed by [Víctor Egea Moncayo](https://github.com/victoregea))
