@@ -47,10 +47,10 @@
             resultStatus = result = "";
             const newPollution = {
                 province: newPollutionProvince,
-                year: newPollutionYear,
-                NO2: newPollutionNO2,
-                O3: newPollutionO3,
-                SO2: newPollutionSO2
+                year: parseInt(newPollutionYear),
+                NO2: parseFloat(newPollutionNO2),
+                O3: parseFloat(newPollutionO3),
+                SO2: parseFloat(newPollutionSO2)
             };
     
             // Comprobar si el nuevo dato ya ha sido insertado previamente

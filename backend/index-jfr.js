@@ -72,11 +72,7 @@ function loadBackend_jfr (app){
     db.insert(datos);
     console.log("Datos insertados Pollutions.")
 
-    //Redireccionar
-
-    app.get(BASE_API_URL+'/pollutions/docs', (req, res) => {
-        res.redirect('https://documenter.getpostman.com/view/25989057/2s93JzJzbZ');
-    });
+    
 
     //GET carga
 
@@ -96,6 +92,12 @@ function loadBackend_jfr (app){
         }
         });
         
+    });
+
+    //Redireccionar
+
+    app.get(BASE_API_URL+'/pollutions/docs', (req, res) => {
+        res.redirect('https://documenter.getpostman.com/view/25989057/2s93JzJzbZ');
     });
 
     // GET datos y tambien from y to

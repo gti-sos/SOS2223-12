@@ -72,11 +72,6 @@ function loadBackend_jfr2 (app){
     db.insert(datos);
     console.log("Datos insertados Pollutions-V2.")
 
-    //Redireccionar
-
-    app.get(BASE_API_URL+'/pollutions/docs', (req, res) => {
-        res.redirect('https://documenter.getpostman.com/view/25989057/2s93JzJzbZ');
-    });
 
     //GET carga
 
@@ -96,6 +91,13 @@ function loadBackend_jfr2 (app){
         }
         });
         
+    });
+
+    //Redireccionar
+
+    app.get(BASE_API_URL+"/pollutions/docs",(req,res)=>
+    {
+        res.redirect("https://documenter.getpostman.com/view/25989057/2s93XsY6FV");
     });
 
     // GET datos y tambien from y to
@@ -501,10 +503,14 @@ function loadBackend_jfr2 (app){
     // POST nuevo dato, si ya existe -> 409, si el dato no tiene el mismo número de propiedades -> 400
     app.post(BASE_API_URL + "/pollutions", (request, response) => {
         const province = request.body.province;
-        const year = request.body.year;
-        const NO2 = request.body.NO2;
-        const O3 = request.body.O3;
-        const SO2 = request.body.SO2;
+        const year = parseInt(request.body.year);
+        const NO2 = parseFloat(request.body.NO2);
+        const O3 = parseFloat(request.body.O3);
+        const SO2 = parseFloat(request.body.SO2);
+
+        if (!isNaN(province) || isNaN(year) || isNaN(NO2) || isNaN(O3) || isNaN(SO2)) {
+            return response.status(400).json("Uno o más campos no son números");
+        }
 
         db.find({},function(err,filteredList){
 
@@ -519,7 +525,6 @@ function loadBackend_jfr2 (app){
                 return response.status(400).json(`Missing required field: ${field}`);
                 }
             }
-            // Verificar que la solicitud se hizo en la ruta correcta
             if (request.originalUrl != BASE_API_URL+"/pollutions") {
                 response.status(405).json('Url no permitida');
             }else{ 
