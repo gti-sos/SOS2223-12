@@ -153,7 +153,7 @@
         
         {#each librarys as library }
           <tr>
-            <td><a href="/librarys/{library.province_name}/{library.modified}">{library.province_name}</a></td>
+            <td><a href="/library/{library.province_name}/{library.modified}">{library.province_name}</a></td>
             <td>{library.modified}</td>
             <td>{library.identifier}</td>
             <td>{library.locality_id}</td>
