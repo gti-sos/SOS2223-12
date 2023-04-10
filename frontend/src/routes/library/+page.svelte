@@ -26,6 +26,20 @@
         let result = "";
         let resultStatus = "";
 
+        async function loadData(){
+            resultStatus = result = "";
+            const res = await fetch(API+'/loadInitialData', {
+                method: 'GET'
+            });
+            const status = await res.status;
+            resultStatus = status;
+            if(status==200){
+                mensajeUsuario = "Se han insertado los datos de nuevo. Por favor, recargue la página";
+            }else{
+                mensajeUsuario = "No se han podido insertar los datos de nuevo";
+            }
+        }
+
         async function getlibrary(){
             resultStatus = result = "";
             const res = await fetch(API, {
@@ -166,5 +180,6 @@
     
     <div style="text-align: center;">
         <Button color="danger" on:click={deletelibraryAll}>Borrar Datos</Button>
+        <Button color="primary" on:click={loadData}>Cargar Datos</Button>
     </div>
     

@@ -26,6 +26,20 @@
         let result = "";
         let resultStatus = "";
 
+        async function loadData(){
+            resultStatus = result = "";
+            const res = await fetch(API+'/loadInitialData', {
+                method: 'GET'
+            });
+            const status = await res.status;
+            resultStatus = status;
+            if(status==200){
+                mensajeUsuario = "Se han insertado los datos de nuevo. Por favor, recargue la página";
+            }else{
+                mensajeUsuario = "No se han podido insertar los datos de nuevo";
+            }
+        }
+
         async function getAgroclimatic(){
             resultStatus = result = "";
             const res = await fetch(API, {
@@ -86,36 +100,7 @@
             } else {
                 mensajeUsuario = "No se ha podido crear el dato introducido";
                 getAgroclimatic();
-            }
-            /*resultStatus = result = "";
-            const res = await fetch(API, {
-                method: "POST",
-                headers:{
-                    "Content-Type": "application/json"
-                },
-                body:JSON.stringify({
-                    province: newAgroclimaticProvince,
-                    year: newAgroclimaticYear,
-                    maximun_temperature: newAgroclimaticMaximunTemperature,
-                    minimun_temperature: newAgroclimaticMinimunTemperature,
-                    medium_temperature: newAgroclimaticMediumTemperature
-                })
-            });
-            const status = await res.status;
-            resultStatus = status;
-            if(status==201){
-                getAgroclimatic();
-                mensajeUsuario = "Se ha creado el nuevo dato introducido";
-            }else if(status==409){
-                mensajeUsuario = "El dato introducido ya existe";
-                getAgroclimatic();
-            }else if(status==400){
-                mensajeUsuario = "Las propiedades introducidas no tienen un formato correcto";
-                getAgroclimatic();
-            }else{
-                mensajeUsuario = "No se ha podido crear el dato introducido";
-                getAgroclimatic();
-            }*/      
+            }     
         }
 
         async function deleteAgroclimatic(agroclimaticProvince){
@@ -192,6 +177,7 @@
     
     <div style="text-align: center;">
         <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
+        <Button color="primary" on:click={loadData}>Cargar Datos</Button>
     </div>
     
     
