@@ -4,13 +4,13 @@
         <p></p>
         <li><strong>Grupo:</strong>
         <ul dir="auto">
-        <li><a href="https://github.com/AlvaroMaraverLerma">Álvaro Maraver Lerma</a> (fuente de datos: Agroclimatic)</li>
-        <li><a href="https://github.com/victoregea">Víctor Egea Moncayo</a> (fuente de datos: Library)</li>
-        <li><a href="https://github.com/jorfigrom">Jorge Figueroa Romero</a> (fuente de datos: Pollutions)</li>
+        <li><a href="https://github.com/AlvaroMaraverLerma">Álvaro Maraver Lerma</a> (fuente de datos: Agroclimáticas)</li>
+        <li><a href="https://github.com/victoregea">Víctor Egea Moncayo</a> (fuente de datos: Bibliotecas)</li>
+        <li><a href="https://github.com/jorfigrom">Jorge Figueroa Romero</a> (fuente de datos: Contaminaciones)</li>
         </ul>
         </li>
         <p></p>
-        <li><strong>Descripción del Proyecto:</strong> Nuestro proyecto consistirá en un análisis del clima y contaminación atmosférica en diferentes librerias de Sevilla.
+        <li><strong>Descripción del Proyecto:</strong> Nuestro proyecto consistirá en un análisis del clima y contaminación atmosférica en diferentes bibliotecas de Sevilla.
         </li>
         <p></p>
         <li><strong>Repositorio:</strong> <a href="https://github.com/gti-sos/SOS2223-12">gti-sos/SOS2223-12</a></li>

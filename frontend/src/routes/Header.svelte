@@ -1,10 +1,10 @@
 <nav>
     <strong>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/agroclimatic">Agroclimatic</a>
-    <a href="/library">Library</a>
-    <a href="/pollutions">Pollutions</a>
+    <a href="/">Inicio</a>
+    <a href="/about">Sobre</a>
+    <a href="/agroclimatic">Agroclimática</a>
+    <a href="/library">Bibliotecas</a>
+    <a href="/pollutions">Contaminaciones</a>
     </strong>
 </nav>
 

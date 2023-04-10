@@ -82,7 +82,7 @@
 
     </script>
 
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Agroclimatic Cambios</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Agroclimáticas Cambios</h1>
       
     {#if mensajeUsuario !=""}
         <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
@@ -110,11 +110,5 @@
             </tr>
         </tbody>
     </Table>
+
     
-    {#if resultStatus != ""}
-            <strong>Result:</strong>
-        <pre>
-    {"Código de estado: "+resultStatus}    
-{result}
-        </pre>
-    {/if}

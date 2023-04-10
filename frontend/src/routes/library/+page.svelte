@@ -124,7 +124,7 @@
 
     </script>
 
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos library</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Bibliotecas</h1>
     <p></p>
     {#if mensajeUsuario !=""}
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
@@ -168,13 +168,3 @@
         <Button color="danger" on:click={deletelibraryAll}>Borrar Datos</Button>
     </div>
     
-    {#if resultStatus != ""}
-        <p>
-            <strong>Número de datos: {librarys.length}</strong>
-        </p>
-        <strong>Result:</strong>
-        <pre>
-    {"Código de estado: "+resultStatus}
-{result}
-        </pre>
-    {/if}
