@@ -34,10 +34,11 @@
             const status = await res.status;
             resultStatus = status;
             if(status==200){
-                mensajeUsuario = "Se han insertado los datos de nuevo. Por favor, recargue la página";
+                mensajeUsuario = "Se han insertado los datos de nuevo";
             }else{
                 mensajeUsuario = "No se han podido insertar los datos de nuevo";
             }
+            getAgroclimatic();
         }
 
         async function getAgroclimatic(){
@@ -135,12 +136,14 @@
 
     </script>
 
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Agroclimática</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Agroclimáticas</h1>
     <p></p>
     {#if mensajeUsuario !=""}
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
     {/if}
 
+    <strong style="margin: 10px;">Número de datos: {agroclimatics.length}</strong>
+    
     <Table striped>
         <thead>
           <tr>
