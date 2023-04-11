@@ -107,7 +107,7 @@ function loadBackend_jfr2 (app){
         db.find({}, (err, pollution)=>{
             if (from && to && !err) {
                 const provinciasAño = pollution.filter(x => {return x.year >= from && x.year <= to}); 
-                if (from >= to) {
+                if (from > to) {
                     response.status(400).json("El rango de años especificado es inválido");
                 
                 }else{

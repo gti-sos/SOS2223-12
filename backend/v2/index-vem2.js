@@ -104,7 +104,7 @@ function loadBackend_vem2 (app){
         db.find({}, (err, library)=>{
             if (from && to && !err) {
                 const provinciasAño = library.filter(x => {return x.modified >= from && x.modified <= to}); 
-                if (from >= to) {
+                if (from > to) {
                     response.status(400).json("El rango de años especificado es inválido");
                 
                 }else{

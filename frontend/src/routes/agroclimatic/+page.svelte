@@ -28,6 +28,7 @@
 
         let añoInicio = "";
         let añoFinal = "";
+        let filtroProvincia = "";
 
         async function loadData(){
             resultStatus = result = "";
@@ -38,10 +39,10 @@
             resultStatus = status;
             if(status==200){
                 mensajeUsuario = "Se han insertado los datos de nuevo";
+                getAgroclimatic();
             }else{
                 mensajeUsuario = "No se han podido insertar los datos de nuevo";
             }
-            getAgroclimatic();
         }
 
         async function getAgroclimatic(){
@@ -60,7 +61,7 @@
             resultStatus = status;
         }
 
-        async function getAgroclimaticFiltro(){
+        async function getAgroclimaticFiltroAño(){
             resultStatus = result = "";
             if(añoFinal < añoInicio){
                 mensajeUsuario = "El año final no puede ser menor que el año de inicio";
@@ -71,13 +72,45 @@
             }else if(añoInicio == "" || añoFinal == ""){
                 mensajeUsuario = "El año de inicio y el año final no pueden estar vacios";
                 return;
+            }else if(agroclimatics.length == 0){
+                mensajeUsuario = "No hay datos para mostrar";
+                return;
             }else if(añoInicio <= añoFinal){
                 mensajeUsuario = "Se muestran los datos correspondientes al filtro";
             }
             const res = await fetch(API+"?from="+añoInicio+"&to="+añoFinal, {
                 method: "GET"
             });
-             console.log(API+"?from="+añoInicio+"&to="+añoFinal);
+            console.log(API+"?from="+añoInicio+"&to="+añoFinal);
+            try{
+                const data = await res.json();
+                result = JSON.stringify(data, null, 2);
+                agroclimatics = data;
+            }catch(error){
+                console.log(`Error parseando el resultado: ${error}`);
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+
+        async function getAgroclimaticFiltroProvincia(){
+            resultStatus = result = "";
+            if(filtroProvincia == ""){
+                mensajeUsuario = "La provincia no puede estar vacia";
+                return;
+            }else if(!isNaN(filtroProvincia)){
+                mensajeUsuario = "La provincia no puede ser un número";
+                return;
+            }else if(agroclimatics.length == 0){
+                mensajeUsuario = "No hay datos para mostrar";
+                return;
+            }else if(filtroProvincia){
+                mensajeUsuario = "Se muestran los datos correspondientes al filtro";
+            }
+            const res = await fetch(API+"?province="+filtroProvincia, {
+                method: "GET"
+            });
+            console.log(API+"?province="+filtroProvincia);
             try{
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
@@ -125,13 +158,13 @@
                 insertedData.push(newAgroclimatic);
             } else if (status == 409) {
                 mensajeUsuario = "El dato introducido ya existe";
-                getAgroclimatic();
+                
             } else if (status == 400) {
                 mensajeUsuario = "Las propiedades introducidas no tienen un formato correcto";
-                getAgroclimatic();
+                
             } else {
                 mensajeUsuario = "No se ha podido crear el dato introducido";
-                getAgroclimatic();
+
             }     
         }
 
@@ -173,10 +206,15 @@
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
     {/if}
 
-    <div style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 30px;">
+    <div style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;">
         <td><input placeholder="Año de Inicio" bind:value={añoInicio}></td>
         <td><input placeholder="Año Final" bind:value={añoFinal}></td>
-        <td><Button color="primary" on:click={getAgroclimaticFiltro}>Filtro</Button></td>
+        <td><Button color="primary" on:click={getAgroclimaticFiltroAño}>Filtra por Año</Button></td>
+        <p></p>
+        <p></p>
+        <p></p>
+        <td><input placeholder="Provincia" bind:value={filtroProvincia}></td>
+        <td><Button color="primary" on:click={getAgroclimaticFiltroProvincia}>Filtra por Provincia</Button></td>
     </div>
     <strong style="margin: 10px;">Número de datos: {agroclimatics.length}</strong>
 
