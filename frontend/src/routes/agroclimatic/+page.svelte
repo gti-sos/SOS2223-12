@@ -68,7 +68,6 @@
                 medium_temperature: parseFloat(newAgroclimaticMediumTemperature)
             };
     
-            // Comprobar si el nuevo dato ya ha sido insertado previamente
             const existingData = insertedData.find(data => 
                 data.province === newAgroclimaticProvince && data.year === newAgroclimaticYear && data.maximun_temperature === newAgroclimaticMaximunTemperature
                     && data.minimun_temperature === newAgroclimaticMinimunTemperature && data.medium_temperature === newAgroclimaticMediumTemperature
@@ -143,7 +142,7 @@
     {/if}
 
     <strong style="margin: 10px;">Número de datos: {agroclimatics.length}</strong>
-    
+
     <Table striped>
         <thead>
           <tr>

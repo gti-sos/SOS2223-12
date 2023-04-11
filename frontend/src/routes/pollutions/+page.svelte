@@ -68,7 +68,6 @@
                 SO2: parseFloat(newPollutionSO2)
             };
     
-            // Comprobar si el nuevo dato ya ha sido insertado previamente
             const existingData = insertedData.find(data => 
                 data.province === newPollutionProvince && data.year === newPollutionYear && data.NO2 === newPollutionNO2
                     && data.O3 === newPollutionO3 && data.SO2 === newPollutionSO2

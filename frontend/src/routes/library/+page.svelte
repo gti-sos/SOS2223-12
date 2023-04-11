@@ -68,7 +68,6 @@
                 postcode: parseFloat(newlibraryPostcode)
             };
     
-            // Comprobar si el nuevo dato ya ha sido insertado previamente
             const existingData = insertedData.find(data => 
                 data.province_name === newlibraryProvince_name && data.modified === newlibraryModified && data.identifier === newlibraryIdentifier
                     && data.locality_id === newlibraryLocality_id && data.postcode === newlibraryPostcode
