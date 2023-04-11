@@ -17,14 +17,17 @@
 
             
         let agroclimatics = [];
-        let newAgroclimaticProvince = "Provincia";
-        let newAgroclimaticYear = "Año";
-        let newAgroclimaticMaximunTemperature = "Temperatura máxima";
-        let newAgroclimaticMinimunTemperature = "Temperatura mínima";
-        let newAgroclimaticMediumTemperature = "Temperatura media";
+        let newAgroclimaticProvince = "";
+        let newAgroclimaticYear = "";
+        let newAgroclimaticMaximunTemperature = "";
+        let newAgroclimaticMinimunTemperature = "";
+        let newAgroclimaticMediumTemperature = "";
 
         let result = "";
         let resultStatus = "";
+
+        let añoInicio = "";
+        let añoFinal = "";
 
         async function loadData(){
             resultStatus = result = "";
@@ -46,6 +49,35 @@
             const res = await fetch(API, {
                 method: "GET"
             });
+            try{
+                const data = await res.json();
+                result = JSON.stringify(data, null, 2);
+                agroclimatics = data;
+            }catch(error){
+                console.log(`Error parseando el resultado: ${error}`);
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+
+        async function getAgroclimaticFiltro(){
+            resultStatus = result = "";
+            if(añoFinal < añoInicio){
+                mensajeUsuario = "El año final no puede ser menor que el año de inicio";
+                return;
+            }else if(isNaN(añoInicio) || isNaN(añoFinal)){
+                mensajeUsuario = "El año de inicio y el año final no pueden ser letras";
+                return;
+            }else if(añoInicio == "" || añoFinal == ""){
+                mensajeUsuario = "El año de inicio y el año final no pueden estar vacios";
+                return;
+            }else if(añoInicio <= añoFinal){
+                mensajeUsuario = "Se muestran los datos correspondientes al filtro";
+            }
+            const res = await fetch(API+"?from="+añoInicio+"&to="+añoFinal, {
+                method: "GET"
+            });
+             console.log(API+"?from="+añoInicio+"&to="+añoFinal);
             try{
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
@@ -141,6 +173,11 @@
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
     {/if}
 
+    <div style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 30px;">
+        <td><input placeholder="Año de Inicio" bind:value={añoInicio}></td>
+        <td><input placeholder="Año Final" bind:value={añoFinal}></td>
+        <td><Button color="primary" on:click={getAgroclimaticFiltro}>Filtro</Button></td>
+    </div>
     <strong style="margin: 10px;">Número de datos: {agroclimatics.length}</strong>
 
     <Table striped>
@@ -156,11 +193,11 @@
         </thead>
         <tbody>
             <tr>
-                <td><input bind:value={newAgroclimaticProvince}></td>
-                <td><input bind:value={newAgroclimaticYear}></td>
-                <td><input bind:value={newAgroclimaticMaximunTemperature}></td>
-                <td><input bind:value={newAgroclimaticMinimunTemperature}></td>
-                <td><input bind:value={newAgroclimaticMediumTemperature}></td>
+                <td><input placeholder="Provincia" bind:value={newAgroclimaticProvince}></td>
+                <td><input placeholder="Año" bind:value={newAgroclimaticYear}></td>
+                <td><input placeholder="Máxima Temperatura" bind:value={newAgroclimaticMaximunTemperature}></td>
+                <td><input placeholder="Mínima Temperatura" bind:value={newAgroclimaticMinimunTemperature}></td>
+                <td><input placeholder="Media Temperatura" bind:value={newAgroclimaticMediumTemperature}></td>
                 <td><Button color="success" on:click={createAgroclimatic}>Crear</Button></td>
             </tr>
         
