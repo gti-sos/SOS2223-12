@@ -4,6 +4,7 @@
         import { onMount } from "svelte";
         import { dev } from "$app/environment";
         import { Button, Table } from 'sveltestrap';
+        import { Pagination, PaginationItem, PaginationLink } from 'sveltestrap';
 
         onMount(async () =>{
             getAgroclimatic();
@@ -11,6 +12,7 @@
 
         let API = "/api/v2/agroclimatic";
         let mensajeUsuario = "";
+        let mensajePaginacion = "";
 
         if(dev)
             API = "http://localhost:12345"+API
@@ -29,6 +31,8 @@
         let añoInicio = "";
         let añoFinal = "";
         let filtroProvincia = "";
+        let offsetFiltro = "";
+        let limitFiltro = "";
 
         async function loadData(){
             resultStatus = result = "";
@@ -111,6 +115,35 @@
                 method: "GET"
             });
             console.log(API+"?province="+filtroProvincia);
+            try{
+                const data = await res.json();
+                result = JSON.stringify(data, null, 2);
+                agroclimatics = data;
+            }catch(error){
+                console.log(`Error parseando el resultado: ${error}`);
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+
+        async function getPaginacion(){
+            resultStatus = result = "";
+            if(offsetFiltro == "" || limitFiltro == ""){
+                mensajePaginacion = "Los parámetros no pueden estar vacios";
+                return;
+            }else if(isNaN(offsetFiltro) || isNaN(limitFiltro)){
+                mensajePaginacion = "Los parámetros no pueden ser letras";
+                return;
+            }else if(limitFiltro <= 0){
+                mensajePaginacion = "El límite debe ser superior a 0";
+                return;
+            }else{
+                mensajePaginacion = "Se muestran los datos correspondientes al filtro";
+            }
+            const res = await fetch(API+"?offset="+offsetFiltro+"&limit="+limitFiltro, {
+                method: "GET"
+            });
+            console.log(API+"?offset="+offsetFiltro+"&limit="+limitFiltro);
             try{
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
@@ -252,9 +285,44 @@
         </tbody>
     </Table>
     
+    <!--<Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;" ariaLabel="Page navigation example">
+        <PaginationItem disabled>
+          <PaginationLink previous href="#" />
+        </PaginationItem>
+        <PaginationItem active>
+          <PaginationLink href={getPaginacion}>1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">2</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">4</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">5</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink next href="#" />
+        </PaginationItem>
+    </Pagination>-->
+    <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
+
+    {#if mensajePaginacion !=""}
+    <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajePaginacion}</h2>
+    {/if}
+    <p></p>
+    <div style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;">
+        <td><input placeholder="A partir de: " bind:value={offsetFiltro}></td>
+        <td><input placeholder="Límite" bind:value={limitFiltro}></td>
+        <td><Button style="center" color="primary" on:click={getPaginacion}>Paginación</Button></td>
+    </div>
+    <p></p>
     <div style="text-align: center;">
         <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
-        <Button color="primary" on:click={loadData}>Cargar Datos</Button>
+        <Button color="success" on:click={loadData}>Cargar Datos</Button>
     </div>
     
     
