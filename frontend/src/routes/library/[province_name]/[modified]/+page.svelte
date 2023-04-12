@@ -110,4 +110,17 @@
             </tr>
         </tbody>
     </Table>
+
+    <div class ="atras">
+        <Button color="secondary" href= "/library">Atrás</Button>
+    </div>
+
+    <style>
+
+        .atras{
+            justify-content: center;
+            display: flex;
+        }
+
+    </style>
     
