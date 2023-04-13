@@ -16,11 +16,11 @@
     if (dev) API = "http://localhost:12345" + API;
 
     let librarys = [];
-    let newlibraryProvince_name = "Provincia";
-    let newlibraryModified = "Año";
-    let newlibraryIdentifier = "Identificación";
-    let newlibraryLocality_id = "Localidad";
-    let newlibraryPostcode = "Código postal";
+    let newlibraryProvince_name = "";
+    let newlibraryModified = "";
+    let newlibraryIdentifier = "";
+    let newlibraryLocality_id = "";
+    let newlibraryPostcode = "";
 
     let result = "";
     let resultStatus = "";
