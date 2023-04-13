@@ -231,6 +231,18 @@
             }
         }
 
+        async function getLimpiarFiltros(){
+        resultStatus = result = "";
+        if(filtroProvincia != "" || añoInicio != "" || añoFinal != ""){
+            filtroProvincia = "";
+            añoInicio = "";
+            añoFinal = "";
+        }
+        getAgroclimatic();
+        mensajeUsuario = "";
+        return;
+        }
+
     </script>
 
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Agroclimáticas</h1>
@@ -239,15 +251,19 @@
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
     {/if}
 
-    <div style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;">
-        <td><input placeholder="Año de Inicio" bind:value={añoInicio}></td>
-        <td><input placeholder="Año Final" bind:value={añoFinal}></td>
-        <td><Button color="primary" on:click={getAgroclimaticFiltroAño}>Filtra por Año</Button></td>
-        <p></p>
-        <p></p>
-        <p></p>
-        <td><input placeholder="Provincia" bind:value={filtroProvincia}></td>
-        <td><Button color="primary" on:click={getAgroclimaticFiltroProvincia}>Filtra por Provincia</Button></td>
+    <div class = "filtros">
+        <div class = "filtroAño">
+            <input placeholder="Año de inicio" bind:value={añoInicio}>
+            <input placeholder="Año Final" bind:value={añoFinal}>
+            <Button color="primary" on:click={getAgroclimaticFiltroAño}>Filtra por Año</Button>
+        </div>
+        <div class = "filtroProvincia">
+            <input placeholder="Provincia" bind:value={filtroProvincia}>
+            <Button color = "primary" on:click={getAgroclimaticFiltroProvincia}>Filtra por Provincia</Button>
+        </div>
+        <div class ="limpiarFiltros">
+            <Button color="secondary" on:click={getLimpiarFiltros}>Limpiar Filtros</Button>
+        </div>
     </div>
     <strong style="margin: 10px;">Número de datos: {agroclimatics.length}</strong>
 
@@ -320,9 +336,36 @@
         <td><Button style="center" color="primary" on:click={getPaginacion}>Paginación</Button></td>
     </div>
     <p></p>
-    <div style="text-align: center;">
+    <div style="text-align: center; word-spacing: 20px;">
         <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
         <Button color="success" on:click={loadData}>Cargar Datos</Button>
     </div>
+
+    <style>
+
+        .filtros{
+            display: flex;
+            justify-content: center;
+        }
+    
+        .filtroAño{
+            margin: 30px;
+            display: flex;
+            gap: 15px;
+            }
+    
+        .limpiarFiltros{
+            margin: 30px;
+            display: flex;
+            gap: 15px;
+        }
+        
+        .filtroProvincia{
+            margin: 30px;
+            display: flex;
+            gap: 15px;
+        }
+    </style>
+    
     
     

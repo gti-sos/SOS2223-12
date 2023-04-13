@@ -111,4 +111,8 @@
         </tbody>
     </Table>
 
+    <div style="justify-content: center; display:flex;">
+        <Button color="secondary" href= "/agroclimatic">Atrás</Button>
+    </div>
+
     
