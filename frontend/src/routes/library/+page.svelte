@@ -44,6 +44,8 @@
         getlibrary();
     }
 
+    
+
     async function getlibrary() {
         resultStatus = result = "";
         const res = await fetch(API, {
@@ -293,6 +295,9 @@
         {/each}
     </tbody>
 </Table>
+
+
+
 
 <div style="text-align: center;">
     <Button color="danger" on:click={deletelibraryAll}>Borrar Datos</Button>

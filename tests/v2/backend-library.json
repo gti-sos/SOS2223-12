@@ -128,7 +128,7 @@
 							"pm.test(\"El codigo esperado es 200\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de elementos debe ser mayor que 10\", function(){\r",
+							"pm.test(\"El numero de elementos debe ser mayor que 24\", function(){\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
@@ -745,7 +745,7 @@
 			"response": []
 		},
 		{
-			"name": "/library 10 elementos",
+			"name": "/library 24 elementos",
 			"event": [
 				{
 					"listen": "test",
