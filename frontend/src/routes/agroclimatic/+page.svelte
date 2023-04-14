@@ -51,7 +51,7 @@
 
         async function getAgroclimatic(){
             resultStatus = result = "";
-            const res = await fetch(API, {
+            const res = await fetch(API+"?offset=0&limit=10", {
                 method: "GET"
             });
             try{
@@ -126,20 +126,8 @@
             resultStatus = status;
         }
 
-        async function getPaginacion(){
+        async function getPaginacion(offsetFiltro, limitFiltro){
             resultStatus = result = "";
-            if(offsetFiltro == "" || limitFiltro == ""){
-                mensajePaginacion = "Los parámetros no pueden estar vacios";
-                return;
-            }else if(isNaN(offsetFiltro) || isNaN(limitFiltro)){
-                mensajePaginacion = "Los parámetros no pueden ser letras";
-                return;
-            }else if(limitFiltro <= 0){
-                mensajePaginacion = "El límite debe ser superior a 0";
-                return;
-            }else{
-                mensajePaginacion = "Se muestran los datos correspondientes al filtro";
-            }
             const res = await fetch(API+"?offset="+offsetFiltro+"&limit="+limitFiltro, {
                 method: "GET"
             });
@@ -301,32 +289,26 @@
         </tbody>
     </Table>
     
-    <!--<Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;" ariaLabel="Page navigation example">
-        <PaginationItem disabled>
-          <PaginationLink previous href="#" />
-        </PaginationItem>
-        <PaginationItem active>
-          <PaginationLink href={getPaginacion}>1</PaginationLink>
+    <Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;" ariaLabel="Page navigation example">
+        <PaginationItem>
+            <PaginationLink on:click={() => getPaginacion(0,10)} first href="/agroclimatic"/>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
+            <PaginationLink on:click={() => getPaginacion(0,10)} href="/agroclimatic">1</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
+            <PaginationLink on:click={() => getPaginacion(10,10)} href="/agroclimatic?offset=10&limit=10">2</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">4</PaginationLink>
+            <PaginationLink on:click={() => getPaginacion(20,10)} href="/agroclimatic?offset=20&limit=10">3</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">5</PaginationLink>
+            <PaginationLink on:click={() => getPaginacion(20,10)} last href="/agroclimatic?offset=20&limit=10" />
         </PaginationItem>
-        <PaginationItem>
-          <PaginationLink next href="#" />
-        </PaginationItem>
-    </Pagination>-->
+    </Pagination>
     <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 
-    {#if mensajePaginacion !=""}
+    <!--{#if mensajePaginacion !=""}
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajePaginacion}</h2>
     {/if}
     <p></p>
@@ -335,7 +317,7 @@
         <td><input placeholder="Límite" bind:value={limitFiltro}></td>
         <td><Button style="center" color="primary" on:click={getPaginacion}>Paginación</Button></td>
     </div>
-    <p></p>
+    <p></p>-->
     <div style="text-align: center; word-spacing: 20px;">
         <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
         <Button color="success" on:click={loadData}>Cargar Datos</Button>

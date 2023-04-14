@@ -7,10 +7,28 @@ function loadBackend_aml2(app){
     var datos = [
         {
             province: "Sevilla",
+            year: 2016,
+            maximun_temperature: 39.55,
+            minimun_temperature: 19.55,
+            medium_temperature: 29.55 
+        },{
+            province: "Sevilla",
+            year: 2017,
+            maximun_temperature: 38.55,
+            minimun_temperature: 18.55,
+            medium_temperature: 28.55
+        },{
+            province: "Sevilla",
+            year: 2018,
+            maximun_temperature: 37.55,
+            minimun_temperature: 17.55,
+            medium_temperature: 27.55
+        },{
+            province: "Sevilla",
             year: 2019,
             maximun_temperature: 37.57,
             minimun_temperature: 18.77,
-            medium_temperature: 27.57 
+            medium_temperature: 27.57
         },{
             province: "Sevilla",
             year: 2020,
@@ -22,7 +40,25 @@ function loadBackend_aml2(app){
             year: 2021,
             maximun_temperature: 36.16,
             minimun_temperature: 18.69,
-            medium_temperature: 27.57
+            medium_temperature: 27.57 
+        },{
+            province: "Huelva",
+            year: 2016,
+            maximun_temperature: 32.15,
+            minimun_temperature: 12.15,
+            medium_temperature: 22.15
+        },{
+            province: "Huelva",
+            year: 2017,
+            maximun_temperature: 32.75,
+            minimun_temperature: 12.75,
+            medium_temperature: 22.75
+        },{
+            province: "Huelva",
+            year: 2018,
+            maximun_temperature: 33.75,
+            minimun_temperature: 13.75,
+            medium_temperature: 23.75
         },{
             province: "Huelva",
             year: 2019,
@@ -43,28 +79,76 @@ function loadBackend_aml2(app){
             medium_temperature: 27.23
         },{
             province: "Malaga",
+            year: 2016,
+            maximun_temperature: 31.45,
+            minimun_temperature: 11.45,
+            medium_temperature: 21.45
+        },{
+            province: "Malaga",
+            year: 2017,
+            maximun_temperature: 33.45,
+            minimun_temperature: 13.45,
+            medium_temperature: 23.45,
+        },{
+            province: "Malaga",
+            year: 2018,
+            maximun_temperature: 34.15,
+            minimun_temperature: 14.15,
+            medium_temperature: 24.15
+        },{
+            province: "Malaga",
             year: 2019,
             maximun_temperature: 34.68,
             minimun_temperature: 16.62,
-            medium_temperature: 25.52
+            medium_temperature: 25.52 
         },{
             province: "Malaga",
             year: 2020,
             maximun_temperature: 36.56,
-            minimun_temperature: 18.5,
+            minimun_temperature: 18.50,
             medium_temperature: 27.19
         },{
             province: "Malaga",
             year: 2021,
-            maximun_temperature: 37.3,
-            minimun_temperature: 18.5,
-            medium_temperature: 27.72,
+            maximun_temperature: 37.30,
+            minimun_temperature: 18.50,
+            medium_temperature: 27.72
+        },{
+            province: "Cordoba",
+            year: 2016,
+            maximun_temperature: 33.88,
+            minimun_temperature: 13.88,
+            medium_temperature: 23.88
+        },{
+            province: "Cordoba",
+            year: 2017,
+            maximun_temperature: 34.11,
+            minimun_temperature: 14.11,
+            medium_temperature: 24.11
+        },{
+            province: "Cordoba",
+            year: 2018,
+            maximun_temperature: 34.66,
+            minimun_temperature: 14.66,
+            medium_temperature: 24.66
         },{
             province: "Cordoba",
             year: 2019,
+            maximun_temperature: 35.99,
+            minimun_temperature: 15.99,
+            medium_temperature: 25.99
+        },{
+            province: "Cordoba",
+            year: 2020,
+            maximun_temperature: 36.22,
+            minimun_temperature: 16.22,
+            medium_temperature: 26.22
+        },{
+            province: "Cordoba",
+            year: 2021,
             maximun_temperature: 37.77,
-            minimun_temperature: 18.3,
-            medium_temperature: 27.76
+            minimun_temperature: 18.30,
+            medium_temperature: 27.76,
         }
     ];
     
