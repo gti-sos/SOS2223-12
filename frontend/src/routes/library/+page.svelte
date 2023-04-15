@@ -4,7 +4,7 @@
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
     import { Button, Table } from "sveltestrap";
-    import { get } from "svelte/store";
+    import { Pagination, PaginationItem, PaginationLink } from "sveltestrap";
 
     onMount(async () => {
         getlibrary();
@@ -25,62 +25,87 @@
     let result = "";
     let resultStatus = "";
 
-    let añoInicio = "";
-    let añoFinal = "";
-    let provinciaFiltrada = "";
+    let from = "";
+    let to = "";
+    let province_name = "";
+    let modified = "";
+    let identifier_over = "";
+    let identifier_under = "";
+    let locality_id_over = "";
+    let locality_id_under = "";
+    let postcode_over = "";
+    let postcode_under = "";
 
     async function loadData() {
         resultStatus = result = "";
-        const res = await fetch(API + "/loadInitialData", {
-            method: "GET",
+        const res = await fetch(API + '/loadInitialData', {
+            method: 'GET',
         });
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
             mensajeUsuario = "Se han insertado los datos de nuevo";
+            getlibrary();
+            setTimeout(() => {mensajeUsuario = "";}, 3000);
         } else {
             mensajeUsuario = "No se han podido insertar los datos de nuevo";
+            setTimeout(() => {mensajeUsuario = "";}, 3000);
         }
-        getlibrary();
     }
 
-    
-
-    async function getlibrary() {
-        resultStatus = result = "";
-        const res = await fetch(API, {
-            method: "GET",
-        });
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            librarys = data;
-        } catch (error) {
-            console.log(`Error parseando el resultado: ${error}`);
+    async function getlibrary(){
+            resultStatus = result = "";
+            const res = await fetch(API+"?offset=-1&limit=10", {
+                method: "GET"
+            });
+            try{
+                const data = await res.json();
+                result = JSON.stringify(data, null, 2);
+                librarys = data;
+            }catch(error){
+                console.log(`Error parseando el resultado: ${error}`);
+            }
+            const status = await res.status;
+            resultStatus = status;
         }
-        const status = await res.status;
-        resultStatus = status;
-    }
 
-    async function getFiltroAño() {
-        resultStatus = result = "";
-        if(añoFinal < añoInicio){
-            mensajeUsuario = "El año final no puede ser menor que el año de inicio"
-            return;
-        }else if(añoInicio=="" || añoFinal == ""){
-            mensajeUsuario = "Debe introducir un año de inicio y un año final"
-            return;
-        }else if(librarys.length==0){
-            mensajeUsuario = "No hay ningún dato comprendido entre esas fechas"
-            return;
-        }else {
-            mensajeUsuario = "Se están mostrando los datos correspondientes al filtro"
+    async function getlibraryFiltros() {
+        const consulta = {};
+        if (province_name) {
+            consulta.province_name = province_name;
         }
-        
+        if (modified) {
+            consulta.modified = modified;
+        }
+        if (from) {
+            consulta.from = from;
+        }
+        if (to) {
+            consulta.to = to;
+        }
+        if (identifier_over) {
+            consulta.identifier_over = identifier_over;
+        }
+        if (identifier_under) {
+            consulta.identifier_under = identifier_under;
+        }
+        if (locality_id_over) {
+            consulta.locality_id_over = locality_id_over;
+        }
+        if (locality_id_under) {
+            consulta.locality_id_under = locality_id_under;
+        }
+        if (postcode_over) {
+            consulta.postcode_over = postcode_over;
+        }
+        if (postcode_under) {
+            consulta.postcode_under = postcode;
+        }
 
+        console.log(new URLSearchParams(consulta).toString());
 
         const res = await fetch(
-            API + "?from=" + añoInicio + "&to=" + añoFinal,
+            API + `?${new URLSearchParams(consulta).toString()}`,
             {
                 method: "GET",
             }
@@ -94,26 +119,28 @@
         }
         const status = await res.status;
         resultStatus = status;
+        if (status == 200) {
+            mensajeUsuario = "Datos correspondientes al filtro";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
+        } else {
+            mensajeUsuario = "No se han podido encontrar los datos";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
+        }
     }
 
-    async function getFiltroProvincia(){
+    async function getPaginacion(offsetFiltro, limitFiltro) {
         resultStatus = result = "";
-        if(provinciaFiltrada == ""){
-            mensajeUsuario = "Debe introducir una provincia"
-            return;
-        }else if(librarys.length==0){
-            mensajeUsuario = "No hay datos para esta provincia"
-            return;
-        }else{
-            mensajeUsuario = "Se están mostrando los datos correspondientes al filtro"
-        }
-
         const res = await fetch(
-            API + "?province_name=" + provinciaFiltrada,
+            API + "?offset=" + offsetFiltro + "&limit=" + limitFiltro,
             {
                 method: "GET",
             }
         );
+        console.log(API + "?offset=" + offsetFiltro + "&limit=" + limitFiltro);
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
@@ -125,20 +152,33 @@
         resultStatus = status;
     }
 
-    async function getLimpiarFiltros(){
+    async function getLimpiarFiltros() {
         resultStatus = result = "";
-        if(provinciaFiltrada != "" || añoInicio != "" || añoFinal != ""){
-            provinciaFiltrada = "";
-            añoInicio = "";
-            añoFinal = "";
+        if (
+            province_name != "" ||
+            modified != "" ||
+            identifier_over != "" ||
+            identifier_under != "" ||
+            locality_id_over != "" ||
+            locality_id_under != "" ||
+            postcode_over != "" ||
+            postcode_under != "" ||
+            from != "" ||
+            to != ""
+        ) {
+            from = "";
+            to = "";
+            province_name = "";
+            modified = "";
+            identifier_over = "";
+            identifier_under = "";
+            locality_id_over = "";
+            locality_id_under = "";
+            postcode_over = "";
+            postcode_under = "";
         }
         getlibrary();
-        mensajeUsuario = "";
         return;
-    }
-
-    async function getPaginacion() {
-
     }
 
     let insertedData = [];
@@ -162,6 +202,9 @@
         );
         if (existingData) {
             mensajeUsuario = "Ya existe ese dato";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
             return;
         }
 
@@ -179,16 +222,25 @@
             getlibrary();
             mensajeUsuario = "Se ha creado el nuevo dato introducido";
             insertedData.push(newlibrary);
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         } else if (status == 409) {
             mensajeUsuario = "El dato introducido ya existe";
-            getlibrary();
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         } else if (status == 400) {
             mensajeUsuario =
                 "Las propiedades introducidas no tienen un formato correcto";
-            getlibrary();
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         } else {
             mensajeUsuario = "No se ha podido crear el dato introducido";
-            getlibrary();
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         }
     }
 
@@ -202,8 +254,14 @@
         if (status == 200) {
             getlibrary();
             mensajeUsuario = "Se ha borrado correctamente el dato seleccionado";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         } else {
             mensajeUsuario = "No se ha podido borrar el dato";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         }
     }
 
@@ -217,8 +275,14 @@
         if (status == 200 || status == 204) {
             await getlibrary();
             mensajeUsuario = "Se han borrado correctamente los datos";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         } else {
             mensajeUsuario = "No se han podido borrar los datos";
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         }
     }
 </script>
@@ -237,24 +301,60 @@
     </h2>
 {/if}
 
-<div class = "filtros">
-
-    <div class = "filtroAño">
-        <input placeholder="Año de inicio" bind:value={añoInicio}>
-        <input placeholder="Año Final" bind:value={añoFinal}>
-        <Button color="primary" on:click={getFiltroAño}> Filtrar </Button>
+<div class="filtros">
+    <div class="filtro">
+        <input placeholder="Año de inicio" bind:value={from} />
+        <input placeholder="Año Final" bind:value={to} />
     </div>
 
-    <div class = "filtroProvincia">
-        <input placeholder="Provincia" bind:value={provinciaFiltrada}>
-        <Button color = "primary" on:click={getFiltroProvincia}> Filtrar </Button>
+    <div class="filtro">
+        <input placeholder="Provincia" bind:value={province_name} />
     </div>
-
-    <div class ="limpiarFiltros">
-        <Button color="secondary" on:click={getLimpiarFiltros}> Limpiar Filtros </Button>
-    </div>
-
+    
+    <div class = "filtro">
+        <input placeholder="Año" bind:value={modified} />
+    </div> 
 </div>
+
+<div class = "filtros">
+    <div class = "filtro">
+        <input placeholder="Identificador mayor o igual" bind:value={identifier_over} />
+    </div> 
+    <div class = "filtro">
+        <input placeholder="Identificador menor o igual" bind:value={identifier_under} />
+    </div> 
+</div>
+
+<div class = "filtros">
+    <div class = "filtro">
+        <input placeholder="Localidad mayor o igual" bind:value={locality_id_over} />
+    </div> 
+    <div class = "filtro">
+        <input placeholder="Localidad menor o igual" bind:value={locality_id_under} />
+    </div> 
+</div>
+
+<div class = "filtros">
+    <div class = "filtro">
+        <input placeholder="Código postal mayor o igual" bind:value={postcode_over} />
+    </div> 
+    <div class = "filtro">
+        <input placeholder="Código postal menor o igual" bind:value={postcode_under} />
+    </div> 
+</div>
+
+<div class = "botones">
+    <div class = "filtro">
+        <Button color = "primary" on:click={getlibraryFiltros}> Filtrar </Button>
+    </div>
+
+    <div class="filtro">
+        <Button color="secondary" on:click={getLimpiarFiltros}>
+            Limpiar Filtros
+        </Button>
+    </div>
+</div>
+    
 
 
 <strong style="margin: 10px;">Número de datos: {librarys.length}</strong>
@@ -268,18 +368,41 @@
             <th style="text-decoration: underline;">Localidad:</th>
             <th style="text-decoration: underline;">Código postal:</th>
             <th style="text-decoration: underline;">Acciones:</th>
-            <th style="text-decoration: underline;"></th>
+            <th style="text-decoration: underline;" />
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td><input placeholder = "Provincia" bind:value={newlibraryProvince_name} ></td>
-            <td><input placeholder = "Año" bind:value={newlibraryModified} ></td>
-            <td><input placeholder = "Identificación" bind:value={newlibraryIdentifier} ></td>
-            <td><input placeholder = "Localidad" bind:value={newlibraryLocality_id} ></td>
-            <td><input placeholder = "Código postal" bind:value={newlibraryPostcode} ></td>
-            <td><Button color="success" on:click={createlibrary}>Crear</Button></td>
-            <td></td>
+            <td
+                ><input
+                    placeholder="Provincia"
+                    bind:value={newlibraryProvince_name}
+                /></td
+            >
+            <td><input placeholder="Año" bind:value={newlibraryModified} /></td>
+            <td
+                ><input
+                    placeholder="Identificación"
+                    bind:value={newlibraryIdentifier}
+                /></td
+            >
+            <td
+                ><input
+                    placeholder="Localidad"
+                    bind:value={newlibraryLocality_id}
+                /></td
+            >
+            <td
+                ><input
+                    placeholder="Código postal"
+                    bind:value={newlibraryPostcode}
+                /></td
+            >
+            <td
+                ><Button color="success" on:click={createlibrary}>Crear</Button
+                ></td
+            >
+            <td />
         </tr>
 
         {#each librarys as library}
@@ -289,15 +412,42 @@
                 <td>{library.identifier}</td>
                 <td>{library.locality_id}</td>
                 <td>{library.postcode}</td>
-                <td><Button color= "secondary" href= "/library/{library.province_name}/{library.modified}">Editar</Button></td>
-                <td><Button color="danger" on:click={deletelibrary(library.province_name)} >Borrar</Button></td>
+                <td
+                    ><Button
+                        color="secondary"
+                        href="/library/{library.province_name}/{library.modified}"
+                        >Editar</Button
+                    ></td
+                >
+                <td
+                    ><Button
+                        color="danger"
+                        on:click={deletelibrary(library.province_name)}
+                        >Borrar</Button
+                    ></td
+                >
             </tr>
         {/each}
     </tbody>
 </Table>
 
-
-
+<Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;" ariaLabel="Page navigation example">
+    <PaginationItem>
+        <PaginationLink on:click={() => getPaginacion(-1,10)} first/>
+    </PaginationItem>
+    <PaginationItem>
+        <PaginationLink on:click={() => getPaginacion(-1,10)}>1</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+        <PaginationLink on:click={() => getPaginacion(9,10)}>2</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+        <PaginationLink on:click={() => getPaginacion(19,10)}>3</PaginationLink>
+    </PaginationItem>
+    <PaginationItem>
+        <PaginationLink on:click={() => getPaginacion(19,10)} last/>
+    </PaginationItem>
+</Pagination>
 
 <div style="text-align: center;">
     <Button color="danger" on:click={deletelibraryAll}>Borrar Datos</Button>
@@ -305,30 +455,20 @@
 </div>
 
 <style>
-
-    .filtros{
+    .filtros {
         display: flex;
         justify-content: center;
     }
 
-    .filtroAño{
-        margin: 30px;
-        display: flex;
-        gap: 15px;
-        }
-
-    .limpiarFiltros{
+    .filtro {
         margin: 30px;
         display: flex;
         gap: 15px;
     }
-    
-    .filtroProvincia{
-        margin: 30px;
-        display: flex;
-        gap: 15px;
-    }
-    
 
-    
+    .botones {
+        display: flex;
+        justify-content: center;
+        margin: 15px;
+    }
 </style>
