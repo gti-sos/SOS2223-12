@@ -50,6 +50,7 @@
             resultStatus = status;
             if(status==404){
                 mensajeUsuario = `La ruta solicitada "${province}/${year}" no existe`;
+                setTimeout(() => {mensajeUsuario = '';}, 3000);
             }
         }
 
@@ -73,10 +74,13 @@
             if(status==200){
                 getAgroclimatic_dato();
                 mensajeUsuario = "Se ha actualizado el dato";
+                setTimeout(() => {mensajeUsuario = '';}, 3000);
             }else if(status==400){ 
                 mensajeUsuario = "Los datos introducidos no son válidos";
+                setTimeout(() => {mensajeUsuario = '';}, 3000);
             }else{
                 mensajeUsuario = "No se ha podido actualizar el dato";
+                setTimeout(() => {mensajeUsuario = '';}, 3000);
             }       
         }
 

@@ -37,7 +37,7 @@
         let temp_min_over = "";
         let temp_med_under = "";
         let temp_med_over = "";
-        let showModal = false;
+        //let showModal = false;
 
         async function loadData(){
             resultStatus = result = "";
@@ -104,7 +104,6 @@
             if (temp_med_over) { 
                 consulta.temp_med_over = temp_med_over; 
             }
-            //Realiza la solicitud GET al endpoint /api/v2/evolution con la consulta creada
             console.log(new URLSearchParams(consulta).toString());
             const res = await fetch(API+`?${new URLSearchParams(consulta).toString()}`, {
                 method: "GET"
@@ -243,7 +242,6 @@
             temp_med_over = "";
         }
         getAgroclimatic();
-        mensajeUsuario = "";
         return;
         }
 
@@ -255,53 +253,65 @@
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
     {/if}
 
-    <label>
-        Desde el año:
-        <input bind:value={from} type="text" />
-    </label>
-    <label>
-        Hasta el año:
-        <input bind:value={to} type="text" />
-    </label>
-    <label>
-        Provincia:
-        <input bind:value={province} type="text" />
-    </label>
-    <label>
-        Año:
-        <input bind:value={year} type="text" />
-    </label>
-    <label>
-        Temperatura Máxima mayor o igual:
-        <input bind:value={temp_max_over} type="text" />
-    </label>
-    <label>
-        Temperatura Máxima menor o igual:
-        <input bind:value={temp_max_under} type="text" />
-    </label>
-    <label>
-        Temperatura Mínima mayor o igual:
-        <input bind:value={temp_min_over} type="text" />
-    </label>
-    <label>
-        Temperatura Mínima menor o igual:
-        <input bind:value={temp_min_under} type="text" />
-    </label>
-    <label>
-        Temperatura Media mayor o igual:
-        <input bind:value={temp_med_over} type="text" />
-    </label>
-    <label>
-        Temperatura Media menor o igual:
-        <input bind:value={temp_med_under} type="text" />
-    </label>
-      
+    <div class="camposFiltros">
+        <label class="columna">
+            Desde el año:
+            <input bind:value={from} type="text"/>
+        </label>
+        <label class="columna">
+            Hasta el año:
+            <input bind:value={to} type="text"/>
+        </label>
+        <label class="columna">
+            Provincia:
+            <input bind:value={province} type="text"/>
+        </label>
+        <label class="columna">
+            Año:
+            <input bind:value={year} type="text"/>
+        </label>
+    </div>
+
+    <div class="camposFiltros">
+        <label class="columna">
+            Temperatura Máxima mayor o igual:
+            <input bind:value={temp_max_over} type="text"/>
+        </label>
+        <label class="columna">
+            Temperatura Máxima menor o igual:
+            <input bind:value={temp_max_under} type="text"/>
+        </label>
+    </div>
+    
+    <div class="camposFiltros">
+        <label class="columna">
+            Temperatura Mínima mayor o igual:
+            <input bind:value={temp_min_over} type="text"/>
+        </label>
+        <label class="columna">
+            Temperatura Mínima menor o igual:
+            <input bind:value={temp_min_under} type="text"/>
+        </label>
+    </div>
+    <div class="camposFiltros">
+        <label class="columna">
+            Temperatura Media mayor o igual:
+            <input bind:value={temp_med_over} type="text"/>
+        </label>
+        <label class="columna">
+            Temperatura Media menor o igual:
+            <input bind:value={temp_med_under} type="text"/>
+        </label>
+    </div>
     <p></p>
     <div style="text-align: center; word-spacing: 15px;">
         <Button color = "primary" on:click={getAgroclimaticFiltrado}>Filtrar</Button>
 
         <Button color="secondary" on:click={getLimpiarFiltros}>Limpiar Filtros</Button>
     </div>
+
+    <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
+
     <strong style="margin-left: 10px;">Número de datos: {agroclimatics.length}</strong>
 
     <Table striped>
@@ -355,8 +365,7 @@
             <PaginationLink on:click={() => getPaginacion(19,10)} last/>
         </PaginationItem>
     </Pagination>
-    <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
-
+    
     <div style="text-align: center; word-spacing: 20px;">
         <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
         <Button color="success" on:click={loadData}>Cargar Datos</Button>
@@ -366,6 +375,15 @@
         label{
             font-family: 'Times New Roman', Times, serif;
             font-weight: bold;
+            font-size: 17px;
             margin-left: 10px;
+        }
+        .camposFiltros{
+            display: flex;
+            justify-content: center;
+        }
+        .columna{
+            padding: 15px;
+            margin: 5px;
         }
     </style>
