@@ -179,7 +179,61 @@ function loadBackend_aml2(app){
     
     // GET datos y tambien from y to
     app.get(BASE_API_URL+"/agroclimatic", (request, response) => {
-        const from = request.query.from;
+        db.find({}, {_id: 0}, (err, filteredList) => {
+            // Comprobamos los errores que han podido surgir
+            if(err){
+                console.log(`Error getting agroclimatic`);
+                // El estado es el 500 de Internal Server Error
+                response.sendStatus(500);
+            // Comprobamos si existen datos:
+            }else{
+                // Tenemos que inicializar los valores necesarios para filtrar: tenemos que ver el limit y offset
+                let i = -1;
+                if(!request.query.offset){ 
+                  var offset = -1;
+                }else{ 
+                  var offset = parseInt(request.query.offset);
+                }
+                // Tenemos que filtrar los datos, para ver cada posible campo y devolver true si no se pasa en la query, 
+                // y si es un parámetro en la query se comprueba la condicion
+                let datitos = filteredList.filter((x) => {
+                    return (((request.query.year == undefined)||(parseInt(request.query.year) === x.year))&&
+                    ((request.query.from == undefined)||(parseInt(request.query.from) <= x.year))&&
+                    ((request.query.to == undefined)||(parseInt(request.query.to) >= x.year))&&
+                    ((request.query.province == undefined)||(request.query.province === x.province))&&
+                    ((request.query.temp_max_over == undefined)||(parseFloat(request.query.temp_max_over) <= x.maximun_temperature))&&
+                    ((request.query.temp_max_under == undefined)||(parseFloat(request.query.temp_max_under) >= x.maximun_temperature))&&
+                    ((request.query.temp_min_over == undefined)||(parseFloat(request.query.temp_min_over) <= x.minimun_temperature))&&
+                    ((request.query.temp_min_under == undefined)||(parseFloat(request.query.temp_min_under) >= x.minimun_temperature))&&
+                    ((request.query.temp_med_over == undefined)||(parseFloat(request.query.temp_med_over) <= x.medium_temperature))&&
+                    ((request.query.temp_med_under == undefined)||(parseFloat(request.query.temp_med_under) >= x.medium_temperature)));
+                }).filter((x) => {
+                    // La paginación
+                    i = i+1;
+                    if(request.query.limit==undefined){ 
+                      var cond = true;
+                    }else{ 
+                      var cond = (parseInt(offset) + parseInt(request.query.limit)) >= i;
+                    }
+                    return (i>offset)&&cond;
+                });
+
+                // Comprobamos si tras el filtrado sigue habiendo datos, si no hay:
+            if(datitos.length == 0){
+                console.log(`agroclimatic not found`);
+                  // Estado 404: Not Found
+                  response.status(404).json(datitos);
+
+              // Si por el contrario encontramos datos
+            }else{
+                console.log(`Datos de agroclimatic devueltos: ${datitos.length}`);
+                // Devolvemos dichos datos, estado 200: OK
+                response.json(datitos);
+
+            }  
+        }
+    })
+        /*const from = request.query.from;
         const to = request.query.to;
         db.find({}, (err, agroclimatic)=>{
             if (from && to && !err) {
@@ -486,7 +540,7 @@ function loadBackend_aml2(app){
                 console.log("Error al dar los datos");
                 response.sendStatus(500);
             }
-        });
+        });*/
         console.log("GET con los datos");
     });
     
