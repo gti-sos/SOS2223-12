@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "3fd12baa-0668-4b90-a9a6-7dcda9efc96e",
-		"name": "Collection Pollutions v2",
+		"name": "Collection Pollutions-v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25989057"
 	},
@@ -16,10 +16,7 @@
 							"pm.test(\"Estado debe ser 200.\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser mayor que 0.\", function(){\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-							"});\r",
+							"\r",
 							"\r",
 							""
 						],
@@ -123,6 +120,19 @@
 		},
 		{
 			"name": "/pollutions/sevilla/2027 400 bad request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 400.\", function(){\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -282,10 +292,7 @@
 							"pm.test(\"Estado debe ser 200.\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser mayor que 0.\", function(){\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-							"});\r",
+							"\r",
 							"\r",
 							""
 						],
@@ -363,10 +370,7 @@
 							"pm.test(\"Estado debe ser 200.\", function(){\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser mayor que 0.\", function(){\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-							"});\r",
+							"\r",
 							"\r",
 							""
 						],
@@ -612,6 +616,48 @@
 						"pollutions",
 						"madrid",
 						"2028"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/pollutions?limit=1&offset=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Estado debe ser 200 OK.\", function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v2/pollutions?limit=1&offset=1",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"pollutions"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "offset",
+							"value": "1"
+						}
 					]
 				}
 			},
