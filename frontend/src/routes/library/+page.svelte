@@ -38,36 +38,40 @@
 
     async function loadData() {
         resultStatus = result = "";
-        const res = await fetch(API + '/loadInitialData', {
-            method: 'GET',
+        const res = await fetch(API + "/loadInitialData", {
+            method: "GET",
         });
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
             mensajeUsuario = "Se han insertado los datos de nuevo";
             getlibrary();
-            setTimeout(() => {mensajeUsuario = "";}, 3000);
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         } else {
             mensajeUsuario = "No se han podido insertar los datos de nuevo";
-            setTimeout(() => {mensajeUsuario = "";}, 3000);
+            setTimeout(() => {
+                mensajeUsuario = "";
+            }, 3000);
         }
     }
 
-    async function getlibrary(){
-            resultStatus = result = "";
-            const res = await fetch(API+"?offset=-1&limit=10", {
-                method: "GET"
-            });
-            try{
-                const data = await res.json();
-                result = JSON.stringify(data, null, 2);
-                librarys = data;
-            }catch(error){
-                console.log(`Error parseando el resultado: ${error}`);
-            }
-            const status = await res.status;
-            resultStatus = status;
+    async function getlibrary() {
+        resultStatus = result = "";
+        const res = await fetch(API + "?offset=-1&limit=10", {
+            method: "GET",
+        });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            librarys = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
         }
+        const status = await res.status;
+        resultStatus = status;
+    }
 
     async function getlibraryFiltros() {
         const consulta = {};
@@ -303,49 +307,77 @@
 
 <div class="filtros">
     <div class="filtro">
-        <input placeholder="Año de inicio" bind:value={from} />
-        <input placeholder="Año Final" bind:value={to} />
+        <label>
+            Desde el año:
+            <input  bind:value={from} />
+            Hasta el año:
+            <input bind:value={to} />
+        </label>
     </div>
 
     <div class="filtro">
-        <input placeholder="Provincia" bind:value={province_name} />
+        <label>
+            Provincia:
+            <input bind:value={province_name} />
+        </label>
     </div>
-    
-    <div class = "filtro">
-        <input placeholder="Año" bind:value={modified} />
-    </div> 
+
+    <div class="filtro">
+        <label>
+            Año:
+            <input bind:value={modified} />
+        </label>
+    </div>
 </div>
 
-<div class = "filtros">
-    <div class = "filtro">
-        <input placeholder="Identificador mayor o igual" bind:value={identifier_over} />
-    </div> 
-    <div class = "filtro">
-        <input placeholder="Identificador menor o igual" bind:value={identifier_under} />
-    </div> 
+<div class="filtros">
+    <div class="filtro">
+        <label>
+            Identificador mayor o igual:
+            <input bind:value={identifier_over}/>
+        </label>
+    </div>
+    <div class="filtro">
+        <label>
+            Identificador menor igual a:
+            <input bind:value={identifier_under}/>
+        </label>
+    </div>
 </div>
 
-<div class = "filtros">
-    <div class = "filtro">
-        <input placeholder="Localidad mayor o igual" bind:value={locality_id_over} />
-    </div> 
-    <div class = "filtro">
-        <input placeholder="Localidad menor o igual" bind:value={locality_id_under} />
-    </div> 
+<div class="filtros">
+    <div class="filtro">
+        <label>
+            Localidad mayor o igual a:
+            <input bind:value={locality_id_over}/>
+        </label>
+    </div>
+    <div class="filtro">
+        <label>
+            Localidad menor o igual a:
+            <input bind:value={locality_id_under}/>
+        </label>
+    </div>
 </div>
 
-<div class = "filtros">
-    <div class = "filtro">
-        <input placeholder="Código postal mayor o igual" bind:value={postcode_over} />
-    </div> 
-    <div class = "filtro">
-        <input placeholder="Código postal menor o igual" bind:value={postcode_under} />
-    </div> 
+<div class="filtros">
+    <div class="filtro">
+        <label>
+            Código postal mayor o igual a:
+            <input bind:value={postcode_over}/>
+        </label>
+    </div>
+    <div class="filtro">
+        <label>
+            Código postal menor o igual a:
+            <input  bind:value={postcode_under}/>
+        </label>
+    </div>
 </div>
 
-<div class = "botones">
-    <div class = "filtro">
-        <Button color = "primary" on:click={getlibraryFiltros}> Filtrar </Button>
+<div class="botones">
+    <div class="filtro">
+        <Button color="primary" on:click={getlibraryFiltros}>Filtrar</Button>
     </div>
 
     <div class="filtro">
@@ -354,8 +386,6 @@
         </Button>
     </div>
 </div>
-    
-
 
 <strong style="margin: 10px;">Número de datos: {librarys.length}</strong>
 
@@ -431,21 +461,26 @@
     </tbody>
 </Table>
 
-<Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;" ariaLabel="Page navigation example">
+<Pagination
+    style="text-align: center; display: flex; justify-content: center; flex-direction: row; gap: 15px;"
+    ariaLabel="Page navigation example"
+>
     <PaginationItem>
-        <PaginationLink on:click={() => getPaginacion(-1,10)} first/>
+        <PaginationLink on:click={() => getPaginacion(-1, 10)} first />
     </PaginationItem>
     <PaginationItem>
-        <PaginationLink on:click={() => getPaginacion(-1,10)}>1</PaginationLink>
+        <PaginationLink on:click={() => getPaginacion(-1, 10)}>1</PaginationLink
+        >
     </PaginationItem>
     <PaginationItem>
-        <PaginationLink on:click={() => getPaginacion(9,10)}>2</PaginationLink>
+        <PaginationLink on:click={() => getPaginacion(9, 10)}>2</PaginationLink>
     </PaginationItem>
     <PaginationItem>
-        <PaginationLink on:click={() => getPaginacion(19,10)}>3</PaginationLink>
+        <PaginationLink on:click={() => getPaginacion(19, 10)}>3</PaginationLink
+        >
     </PaginationItem>
     <PaginationItem>
-        <PaginationLink on:click={() => getPaginacion(19,10)} last/>
+        <PaginationLink on:click={() => getPaginacion(19, 10)} last />
     </PaginationItem>
 </Pagination>
 
@@ -461,14 +496,22 @@
     }
 
     .filtro {
-        margin: 30px;
+        margin: 15px;
         display: flex;
         gap: 15px;
+        padding: 7px;
     }
 
     .botones {
         display: flex;
         justify-content: center;
         margin: 15px;
+    }
+
+    label {
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-size: 17px;
+        margin-left: 10px;
     }
 </style>
