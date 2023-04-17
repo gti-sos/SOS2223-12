@@ -209,7 +209,7 @@ function loadBackend_vem2 (app){
                     ((request.query.identifier_over == undefined)||(parseFloat(request.query.identifier_over) <= x.identifier))&&
                     ((request.query.identifier_under == undefined)||(parseFloat(request.query.identifier_under) >= x.identifier))&&
                     ((request.query.locality_id_over == undefined)||(parseFloat(request.query.locality_id_over) <= x.locality_id))&&
-                    ((request.query.locality_id == undefined)||(parseFloat(request.query.locality_id_under) >= x.locality_id))&&
+                    ((request.query.locality_id_under == undefined)||(parseFloat(request.query.locality_id_under) >= x.locality_id))&&
                     ((request.query.postcode_over == undefined)||(parseFloat(request.query.postcode_over) <= x.postcode))&&
                     ((request.query.postcode_under == undefined)||(parseFloat(request.query.postcode_under) >= x.postcode)));
                 }).filter((x) => {

@@ -103,7 +103,7 @@
             consulta.postcode_over = postcode_over;
         }
         if (postcode_under) {
-            consulta.postcode_under = postcode;
+            consulta.postcode_under = postcode_under;
         }
 
         console.log(new URLSearchParams(consulta).toString());
