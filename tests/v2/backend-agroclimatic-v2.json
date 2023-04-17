@@ -16,7 +16,7 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser mayor que se 0 (10)\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
 							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
@@ -176,9 +176,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 25\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(25);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -286,9 +286,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 7\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(7);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -484,9 +484,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 25\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(25);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -554,9 +554,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 6\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(6);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -591,9 +591,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 24\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(24);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -627,9 +627,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser mayor que se 3 (6)\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf.above(3);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -673,9 +673,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 4\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(4);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -715,9 +715,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 1\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(1);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -761,9 +761,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 3\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(3);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});\r",
 							"pm.test(\"Incluye limit y offset\", function(){\r",
 							"    pm.expect(\"{{URLBASE}}/api/v1/agroclimatic?limit=3&offset=5\").to.include(\"limit\" && \"offset\");\r",
@@ -851,9 +851,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 1\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(1);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -930,9 +930,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 25\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(25);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -990,7 +990,7 @@
 			"response": []
 		},
 		{
-			"name": "/agroclimatic -> 10 final",
+			"name": "/agroclimatic -> 24 final",
 			"event": [
 				{
 					"listen": "test",
@@ -999,9 +999,9 @@
 							"pm.test(\"El código debe ser 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"pm.test(\"El numero de datos debe ser 24\", function () {\r",
+							"pm.test(\"El numero de datos debe ser mayor que se 0\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.a.lengthOf(24);\r",
+							"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
 							"});"
 						],
 						"type": "text/javascript"

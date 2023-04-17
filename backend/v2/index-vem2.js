@@ -736,7 +736,7 @@ function loadBackend_vem2 (app){
                 if (!request.body.hasOwnProperty(field)) {
                 return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
-            }}if (isNaN(body.identifier) || isNaN(body.locality_id) || isNaN(body.postcode)
+            }if (isNaN(body.identifier) || isNaN(body.locality_id) || isNaN(body.postcode)
             || body.identifier == "" || body.locality_id == "" || body.postcode == "") {
             return response.status(400).json("HAY UN CAMPO VACIO.");
         }
