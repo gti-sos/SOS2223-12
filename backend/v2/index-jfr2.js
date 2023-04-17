@@ -426,7 +426,10 @@ function loadBackend_jfr2 (app){
                 if (!request.body.hasOwnProperty(field)) {
                 return response.status(400).json(`Falta alguno de los campos: ${field}`);
                 }
-            }
+            }if (isNaN(body.NO2) || isNaN(body.O3) || isNaN(body.SO2)
+            || body.NO2 == "" || body.O3 == "" || body.SO2 == "") {
+            return response.status(400).json("HAY UN CAMPO VACIO.");
+        }
                 db.update(
                     { province: province, year: year},
                     { $set: {
