@@ -3,6 +3,7 @@
     <a href="/">Inicio</a>
     <a href="/about">Sobre</a>
     <a href="/agroclimatic">Agroclimáticas</a>
+    <a href="/graphAml">Gráfica-Agroclimáticas</a>
     <a href="/library">Bibliotecas</a>
     <a href="/pollutions">Contaminaciones</a>
     </strong>

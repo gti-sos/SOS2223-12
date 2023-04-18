@@ -812,6 +812,37 @@ function loadBackend_aml2(app){
         });
         console.log("Se ha borrado la provincia en /agroclimatic/:province");
     });
+
+    app.get(BASE_API_URL+"/graphAml", (request, response) =>{
+        console.log("Grafica");
+        /*db.find({},{_id: 0}).sort({year: 1}).exec(function(err, lista){
+            if(err){
+                console.log("Error obteniendo los datos");
+                response.status(500).json("ERROR obteniendo los datos");
+            
+            }else{
+                //lista.sort((a, b) => a.year - b.year);
+                let chartData = lista.map((x) => {
+                    return [x.province, x.year, x.maximun_temperature, x.minimun_temperature, x.medium_temperature];
+                });
+                response.json(chartData);
+            }
+        });*/
+        db.find({}, {_id: 0}, (err, lista) => {
+            if(err){
+                console.log("Error obteniendo los datos");
+                response.status(500).json("ERROR obteniendo los datos");
+            
+            }else{
+                //lista.sort((a, b) => a.year - b.year);
+                let chartData = lista.map((x) => {
+                    return [x.province, x.year, x.maximun_temperature, x.minimun_temperature, x.medium_temperature];
+                });
+                response.json(chartData);
+            }
+        });
+        console.log("Se ha generado la gráfica");
+    });
 }
 
 export { loadBackend_aml2 };
