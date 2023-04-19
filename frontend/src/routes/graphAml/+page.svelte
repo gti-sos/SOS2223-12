@@ -46,11 +46,13 @@
 
     async function loadChart(graphAll){
         await delay(1000);
+
         Highcharts.chart('container', {
 
         title: {
             text: 'Estadísticas Agroclimáticas',
             align: 'center',
+            
         },
 
         subtitle: {
@@ -61,6 +63,7 @@
             title: {
                 text: 'Año'
             }
+            
         },
 
         yAxis: {
@@ -81,20 +84,46 @@
                     connectorAllowed: false
                 },
                 pointStart: 2016,
-                //pointInterval: 1
             }
         },
 
         series: [{
-            name: 'Temperatura Máxima',
+            name: 'Sevilla - Temperatura Máxima',
             data: graphAll.map((x) => [x[1], x[2]])
         },{
-            name: 'Temperatura Mínima',
+            name: 'Sevilla - Temperatura Mínima',
             data: graphAll.map((x) => [x[1], x[3]])
         },{
-            name: 'Temperatura Media',
+            name: 'Sevilla - Temperatura Media',
             data: graphAll.map((x) => [x[1], x[4]])
-        }],
+        }/*,{
+            name: 'Huelva - Temperatura Máxima',
+            data: graphAll.map((x) => [x[1], x[2]])
+        },{
+            name: 'Huelva - Temperatura Mínima',
+            data: graphAll.map((x) => [x[1], x[3]])
+        },{
+            name: 'Huelva - Temperatura Media',
+            data: graphAll.map((x) => [x[1], x[4]])
+        },{
+            name: 'Malaga - Temperatura Máxima',
+            data: graphAll.map((x) => [x[1], x[2]])
+        },{
+            name: 'Malaga - Temperatura Mínima',
+            data: graphAll.map((x) => [x[1], x[3]])
+        },{
+            name: 'Malaga - Temperatura Media',
+            data: graphAll.map((x) => [x[1], x[4]])
+        },{
+            name: 'Cordoba - Temperatura Máxima',
+            data: graphAll.map((x) => [x[1], x[2]])
+        },{
+            name: 'Cordoba - Temperatura Mínima',
+            data: graphAll.map((x) => [x[1], x[3]])
+        },{
+            name: 'Cordoba - Temperatura Media',
+            data: graphAll.map((x) => [x[1], x[4]])
+        }*/],
 
         responsive: {
             rules: [{
@@ -112,22 +141,125 @@
         }
 
         });
+
+        Highcharts.chart('container2', {
+
+            title: {
+                text: 'Estadísticas Agroclimáticas',
+                align: 'center',
+                
+            },
+
+            subtitle: {
+                align: 'left'
+            },
+
+            xAxis: {
+                title: {
+                    text: 'Año'
+                }
+                
+            },
+
+            yAxis: {
+                title:{
+                    text: 'Temperaturas'
+                },
+            },
+
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: 2016,
+                }
+            },
+
+            series: [{
+                name: 'Huelva - Temperatura Máxima',
+                data: graphAll.map((x) => [x[1], x[2]])
+            },{
+                name: 'Huelva - Temperatura Mínima',
+                data: graphAll.map((x) => [x[1], x[3]])
+            },{
+                name: 'Huelva - Temperatura Media',
+                data: graphAll.map((x) => [x[1], x[4]])
+            }/*,{
+                name: 'Huelva - Temperatura Máxima',
+                data: graphAll.map((x) => [x[1], x[2]])
+            },{
+                name: 'Huelva - Temperatura Mínima',
+                data: graphAll.map((x) => [x[1], x[3]])
+            },{
+                name: 'Huelva - Temperatura Media',
+                data: graphAll.map((x) => [x[1], x[4]])
+            },{
+                name: 'Malaga - Temperatura Máxima',
+                data: graphAll.map((x) => [x[1], x[2]])
+            },{
+                name: 'Malaga - Temperatura Mínima',
+                data: graphAll.map((x) => [x[1], x[3]])
+            },{
+                name: 'Malaga - Temperatura Media',
+                data: graphAll.map((x) => [x[1], x[4]])
+            },{
+                name: 'Cordoba - Temperatura Máxima',
+                data: graphAll.map((x) => [x[1], x[2]])
+            },{
+                name: 'Cordoba - Temperatura Mínima',
+                data: graphAll.map((x) => [x[1], x[3]])
+            },{
+                name: 'Cordoba - Temperatura Media',
+                data: graphAll.map((x) => [x[1], x[4]])
+            }*/],
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'left',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+            });
     }
     
 </script>
 
  
 <main>
-    <figure class="highcharts-figure">
+    <figure class="highcharts-figure" style="margin-left: 200px; margin-right:200px;">
         <div id="container"></div>
         <p class="highcharts-description">
             Representación de los datos:
         </p>
     </figure>
 
+    <figure class="highcharts-figure" style="margin-left: 200px; margin-right:200px;">
+        <div id="container2"></div>
+        <p class="highcharts-description">
+            Representación de los datos2:
+        </p>
+    </figure>
+
     {#if resultStatus != ""}
     <p>
         Result:
+        Numero: {graph.length}
     </p>
     <pre>
     {resultStatus}
