@@ -1,6 +1,5 @@
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
@@ -9,7 +8,8 @@
 <script>
     // @ts-nocheck
     import {onMount} from "svelte";
-    import { dev } from "$app/environment";
+    import { dev } from "$app/environment"; 
+
 
     let API = "/api/v2/graphAml";
     let graph = [];
@@ -35,7 +35,7 @@
                 const valores = await res.json();
                 result = JSON.stringify(valores, null, 2);
                 graph = valores;
-                loadChart(graph);
+                loadChart(graph); //,3
             }catch(error){
                 console.log(`Error devolviendo la gráfica: ${error}`);
             }
@@ -44,205 +44,197 @@
     }
 
 
-    async function loadChart(graphAll){
+    async function loadChart(graphAll){  //,dataIndex
         await delay(1000);
+        const uniqueYears = [...new Set(graphAll.map((x) => x[1]))]; // Obtener los años sin repetir
+        const seriesData = [];
+        const dosdos = [];
+        const trestres = [];
+        const uniqueProvinces = [...new Set(graphAll.map((r) => r[0]))]; // Obtener provincias sin repetir
 
-        Highcharts.chart('container', {
-
-        title: {
-            text: 'Estadísticas Agroclimáticas',
-            align: 'center',
-            
-        },
-
-        subtitle: {
-            align: 'left'
-        },
-
-        xAxis: {
-            title: {
-                text: 'Año'
-            }
-            
-        },
-
-        yAxis: {
-            title:{
-                text: 'Temperaturas'
-            },
-        },
-
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-
-        plotOptions: {
-            series: {
-                label: {
-                    connectorAllowed: false
-                },
-                pointStart: 2016,
-            }
-        },
-
-        series: [{
-            name: 'Sevilla - Temperatura Máxima',
-            data: graphAll.map((x) => [x[1], x[2]])
-        },{
-            name: 'Sevilla - Temperatura Mínima',
-            data: graphAll.map((x) => [x[1], x[3]])
-        },{
-            name: 'Sevilla - Temperatura Media',
-            data: graphAll.map((x) => [x[1], x[4]])
-        }/*,{
-            name: 'Huelva - Temperatura Máxima',
-            data: graphAll.map((x) => [x[1], x[2]])
-        },{
-            name: 'Huelva - Temperatura Mínima',
-            data: graphAll.map((x) => [x[1], x[3]])
-        },{
-            name: 'Huelva - Temperatura Media',
-            data: graphAll.map((x) => [x[1], x[4]])
-        },{
-            name: 'Malaga - Temperatura Máxima',
-            data: graphAll.map((x) => [x[1], x[2]])
-        },{
-            name: 'Malaga - Temperatura Mínima',
-            data: graphAll.map((x) => [x[1], x[3]])
-        },{
-            name: 'Malaga - Temperatura Media',
-            data: graphAll.map((x) => [x[1], x[4]])
-        },{
-            name: 'Cordoba - Temperatura Máxima',
-            data: graphAll.map((x) => [x[1], x[2]])
-        },{
-            name: 'Cordoba - Temperatura Mínima',
-            data: graphAll.map((x) => [x[1], x[3]])
-        },{
-            name: 'Cordoba - Temperatura Media',
-            data: graphAll.map((x) => [x[1], x[4]])
-        }*/],
-
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'left',
-                        verticalAlign: 'bottom'
-                    }
+        uniqueProvinces.forEach(city => {
+            const cityData = [];
+            const dos = [];
+            const tres =[];
+            uniqueYears.forEach(year => {
+                const filteredData = graphAll.filter((x) => x[1] === year && x[0] === city);
+                if (filteredData.length > 0) {
+                    cityData.push(filteredData[0][2]); //, filteredData[0][dataIndex], filteredData[0][dataIndex + 1]); // Añadir la temperatura
+                    dos.push(filteredData[0][3]);
+                    tres.push(filteredData[0][4]);
+                } else {
+                    cityData.push([null]); //, null, null]); // Si no hay datos, añadir un valor nulo
                 }
-            }]
-        }
+            });
 
+            seriesData.push({
+                name: city,
+                data: cityData
+            });
+            dosdos.push({
+                name: city,
+                data: dos
+            });
+            trestres.push({
+                name: city,
+                data: tres
+            });
+        });
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Estadísticas Agroclimáticas'
+            },
+            xAxis: {
+                categories: uniqueYears, 
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                max: 50,
+                title: {
+                    text: 'Temperatura'
+                },
+                labels: {
+                    format: '{value:.2f}' // Dos decimales
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.2f} grados</b></td></tr>' /*+
+                    '<td style="padding:0"><b>{point.x[1]}</b></td>' +
+                    '<td style="padding:0"><b>{point.x[2]}</b></td></tr>'*/,
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderColor: '#2f7ed8',
+                    borderWidth: 2,
+                }
+            },
+            series: seriesData
+        });
+        /*const uniqueYears = [...new Set(graphAll.map((x) => x[1]))]; // Obtener los años sin repetir
+        const seriesDataMax = [];
+        const seriesDataMin = [];
+        const seriesDataMed = [];
+        const uniqueProvinces = [...new Set(graphAll.map((r) => r[0]))]; // Obtener provincias sin repetir
+
+        uniqueProvinces.forEach(city => {
+            const cityDataMax = [];
+            const cityDataMin = [];
+            const cityDataMed = [];
+            uniqueYears.forEach(year => {
+            const filteredData = graphAll.filter((x) => x[1] === year && x[0] === city);
+            if (filteredData.length > 0) {
+                cityDataMax.push(filteredData[0][2]); // Añadir la max
+                cityDataMin.push(filteredData[0][3]); // Añadir la min
+                cityDataMed.push(filteredData[0][4]); // Añadir la med
+            } else {
+                cityDataMax.push(null); // Si no hay datos, añadir un valor nulo
+                cityDataMin.push(null);
+                cityDataMed.push(null);
+            }
+            });
+            console.log(`Data for ${city} processed`);
+            seriesDataMax.push({
+            name: city,
+            data: cityDataMax
+            });
+
+            seriesDataMin.push({
+            name: city,
+            data: cityDataMin
+            });
+
+            seriesDataMed.push({
+            name: city,
+            data: cityDataMed
+            });
         });
 
-        Highcharts.chart('container2', {
-
+        Highcharts.chart('container', {
+            chart: {
+            type: 'column'
+            },
             title: {
-                text: 'Estadísticas Agroclimáticas',
-                align: 'center',
-                
+            text: 'Estadísticas Agroclimáticas'
             },
-
-            subtitle: {
-                align: 'left'
-            },
-
             xAxis: {
-                title: {
-                    text: 'Año'
-                }
-                
+            categories: uniqueYears,
+            crosshair: true
             },
-
-            yAxis: {
-                title:{
-                    text: 'Temperaturas'
-                },
+            yAxis: [{
+            min: 0,
+            max: 50,
+            title: {
+                text: 'Maxima'
             },
-
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
-            },
-
-            plotOptions: {
-                series: {
-                    label: {
-                        connectorAllowed: false
-                    },
-                    pointStart: 2016,
-                }
-            },
-
-            series: [{
-                name: 'Huelva - Temperatura Máxima',
-                data: graphAll.map((x) => [x[1], x[2]])
-            },{
-                name: 'Huelva - Temperatura Mínima',
-                data: graphAll.map((x) => [x[1], x[3]])
-            },{
-                name: 'Huelva - Temperatura Media',
-                data: graphAll.map((x) => [x[1], x[4]])
-            }/*,{
-                name: 'Huelva - Temperatura Máxima',
-                data: graphAll.map((x) => [x[1], x[2]])
-            },{
-                name: 'Huelva - Temperatura Mínima',
-                data: graphAll.map((x) => [x[1], x[3]])
-            },{
-                name: 'Huelva - Temperatura Media',
-                data: graphAll.map((x) => [x[1], x[4]])
-            },{
-                name: 'Malaga - Temperatura Máxima',
-                data: graphAll.map((x) => [x[1], x[2]])
-            },{
-                name: 'Malaga - Temperatura Mínima',
-                data: graphAll.map((x) => [x[1], x[3]])
-            },{
-                name: 'Malaga - Temperatura Media',
-                data: graphAll.map((x) => [x[1], x[4]])
-            },{
-                name: 'Cordoba - Temperatura Máxima',
-                data: graphAll.map((x) => [x[1], x[2]])
-            },{
-                name: 'Cordoba - Temperatura Mínima',
-                data: graphAll.map((x) => [x[1], x[3]])
-            },{
-                name: 'Cordoba - Temperatura Media',
-                data: graphAll.map((x) => [x[1], x[4]])
-            }*/],
-
-            responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 500
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'left',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
+            labels: {
+                format: '{value:.2f}' // Dos decimales
             }
-
-            });
+            },{
+            min: 0,
+            max: 30,
+            title: {
+                text: 'Minima'
+            },
+            opposite: true,
+            labels: {
+                format: '{value:.2f}' // Dos decimales
+            }
+            },{
+            min: 0,
+            max: 40,
+            title: {
+                text: 'Media'
+            },
+            opposite: true,
+            labels: {
+                format: '{value:.2f}' // Dos decimales
+            }
+            }],
+            tooltip: {
+            shared: true
+            },
+            plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 2,
+            }
+            },
+            series: [{
+            name: 'Maxima',
+            data: seriesDataMax
+            },{
+            name: 'Minima',
+            data: seriesDataMin,
+            yAxis: 1
+            },{
+            name: 'Media',
+            data: seriesDataMed,
+            yAxis: 2}]
+            });*/
     }
     
 </script>
 
  
 <main>
-    <figure class="highcharts-figure" style="margin-left: 200px; margin-right:200px;">
+    <figure class="highcharts-figure" style="margin-left: 100px; margin-right:100px;">
+        <div id="container"></div>
+        <p style="text-align: center;" class="highcharts-description">
+            Gráfico de Columnas sobre las Estadísticas Agroclimáticas de diferentes provincias de Andalucía.
+        </p>
+    </figure>
+
+    <!--<figure class="highcharts-figure" style="margin-left: 200px; margin-right:200px;">
         <div id="container"></div>
         <p class="highcharts-description">
             Representación de los datos:
@@ -254,7 +246,7 @@
         <p class="highcharts-description">
             Representación de los datos2:
         </p>
-    </figure>
+    </figure>-->
 
     {#if resultStatus != ""}
     <p>
