@@ -15,7 +15,6 @@
     let API = "/api/v2/graphAml";
     let graph = [];
 
-    let chartContainer;
     let provincia_año = [];
     let temp_max = [];
     let temp_min = [];
@@ -60,11 +59,11 @@
             }else{
                 console.log("Error al cargar la gráfica");
             }
-    }
+        }
 
 
     async function loadChart(){  
-        if(!chartContainer) return;
+        
         Highcharts.chart('container', {
         chart: {
             type: 'column'
@@ -73,7 +72,9 @@
             text: 'Estadísticas Agroclimáticas',
             style: {
                 fontWeight: 'bold',
-                textDecoration: 'underline'
+                //textDecoration: 'underline',
+                fontFamily: 'Times New Roman',
+                fontSize: 40,
             }
         },
         xAxis: {
@@ -145,10 +146,10 @@
 
  
 <main>
-    <figure class="highcharts-figure">
-        <div id="container" bind:this={chartContainer}></div>
+    <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
+        <div id="container"></div>
         <p class="highcharts-description" style="text-align:center">
-            Gráfico de Columnas sobre las Estadísticas Agroclimáticas de diferentes provincias de Andalucía.
+            Gráfico de Columnas sobre las Estadísticas Agroclimáticas de diferentes provincias de Andalucía en diversos años.
         </p>
     </figure>
 
