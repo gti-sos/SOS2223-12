@@ -72,10 +72,19 @@
             text: 'Estadísticas Agroclimáticas',
             style: {
                 fontWeight: 'bold',
-                //textDecoration: 'underline',
                 fontFamily: 'Times New Roman',
                 fontSize: 40,
-            }
+            },
+        },
+        
+        subtitle: {
+            text: 'Gráfica con HighCharts',
+            style:{
+                fontFamily: 'Times New Roman',
+                fontWeight: 'bold',
+                fontSize: 12,
+                color: 'black'
+            },
         },
         xAxis: {
             title:{

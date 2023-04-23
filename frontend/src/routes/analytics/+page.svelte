@@ -1,0 +1,1 @@
+<h1>Grafica conjunta</h1>

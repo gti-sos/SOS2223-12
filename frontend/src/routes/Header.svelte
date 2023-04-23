@@ -2,10 +2,12 @@
     <strong>
     <a href="/">Inicio</a>
     <a href="/about">Sobre</a>
+    <a href="/analytics">Gráfica-Conjunta</a>
     <a href="/agroclimatic">Agroclimáticas</a>
-    <a href="/graphAml">Gráfica-Agroclimáticas</a>
+    <a href="/graphAml">Gráficas-Agroclimáticas</a>
     <a href="/library">Bibliotecas</a>
     <a href="/pollutions">Contaminaciones</a>
+    <a href="/integrations">Usos/Integraciones</a>
     </strong>
 </nav>
 
