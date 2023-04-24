@@ -8,6 +8,7 @@
     import {onMount} from "svelte";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     import { dev } from "$app/environment"; 
+    import { Button } from "sveltestrap";
 
     let API = "/api/v2/graphAml";
     let graph = [];
@@ -144,8 +145,9 @@
                             title:{
                                 display: true,
                                 text: "Temperatura",
-                                weight: 'bold'
-                                
+                                font: {
+                                    weight: 'bold',
+                                }, 
                             },
                             max: 50
                         },
@@ -154,7 +156,9 @@
                             title:{
                                 display: true,
                                 text: "Años" ,
-                                weight: 'bold'
+                                font: {
+                                    weight: 'bold',
+                                },
                             }
                         }
                 },
@@ -184,4 +188,8 @@
     {result}
     </pre>
     {/if}
+    <br>
+    <div style="text-align:center">
+        <Button color="primary" href="/">Volver a Inicio</Button>
+    </div>
 </main>

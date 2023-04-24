@@ -1,4 +1,4 @@
-<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px">Usos de Agroclimáticas</h1>
+<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Usos de Agroclimáticas</h1>
 <div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold;">
     <a style="text-decoration:none" href="https://sos2223-13.appspot.com/evolution">Uso 1: Datos Evolución</a><br>
     <a style="text-decoration:none;" href="https://sos2223-12.appspot.com/agroclimatic">Uso 2: Datos Mia</a>

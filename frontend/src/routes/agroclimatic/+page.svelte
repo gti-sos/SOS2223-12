@@ -247,7 +247,7 @@
 
     </script>
 
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Agroclimáticas</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px; font-weight:bold">Datos Agroclimáticas</h1>
     <p></p>
     {#if mensajeUsuario !=""}
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
@@ -369,6 +369,10 @@
     <div style="text-align: center; word-spacing: 20px;">
         <Button color="danger" on:click={deleteAgroclimaticAll}>Borrar Datos</Button>
         <Button color="success" on:click={loadData}>Cargar Datos</Button>
+    </div>
+    <br>
+    <div style="text-align:center">
+        <Button color="primary" href="/">Volver a Inicio</Button>
     </div>
 
     <style>
