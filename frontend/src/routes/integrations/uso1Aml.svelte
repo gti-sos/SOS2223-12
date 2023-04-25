@@ -1,7 +1,8 @@
 <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Usos de Agroclimáticas</h1>
-<div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold;">
-    <a style="text-decoration:none" href="https://sos2223-13.appspot.com/evolution">Uso 1: Datos Evolución</a><br>
-    <a style="text-decoration:none;" href="https://sos2223-12.appspot.com/agroclimatic">Uso 2: Datos Mia</a>
+<div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
+    Uso 1: ???????????.
+    <br>
+    Uso 2: ???????????.
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 <script>
@@ -16,12 +17,15 @@
         });
         
         let API = 'https://sos2223-13.appspot.com/api/v2/evolution';
-        let mensajeUsuario = "";
+        //let mensajeUsuario = "";
         
         /*if(dev)
             API = 'http://localhost:12345'+API
          */   
         let evolutions = [];
+        let result;
+        let resultStatus;
+        /*
         let newEvolutionPeriod = '';
         let newEvolutionTerritory = '';
         let newEvolutionTotalPopulation = '';
@@ -31,8 +35,7 @@
         let newEvolutionSixteensixtyfouryears = '';
         let newEvolutionSixtyfiveoveryears = '';
     
-        let result;
-        let resultStatus;
+        
         let filtro = "";
         let from = "";
         let to = "";
@@ -66,11 +69,11 @@
                 mensajeUsuario = "No se han podido insertar los datos de nuevo";
                 setTimeout(() => {mensajeUsuario = '';}, 3000);
             }
-        }
+        }*/
     
         async function getEvolution(){
             resultStatus = result = "";
-            const res = await fetch(API+"?offset=-1&limit=10", {
+            const res = await fetch(API,{//+"?offset=-1&limit=10", {
             method: "GET"
             });
             try{
@@ -82,7 +85,7 @@
             }
             const status = await res.status;
             resultStatus = status;
-        }
+        }/*
         async function getPaginacion(offsetFiltro,limitFiltro){ //
             resultStatus = result = "";
             const res = await fetch(API+"?offset="+offsetFiltro+"&limit="+limitFiltro, {
@@ -257,10 +260,11 @@
                 setTimeout(() => {mensajeUsuario = '';}, 3000);
             }
         }
+    */
     
 </script>
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px;">Datos Evolución</h1>
-    <h1 class="botones">
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline;">Datos USO 1</h1>
+    <!--<h1 class="botones">
         <div style="text-align: center; word-spacing: 15px;">
             <Button color="success" on:click={loadData}>Cargar Datos Iniciales</Button>
             <Button color="danger" on:click={deleteEvolutionAll}>Borrar Datos</Button>
@@ -345,13 +349,15 @@
     </label>
     <Button color = "primary" on:click={getEvolutionFiltrado}>Filtrar</Button>
     
-    <br><strong style="margin: 10px;">Número de datos: {evolutions.length}</strong>
-    </div>
-    <p></p>
+    </div>-->
     <br>
-    <Table striped>
+    <div style="text-align:center;">
+        <strong >Número de datos: {evolutions.length}</strong>
+    </div>
+    <br>
+    <Table striped style="text-align: center;">
         <thead>
-          <tr>
+          <tr style="font-weight: bold; text-decoration:underline">
             <th>Periodo</th>
             <th>Territorio</th>
             <th>Total Población</th>
@@ -360,11 +366,11 @@
             <th>Menores 16 años</th>
             <th>De 16 a 64 años</th>
             <th>A partir de 65 años</th>
-            <th>Acción</th>
+            <!--<th>Acción</th>-->
           </tr>
         </thead>
         <tbody>
-            <td><input placeholder="Periodo"bind:value={newEvolutionPeriod}></td>
+            <!--<td><input placeholder="Periodo"bind:value={newEvolutionPeriod}></td>
             <td><input placeholder="Territorio"bind:value={newEvolutionTerritory}></td>
             <td><input placeholder="Población Total"bind:value={newEvolutionTotalPopulation}></td>
             <td><input placeholder="Hombres"bind:value={newEvolutionMan}></td>
@@ -372,7 +378,7 @@
             <td><input placeholder="Menor que 16 años"bind:value={newEvolutionUndersixteenyears}></td>
             <td><input placeholder="Desde 16 a 64 años"bind:value={newEvolutionSixteensixtyfouryears}></td>
             <td><input placeholder="A partir de 65 años"bind:value={newEvolutionSixtyfiveoveryears}></td>
-            <td><Button color="success" on:click={createEvolution}>Crear</Button></td>
+            <td><Button color="success" on:click={createEvolution}>Crear</Button></td>-->
            
 
         {#each evolutions as evolution}
@@ -385,8 +391,8 @@
             <td>{evolution.under_sixteen_years}</td>
             <td>{evolution.from_sixteen_to_sixty_four_years}</td>
             <td>{evolution.sixty_five_and_over}</td>
-            <td><Button><a href='/evolution/{evolution.territory}/{evolution.period}'>Editar</a></Button></td>
-            <td><Button color="danger"on:click={deleteEvolution(evolution.territory,evolution.period)}>Borrar</Button></td>
+            <!--<td><Button><a href='/evolution/{evolution.territory}/{evolution.period}'>Editar</a></Button></td>
+            <td><Button color="danger"on:click={deleteEvolution(evolution.territory,evolution.period)}>Borrar</Button></td>-->
            
           </tr>
         {/each}
@@ -394,7 +400,7 @@
         </tbody>
     </Table>
 
-    <Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row;" ariaLabel="Page navigation example">
+    <!--<Pagination style="text-align: center; display: flex; justify-content: center; flex-direction: row;" ariaLabel="Page navigation example">
         <PaginationItem>
           <PaginationLink on:click={() => getPaginacion(-1,10)} first/>
         </PaginationItem>
@@ -410,18 +416,8 @@
         <PaginationItem>
           <PaginationLink on:click={() => getPaginacion(19,10)} last/>
         </PaginationItem>
-      </Pagination>
-
+      </Pagination>-->
+      <br>
 <style>
-  label {
-    font-weight: bold;
-  }
-  input {
-    width: 150px;
-    padding: 0.1rem;
-    border-radius: 0.25rem;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-  }
+  
 </style>
