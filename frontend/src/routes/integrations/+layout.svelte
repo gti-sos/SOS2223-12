@@ -3,13 +3,13 @@
     import Pollution from "./pollution.svelte";
     import Integracion1Aml from "./integracion1Aml.svelte";
     import Integracion2Aml from "./integracion2Aml.svelte";
-    import Uso1Aml from "./uso1Aml.svelte";
     import Uso2Aml from "./uso2Aml.svelte";
+    import Externa1Aml from "./externa1Aml.svelte";
 </script>
 
 
-<main>
-    <Uso1Aml></Uso1Aml>
+<main>`
+    <Externa1Aml></Externa1Aml>
     <hr style="margin-left: 100px; margin-right: 100px">
     <Uso2Aml></Uso2Aml>
     <hr style="margin-left: 100px; margin-right: 100px">
