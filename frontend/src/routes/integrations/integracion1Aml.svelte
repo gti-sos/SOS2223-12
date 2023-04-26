@@ -17,14 +17,13 @@
 
     let grafica = [];
     let grafica2 = [];
-    let provincia_añoAll = [];
-
-    let provincia_año = [];
+   
     let temp_max = [];
     let temp_min = [];
     let temp_med = [];
 
     let provincia_año2 = [];
+
     let total_popu = [];
     let hombres = [];
     let mujeres = [];
@@ -42,37 +41,6 @@
     });
 
     async function getGraph(){
-        resultStatus = result = "";
-            const res = await fetch(API, {
-                method: "GET"
-            });
-            
-            if(res.ok){
-                try{
-                    const valores = await res.json();
-                    result = JSON.stringify(valores, null, 2);
-                    
-                    grafica = valores;
-                    grafica.sort((a, b) => (a.province > b.province) ? 1 : ((b.province > a.province) ? -1 : 0));
-                    grafica.sort((a, b) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0));
-                    grafica.forEach(grafica =>{
-                        console.log(grafica);
-                        provincia_año.push(grafica.province+"-"+grafica.year);
-                        temp_max.push(grafica["maximun_temperature"]);
-                        temp_min.push(grafica["minimun_temperature"]);
-                        temp_med.push(grafica["medium_temperature"]);
-                        //provincia_añoAll.push(provincia_año);
-                    });
-                    
-                }catch(error){
-                    console.log(`Error devolviendo la gráfica: ${error}`);
-                }
-                const status = await res.status;
-                resultStatus = status;
-                
-            }else{
-                console.log("Error al cargar la gráfica");
-            }
         resultStatus2 = result2 = "";
             const res2 = await fetch(API2, {
             method: "GET"
@@ -95,7 +63,11 @@
                         debajo16.push(grafica2["under_sixteen_years"]); 
                         entre16y64.push(grafica2["from_sixteen_to_sixty_four_years"]); 
                         mayor65.push(grafica2["sixty_five_and_over"]); 
-                        //provincia_añoAll.push(provincia_año2);               
+                        
+                        temp_max.push(0);
+                        temp_min.push(0);
+                        temp_med.push(0);
+                                       
                     });
                     
                 }catch(error){
@@ -106,126 +78,54 @@
             }else{
                 console.log("Error al cargar la gráfica"); 
             }
+        
+        resultStatus = result = "";
+            const res = await fetch(API, {
+                method: "GET"
+            });
+            
+            if(res.ok){
+                try{
+                    const valores = await res.json();
+                    result = JSON.stringify(valores, null, 2);
+                    
+                    grafica = valores;
+                    grafica.sort((a, b) => (a.province > b.province) ? 1 : ((b.province > a.province) ? -1 : 0));
+                    grafica.sort((a, b) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0));
+                    grafica.forEach(grafica =>{
+                        console.log(grafica);
+                        
+                        temp_max.push(grafica["maximun_temperature"]);
+                        temp_min.push(grafica["minimun_temperature"]);
+                        temp_med.push(grafica["medium_temperature"]);
+                        provincia_año2.push(grafica.province+"-"+grafica.year);
+                        total_popu.push(0);
+                        hombres.push(0); 
+                        mujeres.push(0); 
+                        debajo16.push(0); 
+                        entre16y64.push(0); 
+                        mayor65.push(0);
+                        
+                    });
+                    
+                }catch(error){
+                    console.log(`Error devolviendo la gráfica: ${error}`);
+                }
+                const status = await res.status;
+                resultStatus = status;
+                
+            }else{
+                console.log("Error al cargar la gráfica");
+            }
             
             await delay(500);
             loadChart();
-            loadChart2();
+            
     }
 
     async function loadChart(){  
         
         Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Estadísticas Agroclimáticas y Evolución',
-            style: {
-                fontWeight: 'bold',
-                fontFamily: 'Times New Roman',
-                fontSize: 40,
-            },
-        },
-        
-        subtitle: {
-            text: 'Gráfica con HighCharts',
-            style:{
-                fontFamily: 'Times New Roman',
-                fontWeight: 'bold',
-                fontSize: 12,
-                color: 'black'
-            },
-        },
-        xAxis: {
-            title:{
-                text: "Provincia-Año",
-                style: {
-                    fontWeight: 'bold'
-                }
-            },
-            categories: provincia_año,
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Valor',
-                style: {
-                    fontWeight: 'bold'
-                }
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y: 2f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-            pointPadding: 0.2,
-            borderWidth: 2,
-            borderColor: "#000"
-            }
-        },
-        series: [{
-            name: 'Temperatura Máxima',
-            data: temp_max 
-
-        }, {
-            name: 'Temperatura Mínima',
-            data: temp_min 
-
-        }, {
-            name: 'Temperatura Media',
-            data: temp_med 
-
-        }/*, {
-            name: 'Población Total',
-            data: total_popu
-
-        }, {
-            name: 'Hombres',
-            data: hombres
-
-        }, {
-            name: 'Mujeres',
-            data: mujeres
-
-        }, {
-            name: 'Debajo de 16 años',
-            data: debajo16
-
-        }, {
-            name: 'Entre 16 y 64 años',
-            data: entre16y64
-
-        }, {
-            name: 'Mas de 65 años',
-            data: mayor65
-        }*/],
-        responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 1000
-                    },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
-        });
-    }
-
-    async function loadChart2(){  
-        
-        Highcharts.chart('container2', {
         chart: {
             type: 'column'
         },
@@ -281,7 +181,7 @@
             borderColor: "#000"
             }
         },
-        series: [/*{
+        series: [{
             name: 'Temperatura Máxima',
             data: temp_max 
 
@@ -293,7 +193,7 @@
             name: 'Temperatura Media',
             data: temp_med 
 
-        },*/ {
+        }, {
             name: 'Población Total',
             data: total_popu
 
@@ -333,18 +233,13 @@
             }
         });
     }
+
 </script>
 
 <main>
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos Evolución</h1>
     <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
         <div id="container"></div>
-        <p class="highcharts-description" style="text-align:center">
-            Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Evolución.
-        </p>
-    </figure>
-    <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
-        <div id="container2"></div>
         <p class="highcharts-description" style="text-align:center">
             Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Evolución.
         </p>
