@@ -3,15 +3,16 @@
     import Pollution from "./pollution.svelte";
     import Integracion1Aml from "./integracion1Aml.svelte";
     import Integracion2Aml from "./integracion2Aml.svelte";
-    import Uso2Aml from "./uso2Aml.svelte";
+    import externa2Aml from "./externa2Aml.svelte";
     import Externa1Aml from "./externa1Aml.svelte";
+    import Externa2Aml from "./externa2Aml.svelte";
 </script>
 
 
 <main>`
     <Externa1Aml></Externa1Aml>
     <hr style="margin-left: 100px; margin-right: 100px">
-    <Uso2Aml></Uso2Aml>
+    <Externa2Aml></Externa2Aml>
     <hr style="margin-left: 100px; margin-right: 100px">
     <!--Agroclimatic (el otro uso)-->
     <slot></slot>

@@ -2,7 +2,7 @@
 <div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
     Uso 1: Alpha Vantage.
     <br>
-    Uso 2: ???????????.
+    Uso 2: Búsqueda avanzada de películas.
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 <script>
@@ -88,4 +88,8 @@
           
         </tbody>
     </Table>
+
+    <p style="text-align:center">
+        Datos del mercado financiero sobre acciones, divisas (FX) y criptomonedas/monedas digitales.
+    </p>
 </main>
