@@ -3,11 +3,13 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2"></script>
 </svelte:head>
 <script>
     // @ts-nocheck
     import {onMount} from "svelte";
-    import { Button } from "sveltestrap";
+    
     const delay = ms => new Promise(res => setTimeout(res, ms));
     //import { dev } from "$app/environment"; 
 
@@ -115,7 +117,7 @@
             
             await delay(500);
             loadChartOtro();
-            
+            loadChart2();
     }
 
     async function loadChartOtro(){  
@@ -144,7 +146,7 @@
         },
         xAxis: {
             title:{
-                text: "Provincia-Año",
+                text: "Provincia-Año-Género-Tipo | Provincia-Año",
                 style: {
                     fontWeight: 'bold'
                 }
@@ -220,11 +222,152 @@
             }
         });
     }
+
+    async function loadChart2() {
+        const ctx = document.getElementById('myChart2').getContext('2d');
+        const myChart2 = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: provincia_año,
+                datasets: [{
+                    label: 'Temperatura Máxima',
+                    data: temp_max,
+                    borderColor: '#000',
+                    backgroundColor: ['red'],
+                    //borderWidth: 3,
+                     
+                    
+                }, {
+                    label: 'Temperatura Mínima',
+                    data: temp_min,
+                    borderColor: '#000',
+                    backgroundColor: ['blue'],
+                    //borderWidth: 3,
+                    
+                    
+                }, {
+                    label: 'Temperatura Media', 
+                    data: temp_med,
+                    borderColor: '#000',
+                    backgroundColor: ['green'],
+                    //borderWidth: 3,
+                    
+                }, {
+                    label: 'Primaria', 
+                    data: primaria,
+                    borderColor: '#000',
+                    backgroundColor: ['yellow'],
+                    //borderWidth: 3,
+                    
+                }, {
+                    label: 'FP', 
+                    data: fp,
+                    borderColor: '#000',
+                    backgroundColor: ['orange'],
+                    //borderWidth: 3,
+                    
+                }, {
+                    label: 'Educación', 
+                    data: educ,
+                    borderColor: '#000',
+                    backgroundColor: ['pink'],
+                    //borderWidth: 3,
+                    
+                }, {
+                    label: 'Total', 
+                    data: tot,
+                    borderColor: '#000',
+                    backgroundColor: ['purple'],
+                    //borderWidth: 3,
+                    
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend:{
+                        position: 'top',
+                        labels: {
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    title:{
+                        text: "Estadísticas Agroclimáticas y Solicitantes de Trabajo",
+                        display: true,
+                        color: 'black',
+                        font:{
+                            family: 'Times New Roman',
+                            size: 40,
+                            weight: 'bold',
+                        },
+                        padding: {
+                            bottom: 10
+                        }
+                    },
+                    subtitle: {
+                        display: true,
+                        text: 'Gráfica con Chart.js',
+                        color: 'black',
+                        font: {
+                            size: 15,
+                            family: 'Times New Roman',
+                            weight: 'bold',
+                        },
+                        padding: {
+                            bottom: 20
+                        }
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': ' + context.parsed.y.toFixed(2);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                        y: {
+                            beginAtZero: true,
+                            display: true,
+                            title:{
+                                display: true,
+                                text: "Valor",
+                                font: {
+                                    weight: 'bold',
+                                }, 
+                            },
+                        },
+                        x: {   
+                            display: true,
+                            title:{
+                                display: true,
+                                text: "Provincia-Año-Género-Tipo | Provincia-Año" ,
+                                font: {
+                                    weight: 'bold',
+                                },
+                            }
+                        }
+                },
+                layout: {
+                    padding: {
+                        top: 50, 
+                        left: 200,
+                        right: 200,
+                        
+                    }
+                },
+            }
+        });
+    }
 </script>
 
 
 <main>
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos del Estudio de Solicitantes de Trabajo.</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Estudio de Solicitantes de Trabajo.</h1>
 
     <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
         <div id="container2"></div>
@@ -233,26 +376,14 @@
         </p>
     </figure>
 
-    {#if resultStatus != ""}
-    <p>
-        Result:
-        Numero: {grafica.length}
+    <canvas id="myChart2" style="width: 20vw; height: 20vh;"></canvas>
+    <p style="text-align:center">
+        Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Solicitantes de Trabajo.
     </p>
-    <pre>
-    {resultStatus}
-    {result}
-    </pre>
-    {/if}
-    {#if resultStatus2 != ""}
-    <p>
-        Result:
-        Numero: {grafica2.length}
-    </p>
-    <pre>
-    {resultStatus2}
-    {result2}
-    </pre>
-    {/if}
+
+
+
+    <br>
     <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 </main>
 

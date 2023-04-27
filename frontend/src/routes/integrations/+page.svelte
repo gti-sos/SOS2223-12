@@ -2,5 +2,5 @@
 <div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
     Integración 1: Datos Evolución.
     <br>
-    Integración 2: Datos del Estudio de Solicitantes de Trabajo.
+    Integración 2: Datos Estudio de Solicitantes de Trabajo.
 </div>

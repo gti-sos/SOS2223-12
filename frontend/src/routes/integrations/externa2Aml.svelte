@@ -11,8 +11,8 @@
     import { onMount } from "svelte";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     let datosOtro = [];
-    let result;
-    let resultStatus;
+    let result = "";
+    let resultStatus= "";
 
     let categoria = [];
     let id_pelis = [];
@@ -99,7 +99,7 @@
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y: 2f}ºC</b></td></tr>',
+            '<td style="padding:0"><b>{point.y: 2f}</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
             useHTML: true
@@ -134,10 +134,35 @@
     }
 </script>
 
+<main>
 <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
     <div id="container3"></div>
     <p class="highcharts-description" style="text-align:center">
         Películas junto con su ID.
     </p>
 </figure>
+
+<Table dark striped  style="text-align: center;">
+    <thead>
+      <tr style="font-weight: bold; text-decoration:underline">
+        <th>ID</th>
+        <th>Categoría</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    {#each datosOtro as dat}
+      <tr>
+        <td>{dat['id']}</td>
+        <td>{dat['name']}</td>
+      </tr>
+    {/each}
+      
+    </tbody>
+</Table>
+
+<p style="text-align:center">
+    Películas junto con su ID.
+</p>
+</main>
 <br>

@@ -178,16 +178,6 @@
 <main>
     <canvas id="myChart" style="width: 20vw; height: 20vh;"></canvas>
 
-    {#if resultStatus != ""}
-    <p>
-        Result:
-        Numero: {graph.length}
-    </p>
-    <pre>
-    {resultStatus}
-    {result}
-    </pre>
-    {/if}
     <br>
     <div style="text-align:center">
         <Button color="primary" href="/">Volver a Inicio</Button>

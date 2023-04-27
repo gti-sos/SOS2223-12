@@ -1,8 +1,8 @@
 <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Usos de Agroclimáticas</h1>
 <div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
-    Uso 1: Alpha Vantage.
+    Uso 1: Datos Alpha Vantage.
     <br>
-    Uso 2: Búsqueda avanzada de películas.
+    Uso 2: Datos Búsqueda avanzada de películas.
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 <script>
@@ -11,8 +11,8 @@
     import { onMount } from "svelte";
 
     let datos = [];
-    let result;
-    let resultStatus;
+    let result = "";
+    let resultStatus= "";
 
     onMount(async () => {
         getDatos();

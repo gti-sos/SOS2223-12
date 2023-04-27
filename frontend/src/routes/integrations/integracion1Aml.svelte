@@ -127,7 +127,7 @@
         
         Highcharts.chart('container', {
         chart: {
-            type: 'column'
+            type: 'area'
         },
         title: {
             text: 'Estadísticas Agroclimáticas y Evolución',
@@ -237,35 +237,14 @@
 </script>
 
 <main>
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos Evolución</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Evolución</h1>
     <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
         <div id="container"></div>
         <p class="highcharts-description" style="text-align:center">
             Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Evolución.
         </p>
     </figure>
-
-    {#if resultStatus != ""}
-    <p>
-        Result:
-        Numero: {grafica.length}
-    </p>
-    <pre>
-    {resultStatus}
-    {result}
-    </pre>
-    {/if}
-    {#if resultStatus2 != ""}
-    <p>
-        Result:
-        Numero: {grafica2.length}
-    </p>
-    <pre>
-    {resultStatus2}
-    {result2}
-    </pre>
-    {/if}
-    <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
-
+<br>
+<hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 
 </main>
