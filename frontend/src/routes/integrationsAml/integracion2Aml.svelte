@@ -9,7 +9,7 @@
 <script>
     // @ts-nocheck
     import {onMount} from "svelte";
-    
+    import { Button } from "sveltestrap";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     //import { dev } from "$app/environment"; 
 
@@ -385,5 +385,8 @@
 
     <br>
     <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
+    <div style="text-align:center">
+        <Button color="primary" href="/">Volver a Inicio</Button>
+    </div>
 </main>
 

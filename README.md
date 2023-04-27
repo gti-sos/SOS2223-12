@@ -5,7 +5,7 @@
    - [Jorge Figueroa Romero](https://github.com/jorfigrom) (fuente de datos: Library)
    - [Víctor Egea Moncayo](https://github.com/victoregea) (fuente de datos: Pollutions)
 
-- **Project description:** Our project will consist of an analysis of the climate and air pollution in different libraries of Seville.
+- **Project description:** Our project will consist of an analysis of the climate and air pollution in different libraries of Andalucia.
 
 - **Repository:** [gti-sos/SOS2223-12](https://github.com/gti-sos/SOS2223-12)
 

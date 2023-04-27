@@ -5,9 +5,10 @@
     <a href="/analytics">Gráfica-Conjunta</a>
     <a href="/agroclimatic">Agroclimáticas</a>
     <a href="/graphAml">Gráficas-Agroclimáticas</a>
+    <a href="/integrationsAml">Usos/Integraciones-Agroclimáticas</a>
     <a href="/library">Bibliotecas</a>
     <a href="/pollutions">Contaminaciones</a>
-    <a href="/integrations">Usos/Integraciones</a>
+    
     </strong>
 </nav>
 

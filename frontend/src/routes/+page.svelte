@@ -10,7 +10,7 @@
         </ul>
         </li>
         <p></p>
-        <li><strong>Descripción del Proyecto:</strong> Nuestro proyecto consistirá en un análisis del clima y contaminación atmosférica en diferentes bibliotecas de Sevilla.
+        <li><strong>Descripción del Proyecto:</strong> Nuestro proyecto consistirá en un análisis del clima y contaminación atmosférica en diferentes bibliotecas de Andalucía.
         </li>
         <p></p>
         <li><strong>Repositorio:</strong> <a href="https://github.com/gti-sos/SOS2223-12">gti-sos/SOS2223-12</a></li>

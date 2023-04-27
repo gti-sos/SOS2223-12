@@ -264,36 +264,6 @@
         </p>
     </figure>
 
-    {#if resultStatus != ""}
-    <p>
-        Result:
-        Numero: {graph.length}
-    </p>
-    <pre>
-    {resultStatus}
-    {result}
-    </pre>
-    {/if}
-    {#if resultStatus2 != ""}
-    <p>
-        Result:
-        Numero: {graph2.length}
-    </p>
-    <pre>
-    {resultStatus2}
-    {result2}
-    </pre>
-    {/if}
-    {#if resultStatus3 != ""}
-    <p>
-        Result:
-        Numero: {graph3.length} 
-    </p>
-    <pre>
-    {resultStatus3}
-    {result3}
-    </pre>
-    {/if}
     <br>
     <div style="text-align:center">
         <Button color="primary" href="/">Volver a Inicio</Button>

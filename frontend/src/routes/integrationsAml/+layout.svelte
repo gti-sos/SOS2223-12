@@ -1,9 +1,6 @@
 <script>
-    import Library from "./library.svelte";
-    import Pollution from "./pollution.svelte";
     import Integracion1Aml from "./integracion1Aml.svelte";
     import Integracion2Aml from "./integracion2Aml.svelte";
-    import externa2Aml from "./externa2Aml.svelte";
     import Externa1Aml from "./externa1Aml.svelte";
     import Externa2Aml from "./externa2Aml.svelte";
 </script>
@@ -20,8 +17,4 @@
     <Integracion1Aml></Integracion1Aml>
     <!--<hr style="margin-left: 100px; margin-right: 100px">-->
     <Integracion2Aml></Integracion2Aml>
-    <hr style="margin-left: 100px; margin-right: 100px">
-    <Library></Library>
-    <hr style="margin-left: 100px; margin-right: 100px">
-    <Pollution></Pollution>
 </main>

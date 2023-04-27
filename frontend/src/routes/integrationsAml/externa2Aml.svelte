@@ -1,7 +1,7 @@
 <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline;">Datos: Búsqueda avanzada de películas</h1>
 <br>
 <div style="text-align:center;">
-    <strong >Número de datos: {datosOtro.length}</strong>
+    <strong >Número de datos: {datosOtro.length+datosOtro2.length}</strong>
 </div>
 <br>
 <script>
@@ -16,6 +16,17 @@
 
     let categoria = [];
     let id_pelis = [];
+
+    let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
+    let temp_max = [];
+    let temp_min = [];
+    let temp_med = [];
+
+    let datosOtro2 = [];
+
+    let result2 = "";
+    let resultStatus2 = "";
+
 
     onMount(async () => {
         getDatosOtro();
@@ -36,21 +47,65 @@
             const res = await fetch(url, options);//rest.then(res =>fetch(res.url, options));//fetch(rest,{
             //method: "GET"
             //});
-            try{
+            if(res.ok){
+                try{
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
                 datosOtro = data.genres;
                 datosOtro.forEach(x =>{
                     categoria.push(x['name']);
                     id_pelis.push(x['id']);
-                });
-                await delay(500);
-                    loadChart(); 
+
+                    temp_max.push(0);
+                    temp_min.push(0);
+                    temp_med.push(0);
+
+                }); 
             }catch(error){
                 console.log(`Error parseando el resultado: ${error}`);
             }
             const status = await res.status;
             resultStatus = status;
+            }else{
+                console.log("Error al cargar la gráfica"); 
+            }
+            resultStatus2 = result2 = "";
+            const res2 = await fetch(API, {
+                method: "GET"
+            });
+            if(res2.ok){
+                try{
+                    const valores2 = await res2.json();
+                    result2 = JSON.stringify(valores2, null, 2);
+                    
+                    datosOtro2 = valores2;
+                    datosOtro2.sort((a, b) => (a.province > b.province) ? 1 : ((b.province > a.province) ? -1 : 0));
+                    datosOtro2.sort((a, b) => (a.year > b.year) ? 1 : ((b.year > a.year) ? -1 : 0));
+                    datosOtro2.forEach(datosOtro2 =>{
+                        console.log(datosOtro2);
+                        categoria.push(datosOtro2.province+"-"+datosOtro2.year);
+
+                        temp_max.push(datosOtro2["maximun_temperature"]);
+                        temp_min.push(datosOtro2["minimun_temperature"]);
+                        temp_med.push(datosOtro2["medium_temperature"]);
+                        
+                        
+                        id_pelis.push(0);
+                    });
+                    
+                }catch(error){
+                    console.log(`Error devolviendo la gráfica: ${error}`);
+                }
+                const status2 = await res2.status;
+                resultStatus2 = status2;
+                
+            }else{
+                console.log("Error al cargar la gráfica");
+            }
+            
+            await delay(500);
+            loadChart();
+            
     }
 
     async function loadChart(){  
@@ -60,7 +115,7 @@
             type: 'spline'
         },
         title: {
-            text: 'Búsqueda Avanzada de Películas',
+            text: 'Búsqueda Avanzada de Películas y Estadísticas Agroclimáticas',
             style: {
                 fontWeight: 'bold',
                 fontFamily: 'Times New Roman',
@@ -79,7 +134,7 @@
         },
         xAxis: {
             title:{
-                text: "Categorías",
+                text: "Categorías | Provincia-Año",
                 style: {
                     fontWeight: 'bold'
                 }
@@ -90,7 +145,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'ID',
+                text: 'Valor',
                 style: {
                     fontWeight: 'bold'
                 }
@@ -112,8 +167,19 @@
             }
         },
         series: [{
-            name: 'Valor',
+            name: 'ID',
             data: id_pelis 
+        },{
+            name: 'Temperatura Máxima',
+            data: temp_max 
+
+        }, {
+            name: 'Temperatura Mínima',
+            data: temp_min 
+
+        }, {
+            name: 'Temperatura Media',
+            data: temp_med 
 
         }],
         responsive: {
@@ -138,7 +204,7 @@
 <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
     <div id="container3"></div>
     <p class="highcharts-description" style="text-align:center">
-        Películas junto con su ID.
+        Películas junto con su ID y Estadísticas Agroclimáticas.
     </p>
 </figure>
 

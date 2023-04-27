@@ -161,15 +161,4 @@
             Gráfico de Columnas sobre las Estadísticas Agroclimáticas de diferentes provincias de Andalucía en diversos años.
         </p>
     </figure>
-
-    {#if resultStatus != ""}
-    <p>
-        Result:
-        Numero: {graph.length}
-    </p>
-    <pre>
-    {resultStatus}
-    {result}
-    </pre>
-    {/if}
 </main>
