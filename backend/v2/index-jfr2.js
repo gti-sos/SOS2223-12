@@ -227,13 +227,13 @@ function loadBackend_jfr2 (app){
 
                 // Comprobamos si tras el filtrado sigue habiendo datos, si no hay:
             if(datitos.length == 0){
-                console.log(`agroclimatic not found`);
+                console.log(`pollutions not found`);
                   // Estado 404: Not Found
                   response.status(404).json(datitos);
 
               // Si por el contrario encontramos datos
             }else{
-                console.log(`Datos de agroclimatic devueltos: ${datitos.length}`);
+                console.log(`Datos de pollutions devueltos: ${datitos.length}`);
                 // Devolvemos dichos datos, estado 200: OK
                 response.json(datitos);
 
@@ -521,6 +521,22 @@ function loadBackend_jfr2 (app){
             }
         });
         console.log("Se ha borrado la provincia en /pollutions/:province");
+    });
+
+    app.get(BASE_API_URL+"/graphJfr", (request, response) =>{
+        console.log("Grafica");
+        db.find({},{_id: 0}).sort({province: 1, year: 1}).exec(function(err, lista){
+            if(err){
+                console.log("Error obteniendo los datos");
+                response.status(500).json("ERROR obteniendo los datos");
+            
+            }else{
+                response.json(lista);
+            }
+        });
+        
+
+        console.log("Se ha generado la gráfica de contaminaciones");
     });
     
 

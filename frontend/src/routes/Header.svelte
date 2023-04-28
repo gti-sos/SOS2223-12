@@ -8,6 +8,7 @@
     <a href="/integrationsAml">Usos/Integraciones-Agroclimáticas</a>
     <a href="/library">Bibliotecas</a>
     <a href="/pollutions">Contaminaciones</a>
+    <a href="/graphJfr">Gráficas-Contaminaciones</a>
     
     </strong>
 </nav>
