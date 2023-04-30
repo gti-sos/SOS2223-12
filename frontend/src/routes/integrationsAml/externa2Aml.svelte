@@ -207,28 +207,5 @@
         Películas junto con su ID y Estadísticas Agroclimáticas.
     </p>
 </figure>
-
-<Table dark striped  style="text-align: center;">
-    <thead>
-      <tr style="font-weight: bold; text-decoration:underline">
-        <th>ID</th>
-        <th>Categoría</th>
-      </tr>
-    </thead>
-    <tbody>
-      
-    {#each datosOtro as dat}
-      <tr>
-        <td>{dat['id']}</td>
-        <td>{dat['name']}</td>
-      </tr>
-    {/each}
-      
-    </tbody>
-</Table>
-
-<p style="text-align:center">
-    Películas junto con su ID.
-</p>
-</main>
 <br>
+</main>

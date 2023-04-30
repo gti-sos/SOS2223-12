@@ -1,8 +1,8 @@
-<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Usos de Agroclimáticas</h1>
+<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Integraciones</h1>
 <div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
-    Uso 1: Datos Alpha Vantage.
+    Integración 1: Datos Alpha Vantage.
     <br>
-    Uso 2: Datos Búsqueda avanzada de películas.
+    Integración 2: Datos Búsqueda avanzada de películas.
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 <svelte:head>
@@ -48,9 +48,8 @@
    
     async function getDatos(){
             resultStatus = result = "";
-            const res = await fetch(url, options)//rest.then(res =>fetch(res.url, options));//fetch(rest,{
-            //method: "GET"
-            //});
+            const res = await fetch(url, options)
+
         if(res.ok){   
             try{
                 const data = await res.json();
@@ -238,47 +237,10 @@
     <div style="text-align:center;">
         <strong >Número de datos: {datos.length+datos2.length}</strong>
     </div>
-    <br>
+    
     <canvas id="myChart3" style="width: 20vw; height: 20vh;"></canvas>
     <p style="text-align:center">
-        Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Alpha Vantage.
+        Estadísticas Agroclimáticas y Alpha Vantage.
     </p>
-    <Table striped style="text-align: center;">
-        <thead>
-          <tr style="font-weight: bold; text-decoration:underline">
-            <th>Símbolo</th>
-            <th>Nombre</th>
-            <th>Tipo</th>
-            <th>Región</th>
-            <th>Apertura</th>
-            <th>Cierre</th>
-            <th>Zona Horaria</th>
-            <th>Moneda</th>
-            <th>Resultado</th>
-          </tr>
-        </thead>
-        <tbody>
-           
-
-        {#each datos as dato}
-          <tr>
-            <td>{dato["1. symbol"]}</td>
-            <td>{dato["2. name"]}</td>
-            <td>{dato["3. type"]}</td>
-            <td>{dato["4. region"]}</td>
-            <td>{dato["5. marketOpen"]}</td>
-            <td>{dato["6. marketClose"]}</td>
-            <td>{dato["7. timezone"]}</td>
-            <td>{dato["8. currency"]}</td>
-            <td>{dato["9. matchScore"]}</td>
-           
-          </tr>
-        {/each}
-          
-        </tbody>
-    </Table>
-
-    <p style="text-align:center">
-        Datos del mercado financiero sobre acciones, divisas (FX) y criptomonedas/monedas digitales.
-    </p>
+    <br>
 </main>

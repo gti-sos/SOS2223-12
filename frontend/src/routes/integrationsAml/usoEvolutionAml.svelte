@@ -7,7 +7,7 @@
 <script>
     // @ts-nocheck
     import {onMount} from "svelte";
-    import { Button } from "sveltestrap";
+    import { Button, Table } from "sveltestrap";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     //import { dev } from "$app/environment"; 
 
@@ -238,12 +238,55 @@
 
 <main>
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Evolución</h1>
+    <br><div style="text-align:center;">
+        <strong >Número de datos: {grafica.length+grafica2.length}</strong>
+    </div>
+    <br>
     <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
         <div id="container"></div>
         <p class="highcharts-description" style="text-align:center">
             Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Evolución.
         </p>
     </figure>
+    <br>
+    <br><div style="text-align:center;">
+        <strong >Número de datos: {grafica2.length}</strong>
+    </div>
+    <br>
+    <Table bordered style="text-align: center;">
+        <thead>
+          <tr style="font-weight: bold; text-decoration:underline">
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>Población Total</th>
+            <th>Hombres</th>
+            <th>Mujeres</th>
+            <th>Por debajo de 16</th>
+            <th>Entre 15 y 64</th>
+            <th>Mayores de 65</th>
+          </tr>
+        </thead>
+        <tbody>
+           
+
+        {#each grafica2 as d}
+          <tr>
+            <td>{d["territory"]}</td>
+            <td>{d["period"]}</td>
+            <td>{d["total_population"]}</td>
+            <td>{d["man"]}</td>
+            <td>{d["woman"]}</td>
+            <td>{d["under_sixteen_years"]}</td>
+            <td>{d["from_sixteen_to_sixty_four_years"]}</td>
+            <td>{d["sixty_five_and_over"]}</td>
+          </tr>
+        {/each}
+          
+        </tbody>
+    </Table>
+    <p style="text-align:center">
+        Datos sobre la población en diversos años.
+    </p>
 <br>
 
 </main>

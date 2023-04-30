@@ -9,7 +9,7 @@
 <script>
     // @ts-nocheck
     import {onMount} from "svelte";
-    import { Button } from "sveltestrap";
+    import { Button, Table } from "sveltestrap";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     //import { dev } from "$app/environment"; 
 
@@ -369,6 +369,10 @@
 <main>
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Estudio de Solicitantes de Trabajo.</h1>
 
+    <br><div style="text-align:center;">
+        <strong >Número de datos: {grafica.length+grafica2.length}</strong>
+    </div>
+    <br>
     <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
         <div id="container2"></div>
         <p class="highcharts-description" style="text-align:center">
@@ -376,12 +380,49 @@
         </p>
     </figure>
 
+    <br><div style="text-align:center;">
+        <strong >Número de datos: {grafica2.length}</strong>
+    </div>
+    <br>
+    <Table hover style="text-align: center;">
+        <thead>
+          <tr style="font-weight: bold; text-decoration:underline">
+            <th>Provincia</th>
+            <th>Año</th>
+            <th>Género</th>
+            <th>Tipo</th>
+            <th>Primaria</th>
+            <th>FP</th>
+            <th>Educación general</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+           
+
+        {#each grafica2 as d}
+          <tr>
+            <td>{d["territory"]}</td>
+            <td>{d["year"]}</td>
+            <td>{d["gender"]}</td>
+            <td>{d["type"]}</td>
+            <td>{d["primary"]}</td>
+            <td>{d["fp_program"]}</td>
+            <td>{d["general_education"]}</td>
+            <td>{d["total"]}</td>
+          </tr>
+        {/each}
+          
+        </tbody>
+    </Table>
+
+    <p style="text-align:center">
+        Estadísticas de Solicitantes de Trabajo.
+    </p>
     <canvas id="myChart2" style="width: 20vw; height: 20vh;"></canvas>
     <p style="text-align:center">
         Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Solicitantes de Trabajo.
     </p>
-
-
 
     <br>
     <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
