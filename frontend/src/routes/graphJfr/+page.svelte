@@ -98,7 +98,7 @@
         },
         yAxis: {
             min: 0,
-            max: 50,
+            max: 70,
             title: {
                 text: 'Nivel de Contaminación',
                 style: {
