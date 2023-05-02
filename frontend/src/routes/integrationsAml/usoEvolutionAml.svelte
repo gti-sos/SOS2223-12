@@ -119,11 +119,11 @@
             }
             
             await delay(500);
-            loadChart();
+            //loadChart();
             
     }
 
-    async function loadChart(){  
+    /*async function loadChart(){  
         
         Highcharts.chart('container', {
         chart: {
@@ -232,13 +232,13 @@
                 }]
             }
         });
-    }
+    }*/
 
 </script>
 
 <main>
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Evolución</h1>
-    <br><div style="text-align:center;">
+    <!--<br><div style="text-align:center;">
         <strong >Número de datos: {grafica.length+grafica2.length}</strong>
     </div>
     <br>
@@ -248,12 +248,12 @@
             Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Evolución.
         </p>
     </figure>
-    <br>
+    <br>-->
     <br><div style="text-align:center;">
         <strong >Número de datos: {grafica2.length}</strong>
     </div>
     <br>
-    <Table bordered style="text-align: center;">
+    <Table striped hover style="text-align: center;">
         <thead>
           <tr style="font-weight: bold; text-decoration:underline">
             <th>Provincia</th>
