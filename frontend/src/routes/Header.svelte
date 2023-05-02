@@ -2,7 +2,7 @@
     <strong>
     <a href="/">Inicio</a>
     <a href="/about">Sobre</a>
-    <a href="/analytics">Gráfica-Conjunta</a>
+    <a href="/analytics">Análisis</a>
     <a href="/agroclimatic">Agroclimáticas</a>
     <a href="/graphAml">Gráficas-Agroclimáticas</a>
     <a href="/integrationsAml">Usos/Integraciones-Agroclimáticas</a>

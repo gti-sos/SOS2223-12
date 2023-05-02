@@ -12,8 +12,8 @@
     //import { dev } from "$app/environment"; 
 
 
-    let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
-    let API2 = "https://sos2223-13.ew.r.appspot.com/api/v2/evolution";
+    //let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
+    let API2 = "https://sos2223-12.ew.r.appspot.com/evol";//"http://localhost:12345/evol";// Llama a /evol que esté en el backend y accede a la API de luismi
 
     let grafica = [];
     let grafica2 = [];
@@ -79,7 +79,7 @@
                 console.log("Error al cargar la gráfica"); 
             }
         
-        resultStatus = result = "";
+        /*resultStatus = result = "";
             const res = await fetch(API, {
                 method: "GET"
             });
@@ -117,7 +117,7 @@
             }else{
                 console.log("Error al cargar la gráfica");
             }
-            
+            */
             await delay(500);
             //loadChart();
             
