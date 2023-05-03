@@ -10,6 +10,9 @@
     <a href="/graphVem">Gráficas-Bibliotecas</a>
     <a href="/pollutions">Contaminaciones</a>
     <a href="/graphJfr">Gráficas-Contaminaciones</a>
+    <a href="/integrationsJfr">Usos/Integraciones-Contaminaciones</a>
+
+
     
     </strong>
 </nav>
