@@ -10,145 +10,145 @@ function loadBackend_vem2 (app){
             identifier: 869,
             locality_id: 160,
             modified: 2016,
-            postcode: 41460,
+            postcode: 1460,
             province_name: "Sevilla"
         },{
             identifier: 870,
             locality_id: 161,
             modified: 2017,
-            postcode: 41804,
+            postcode: 1804,
             province_name: "Sevilla"
         }, {
             identifier: 871,
             locality_id: 162,
             modified: 2018,
-            postcode: 41640,
+            postcode: 1640,
             province_name: "Sevilla"
         }, {
             identifier: 872,
             locality_id: 163,
             modified: 2019,
-            postcode: 41461,
+            postcode: 1461,
             province_name: "Sevilla"
         }, {
             identifier: 873,
             locality_id: 164,
             modified: 2020,
-            postcode: 41876,
+            postcode: 1876,
             province_name: "Sevilla"
         },{
             identifier: 874,
             locality_id: 165,
             modified: 2021,
-            postcode: 41636,
+            postcode: 1636,
             province_name: "Sevilla"
         },{
             identifier: 969,
             locality_id: 260,
             modified: 2016,
-            postcode: 21374,
+            postcode: 1374,
             province_name: "Huelva"
         },{
             identifier: 970,
             locality_id: 261,
             modified: 2017,
-            postcode: 21135,
+            postcode: 1135,
             province_name: "Huelva"
         }, {
             identifier: 971,
             locality_id: 262,
             modified: 2018,
-            postcode: 21610,
+            postcode: 1610,
             province_name: "Huelva"
         },{
             identifier: 972,
             locality_id: 263,
             modified: 2019,
-            postcode: 21346,
+            postcode: 1346,
             province_name: "Huelva"
         },{
             identifier: 973,
             locality_id: 264,
             modified: 2020,
-            postcode: 21347,
+            postcode: 1347,
             province_name: "Huelva"
         },{
             identifier: 974,
             locality_id: 265,
             modified: 2021,
-            postcode: 21306,
+            postcode: 1306,
             province_name: "Huelva"
         },{
             identifier: 769,
             locality_id: 360,
             modified: 2016,
-            postcode: 29160,
+            postcode: 9160,
             province_name: "Malaga"
         },{
             identifier: 770,
             locality_id: 361,
             modified: 2017,
-            postcode: 29207,
+            postcode: 9207,
             province_name: "Malaga"
         },{
             identifier: 771,
             locality_id: 362,
             modified: 2018,
-            postcode: 29375,
+            postcode: 9375,
             province_name: "Malaga"
         },{
             identifier: 772,
             locality_id: 363,
             modified: 2019,
-            postcode: 29055,
+            postcode: 9055,
             province_name: "Malaga"
         },{
             identifier: 773,
             locality_id: 364,
             modified: 2020,
-            postcode: 29323,
+            postcode: 9323,
             province_name: "Malaga"
         },{
             identifier: 774,
             locality_id: 365,
             modified: 2021,
-            postcode: 29070,
+            postcode: 9070,
             province_name: "Malaga"
         },{
             identifier: 669,
             locality_id: 460,
             modified: 2016,
-            postcode: 14155,
+            postcode: 4155,
             province_name: "Cordoba"
         },{
             identifier: 670,
             locality_id: 461,
             modified: 2017,
-            postcode: 14226,
+            postcode: 4226,
             province_name: "Cordoba"
         },{
             identifier: 671,
             locality_id: 462,
             modified: 2018,
-            postcode: 14269,
+            postcode: 4269,
             province_name: "Cordoba"
         },{
             identifier: 672,
             locality_id: 463,
             modified: 2019,
-            postcode: 14310,
+            postcode: 4310,
             province_name: "Cordoba"
         },{
             identifier: 673,
             locality_id: 464,
             modified: 2020,
-            postcode: 14079,
+            postcode: 4079,
             province_name: "Cordoba"
         },{
             identifier: 674,
             locality_id: 465,
             modified: 2021,
-            postcode: 14166,
+            postcode: 4166,
             province_name: "Cordoba"
         }
     ]
@@ -826,6 +826,22 @@ function loadBackend_vem2 (app){
             }
         });
         console.log("Se ha borrado la provincia en /library/:province_name");
+    });
+
+    app.get(BASE_API_URL+"/graphVem", (request, response) =>{
+        console.log("Grafica");
+        db.find({},{_id: 0}).sort({province_name: 1, modified: 1}).exec(function(err, lista){
+            if(err){
+                console.log("Error obteniendo los datos");
+                response.status(500).json("ERROR obteniendo los datos");
+            
+            }else{
+                response.json(lista);
+            }
+        });
+        
+
+        console.log("Se ha generado la gráfica de contaminaciones");
     });
     
 
