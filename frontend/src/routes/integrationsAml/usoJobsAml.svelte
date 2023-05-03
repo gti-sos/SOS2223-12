@@ -116,11 +116,11 @@
             }
             
             await delay(500);
-            loadChartOtro();
-            loadChart2();
+            //loadChartOtro();
+            //loadChart2();
     }
 
-    async function loadChartOtro(){  
+    /*async function loadChartOtro(){  
         
         Highcharts.chart('container2', {
         chart: {
@@ -221,9 +221,9 @@
                 }]
             }
         });
-    }
+    }*/
 
-    async function loadChart2() {
+    /*async function loadChart2() {
         const ctx = document.getElementById('myChart2').getContext('2d');
         const myChart2 = new Chart(ctx, {
             type: 'bar',
@@ -362,14 +362,14 @@
                 },
             }
         });
-    }
+    }*/
 </script>
 
 
 <main>
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Estudio de Solicitantes de Trabajo.</h1>
 
-    <br><div style="text-align:center;">
+    <!--<br><div style="text-align:center;">
         <strong >Número de datos: {grafica.length+grafica2.length}</strong>
     </div>
     <br>
@@ -378,13 +378,13 @@
         <p class="highcharts-description" style="text-align:center">
             Gráfico de Área sobre las Estadísticas Agroclimáticas y Solicitantes de Trabajo.
         </p>
-    </figure>
+    </figure>-->
 
     <br><div style="text-align:center;">
         <strong >Número de datos: {grafica2.length}</strong>
     </div>
     <br>
-    <Table hover style="text-align: center;">
+    <Table striped hover style="text-align: center;">
         <thead>
           <tr style="font-weight: bold; text-decoration:underline">
             <th>Provincia</th>
@@ -419,10 +419,10 @@
     <p style="text-align:center">
         Estadísticas de Solicitantes de Trabajo.
     </p>
-    <canvas id="myChart2" style="width: 20vw; height: 20vh;"></canvas>
+    <!--<canvas id="myChart2" style="width: 20vw; height: 20vh;"></canvas>
     <p style="text-align:center">
         Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Solicitantes de Trabajo.
-    </p>
+    </p>-->
 
     <br>
     <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">

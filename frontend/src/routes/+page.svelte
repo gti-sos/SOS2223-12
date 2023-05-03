@@ -51,7 +51,11 @@
         <li><a href="https://sos2223-12.appspot.com/library" rel="nofollow">https://sos2223-12.appspot.com/library</a> (desarrollado por <a href="https://github.com/victoregea">Víctor Egea Moncayo</a>)</li>
         <li><a href="https://sos2223-12.appspot.com/pollutions" rel="nofollow">https://sos2223-12.appspot.com/pollutions</a> (desarrollado por <a href="https://github.com/jorfigrom">Jorge Figueroa Romero</a>)</li>
         </ul></li>
-    </ul>
+        <p></p>
+        <li><strong>Vídeos Explicativos:</strong>
+        <ul dir="auto">
+        <li><a href="https://sos2223-12.appspot.com/about" rel="nofollow">https://sos2223-12.appspot.com/about</a></li>
+        </ul>
 </body>
 
 

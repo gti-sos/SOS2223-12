@@ -62,7 +62,7 @@
         <strong >Número de datos: {datos5.length}</strong>
     </div>
     <br>
-    <Table dark striped style="text-align: center;">
+    <Table striped hover style="text-align: center;">
         <thead>
           <tr style="font-weight: bold; text-decoration:underline">
             <th>Hecho por:</th>
