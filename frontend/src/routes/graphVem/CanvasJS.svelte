@@ -16,6 +16,8 @@
     let result = "";
     let resultStatus = "";
 
+    
+
     onMount(async () => {
         getGraph();
     });
@@ -30,9 +32,7 @@
         if (res.ok) {
             try {
                 const valores = await res.json();
-                const fil = valores.filter(
-                    (x) =>
-                        x.province_name == "Sevilla");
+                const fil = valores.filter((x) => x.province_name == "Sevilla");
                 result = JSON.stringify(fil, null, 2);
                 graph = fil;
                 graph.forEach((graph) => {
@@ -59,15 +59,15 @@
 
         for (var i = 0; i < graph.length; i++) {
             dataPointsIdentifier.push({
-                x: new Date(modified[i]),
+                x: modified[i],
                 y: identifier[i],
             });
             dataPointsLocalityId.push({
-                x: new Date(modified[i]),
+                x:modified[i],
                 y: locality_id[i],
             });
             dataPointsPostcode.push({
-                x: new Date(modified[i]),
+                x: modified[i],
                 y: postcode[i],
             });
         }
@@ -78,7 +78,7 @@
                 text: "Localización de bibliotecas en Sevilla",
             },
             axisX: {
-                valueFormatString: "YYYY"
+                valueFormatString: "####",
             },
             axisY: {
                 includeZero: false,
