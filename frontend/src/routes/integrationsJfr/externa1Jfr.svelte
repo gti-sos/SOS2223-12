@@ -2,7 +2,6 @@
 <div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
     Integración 1: Datos Air Quality Seattle.
     <br>
-    Integración X: 
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 <svelte:head>
@@ -43,6 +42,7 @@
 
     let ejex = [];
 
+    /*
 
     onMount(async () => {
         getDatos();
@@ -234,7 +234,7 @@
     }
   });
 }
-
+*/
     
 </script>
 
