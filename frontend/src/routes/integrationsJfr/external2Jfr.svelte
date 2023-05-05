@@ -97,235 +97,115 @@
     }
 
     await delay(500);
-    loadChartMAS();
+    loadChartMAS2();
   }
 
-  async function loadChartMAS() {
-    const data = {
-      labels: ejex,
-      series: [elemNO2, elemO3, elemSO2, duracion],
-    };
-
-    const options = {
-      chartPadding: {
-        top: 50,
-        left: 200,
-        right: 200,
-      },
-      plugins: [
-        Chartist.plugins.legend({
-          position: "top",
-          labels: {
-            font: {
-              weight: "bold",
-            },
-          },
-        }),
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-            axisTitle: "UserName | Provincia-Año",
-            offset: {
-              x: 0,
-              y: 35,
-            },
-            textAnchor: "middle",
-          },
-          axisY: {
-            axisTitle: "Valor",
-            offset: {
-              x: 0,
-              y: 0,
-            },
-            textAnchor: "middle",
-            flipTitle: true,
-          },
-        }),
-      ],
-      axisY: {
-        onlyInteger: true,
-        offset: 60,
-      },
-    };
-
-    
-    new Chartist.Line("#myChart6", data, options);
-  }
-
-  /*
-    async function loadChartMAS() {
-  const ctx = document.getElementById('myChart8').getContext('2d');
-  const myChart8 = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ejex,
-      datasets: [{
-        label: 'NO2',
-        data: elemNO2,
-        borderColor: 'red',
-        backgroundColor: 'transparent',
-      }, {
-        label: 'O3',
-        data: elemO3,
-        borderColor: 'blue',
-        backgroundColor: 'transparent',
-      }, {
-        label: 'SO2',
-        data: elemSO2,
-        borderColor: 'green',
-        backgroundColor: 'transparent',
-      }, {
-        label: 'Duración del video',
-        data: duracion,
-        borderColor: 'yellow',
-        backgroundColor: 'transparent',
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'top',
-          labels: {
-            font: {
-              weight: 'bold'
-            }
-          }
+  async function loadChartMAS2(){  
+        
+        Highcharts.chart('container6', {
+        chart: {
+            type: 'column'
         },
         title: {
-          text: 'Gráfica de Contaminación y Victorias User Rainbow Six',
-          display: true,
-          color: 'black',
-          font: {
-            family: 'Times New Roman',
-            size: 40,
-            weight: 'bold',
-          },
-          padding: {
-            bottom: 10
-          }
+            text: 'Contaminacion y Clips de directo',
+            style: {
+                fontWeight: 'bold',
+                fontFamily: 'Times New Roman',
+                fontSize: 40,
+            },
         },
+        
         subtitle: {
-          display: true,
-          text: 'Gráfica con Chartist.js',
-          color: 'black',
-          font: {
-            size: 15,
-            family: 'Times New Roman',
-            weight: 'bold',
-          },
-          padding: {
-            bottom: 20
-          }
+            text: 'Gráfica con HighCharts',
+            style:{
+                fontFamily: 'Times New Roman',
+                fontWeight: 'bold',
+                fontSize: 12,
+                color: 'black'
+            },
+        },
+        xAxis: {
+            title:{
+                text: "Nombre de usuario | Provincia-Año",
+                style: {
+                    fontWeight: 'bold'
+                }
+            },
+            categories: ejex,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Valor',
+                style: {
+                    fontWeight: 'bold'
+                }
+            }
         },
         tooltip: {
-          mode: 'index',
-          intersect: false,
-          callbacks: {
-            label: function(context) {
-              return context.dataset.label + ': ' + context.parsed.y.toFixed(2);
-            }
-          }
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y: 2f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
         },
-        axistitle: {
-          font: {
-            family: 'Times New Roman',
-            size: 20,
-            weight: 'bold',
-          },
-          color: 'black',
-          padding: {
-            top: 10,
-            bottom: 10,
-            left: 0,
-            right: 0,
-          }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          display: true,
-          title: {
-            display: true,
-            text: 'Valor',
-            font: {
-              weight: 'bold',
-            },
-          },
-        },
-        x: {
-          display: true,
-          title: {
-            display: true,
-            text: 'UserName | Provincia-Año',
-            font: {
-              weight: 'bold',
-            },
-          },
-          ticks: {
-            autoSkip: false,
-            font: {
-              size: 10,
+        plotOptions: {
+            column: {
+            pointPadding: 0.2,
+            borderWidth: 2,
+            borderColor: "#000"
             }
-          }
-        }
-      },
-      layout: {
-        padding: {
-          top: 50,
-          left: 200,
-          right: 200,
-        }
-      },
+        },
+        series: [{
+            name: 'Duracion',
+            data: duracion
+        },{
+            name: 'NO2',
+            data: elemNO2
+
+        }, {
+            name: 'O3',
+            data: elemO3 
+
+        }, {
+            name: 'SO2',
+            data: elemSO2 
+
+        }],
+        responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 1000
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+        });
     }
-  });
-}
-*/
 </script>
 
-<h1
-  style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold"
->
-  Integraciones
-</h1>
-<div
-  style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue"
->
-  Integración 2: Datos Streaming Clips
-  <br />
+<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Integraciones</h1>
+<div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
+    Integración 2: Datos Clips de Directo.
+    <br>
 </div>
-<hr style="text-align: right; margin-left: 100px; margin-right: 100px;" />
-<svelte:head>
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
-  />
-  <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js">
-  </script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/chartist-plugin-axistitle@0.0.7/dist/chartist-plugin-axistitle.min.js"
-  ></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/@kblo55/chartist-plugin-tooltips@0.0.18/dist/chartist-plugin-tooltip.min.js"
-  ></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2"></script>
-</svelte:head>
+<hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 
 <main>
-  <h1
-    style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline;"
-  >
-    Datos: Streaming clips2
-  </h1>
-  <br />
-  <div style="text-align:center;">
-    <strong>Número de datos: {datos.length + datos2.length}</strong>
-  </div>
-
-  <canvas id="myChart6"  />
-  <p style="text-align:center" />
-  <br />
+<figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
+    <div id="container6"></div>
+    <p class="highcharts-description" style="text-align:center">
+        Gráfica de contaminación en Andalucía y duración de clips de directo.
+    </p>
+</figure>
+<br>
 </main>
+
