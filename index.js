@@ -39,6 +39,23 @@ app.use(paths, function(req, res) {
     req.pipe(request(url)).pipe(res);
 });
 
+//Proxy Jorge:
+var paths2 = "/evolu";
+var apiServerHost2 = "https://sos2223-13.ew.r.appspot.com/api/v2/evolution";
+
+app.use(paths2, function(req, res) {
+    var url = apiServerHost2 + req.url;
+    req.pipe(request(url)).pipe(res);
+});
+
+//Proxy Victor:
+var paths3 = "/evolut";
+var apiServerHost3 = "https://sos2223-13.ew.r.appspot.com/api/v2/evolution";
+
+app.use(paths3, function(req, res) {
+    var url = apiServerHost3 + req.url;
+    req.pipe(request(url)).pipe(res);
+});
 
 // app.use("/", express.static("./public")); // quitar esta ruta cuando
 // todos cambiemos el backend_xxx por loadBackend_xxx

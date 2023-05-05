@@ -1,6 +1,6 @@
 <script>
     import Externa1Jfr from "./externa1Jfr.svelte";
-    
+    import Proxy from "./proxy.svelte";
 </script>
 
 
@@ -8,5 +8,6 @@
     <Externa1Jfr></Externa1Jfr>
     <hr style="margin-left: 100px; margin-right: 100px">
     <slot></slot>
-    
+    <Proxy></Proxy>
+    <hr style="margin-left: 100px; margin-right: 100px">
 </main>
