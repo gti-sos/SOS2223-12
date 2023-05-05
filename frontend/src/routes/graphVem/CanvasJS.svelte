@@ -8,15 +8,13 @@
     let API = "/api/v2/graphVem";
     let graph = [];
 
-    let modified = [];
+    let modified = new Set();
     let identifier = [];
     let locality_id = [];
     let postcode = [];
 
     let result = "";
     let resultStatus = "";
-
-    
 
     onMount(async () => {
         getGraph();
@@ -35,11 +33,15 @@
                 const fil = valores.filter((x) => x.province_name == "Sevilla");
                 result = JSON.stringify(fil, null, 2);
                 graph = fil;
+
                 graph.forEach((graph) => {
-                    modified.push(graph["modified"]);
-                    identifier.push(graph["identifier"]);
-                    locality_id.push(graph["locality_id"]);
-                    postcode.push(graph["postcode"]);
+                    const currModified = graph["modified"];
+                    if (!modified.has(currModified)) {
+                        modified.add(currModified);
+                        identifier.push(graph["identifier"]);
+                        locality_id.push(graph["locality_id"]);
+                        postcode.push(graph["postcode"]);
+                    }
                 });
                 loadChart();
             } catch (error) {
@@ -63,7 +65,7 @@
                 y: identifier[i],
             });
             dataPointsLocalityId.push({
-                x:modified[i],
+                x: modified[i],
                 y: locality_id[i],
             });
             dataPointsPostcode.push({
