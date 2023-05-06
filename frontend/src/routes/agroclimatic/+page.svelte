@@ -1,3 +1,6 @@
+<svelte:head>
+    <title>SOS2223-12-Agroclimáticas</title>
+</svelte:head>
 <script>
     // @ts-nocheck
 

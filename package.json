@@ -35,5 +35,8 @@
     "newman": "^5.3.2",
     "node-chartist": "^1.0.5",
     "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.33.0"
   }
 }
