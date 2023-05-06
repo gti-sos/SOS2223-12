@@ -1,6 +1,4 @@
-
 <script>
-    
     //@ts-nocheck
     import { Table } from "sveltestrap";
     import { onMount } from "svelte";
@@ -22,21 +20,21 @@
     let id_localidad = [];
     let codigo_postal = [];
 
-    let puzzle = [];
-    let ratting = [];
+    let temperatura = [];
+    let viento = [];
 
     onMount(async () => {
         getDatos();
     });
 
     const url =
-        "https://chess-puzzles.p.rapidapi.com/?themes=%5B%22middlegame%22%2C%22advantage%22%5D&rating=1500&themesType=ALL&playerMoves=4&count=25";
+        "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=35.5&lon=-78.5";
     const options = {
         method: "GET",
         headers: {
             "X-RapidAPI-Key":
                 "3a5ba83276msh70e73b2e1abd13ap194ca1jsn0827834bd966",
-            "X-RapidAPI-Host": "chess-puzzles.p.rapidapi.com",
+            "X-RapidAPI-Host": "weatherbit-v1-mashape.p.rapidapi.com",
         },
     };
 
@@ -48,10 +46,10 @@
             try {
                 const data = await res.json();
                 result = JSON.stringify(data, null, 2);
-                datos = data.puzzles;
+                datos = data.data;
                 datos.forEach((element) => {
-                    ejeX.push(element["puzzleid"]);
-                    ratting.push(element["ratingdeviation"]);
+                    ejeX.push(element["wind_cdir_full"]);
+                    ratting.push(element["temp"]);
 
                     identificador.push(0);
                     id_localidad.push(0);
@@ -84,7 +82,11 @@
                         : 0
                 );
                 datos2.sort((a, b) =>
-                    a.modified > b.modified ? 1 : b.modified > a.modified ? -1 : 0
+                    a.modified > b.modified
+                        ? 1
+                        : b.modified > a.modified
+                        ? -1
+                        : 0
                 );
                 datos2.forEach((datos2) => {
                     console.log(datos2);
@@ -92,9 +94,7 @@
                     identificador.push(datos2["identifier"]);
                     id_localidad.push(datos2["locality_id"]);
                     codigo_postal.push(datos2["postcode"]);
-                    ejeX.push(
-                        datos2.province_name + "-" + datos2.modified
-                    );
+                    ejeX.push(datos2.province_name + "-" + datos2.modified);
 
                     ratting.push(0);
                 });
@@ -124,8 +124,8 @@
                             return {
                                 x: index,
                                 y: value,
-                                r: 10
-                            }
+                                r: 10,
+                            };
                         }),
                         borderColor: "#000",
                         backgroundColor: "red",
@@ -136,8 +136,8 @@
                             return {
                                 x: index,
                                 y: value,
-                                r: 10
-                            }
+                                r: 10,
+                            };
                         }),
                         borderColor: "#000",
                         backgroundColor: "blue",
@@ -148,20 +148,20 @@
                             return {
                                 x: index,
                                 y: value,
-                                r: 10
-                            }
+                                r: 10,
+                            };
                         }),
                         borderColor: "#000",
                         backgroundColor: "green",
                     },
                     {
-                        label: "ratio",
-                        data: ratting.map((value, index) => {
+                        label: "viento",
+                        data: viento.map((value, index) => {
                             return {
                                 x: index,
                                 y: value,
-                                r: 10
-                            }
+                                r: 10,
+                            };
                         }),
                         borderColor: "#000",
                         backgroundColor: "yellow",
@@ -180,7 +180,7 @@
                         },
                     },
                     title: {
-                        text: "Estadísticas bibliotecas y ajedrez",
+                        text: "Estadísticas bibliotecas y el tiempo",
                         display: true,
                         color: "black",
                         font: {
@@ -235,7 +235,7 @@
                         display: true,
                         title: {
                             display: true,
-                            text: "puzzleid | Provincia-Año",
+                            text: "wind_cdir_full | Provincia-Año",
                             font: {
                                 weight: "bold",
                             },
@@ -253,7 +253,6 @@
             },
         });
     }
-
 </script>
 
 <h1
@@ -264,7 +263,7 @@
 <div
     style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue"
 >
-    Integración 1: Datos ajedrez.
+    Integración 1: Datos del viento.
     <br />
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;" />
@@ -276,7 +275,7 @@
     <h1
         style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline;"
     >
-        Datos: ajedrez
+        Datos: viento
     </h1>
     <br />
     <div style="text-align:center;">
@@ -284,8 +283,6 @@
     </div>
 
     <canvas id="myChart3" style="width: 20vw; height: 20vh;" />
-    <p style="text-align:center">
-        Estadísticas biblootecas y ajedrez.
-    </p>
+    <p style="text-align:center">Estadísticas biblootecas y el viento.</p>
     <br />
-</main>  
+</main>
