@@ -92,7 +92,7 @@
         var ident = {
             x: nom_pais_reg,
             y: idd,
-            type: 'spline',
+            type: 'bar',
             name: 'ID'
         }
         var dataPlot = [lat, lon, ident];
