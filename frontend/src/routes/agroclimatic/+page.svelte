@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>SOS2223-12-Agroclimáticas</title>
+    <title>SOS2223-12-Datos-Agroclimáticas</title>
 </svelte:head>
 <script>
     // @ts-nocheck
@@ -339,7 +339,7 @@
             </tr>
         
         {#each agroclimatics as agroclimatic }
-          <tr>
+          <tr class="datosAgro">
             <td><a href="/agroclimatic/{agroclimatic.province}/{agroclimatic.year}">{agroclimatic.province}</a></td>
             <td>{agroclimatic.year}</td>
             <td>{agroclimatic.maximun_temperature}</td>

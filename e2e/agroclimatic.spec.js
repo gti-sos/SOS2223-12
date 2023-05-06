@@ -8,15 +8,17 @@ test('home has title correct', async ({ page }) => {
   await expect(page).toHaveTitle("SOS2223-12");
 });
 
-/*test('navigate to agroclimatic page', async ({ page }) => {
+test('navigate to agroclimatic page', async ({ page }) => {
     await page.goto('localhost:12345');
-
     // Click the get started link.
-    await page.getByRole('link', { name: 'Agroclimáticas' }).click();
+    await page.getByRole('link', { name: 'Datos-Agroclimáticas' }).click();
 
     // Expects the URL to contain intro.
-    await expect(page).toHaveTitle("SOS2223-12-Agroclimáticas");
-});*/
+    await expect(page).toHaveTitle("SOS2223-12-Datos-Agroclimáticas");
+
+    // Comprobación de que hay datos
+    await expect((await page.locator(".datosAgro").all()).length).toBeGreaterThan(0);
+});
 
 test('navigate to graph-agroclimatic page', async ({ page }) => {
     await page.goto('localhost:12345');
