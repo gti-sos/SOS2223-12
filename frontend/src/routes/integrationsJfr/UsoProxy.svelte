@@ -1,3 +1,11 @@
+<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Usos</h1>
+<div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
+    Uso 1: Datos de Desempleo.
+    <br>
+</div>
+<hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
+
+
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -13,23 +21,22 @@
 
 
     //let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
-    let API2 = "http://localhost:12345/evolu";//"https://sos2223-12.ew.r.appspot.com/evolu";//"http://localhost:12345/evol";// Llama a /evol que esté en el backend y accede a la API de luismi
+    let API2 = "http://localhost:12345/employ";//"https://sos2223-12.ew.r.appspot.com/employ";//"http://localhost:12345/evol";// Llama a /evol que esté en el backend y accede a la API de luismi
 
     let grafica = [];
     let grafica2 = [];
-   
-    let temp_max = [];
-    let temp_min = [];
-    let temp_med = [];
 
+    let elemNO2 = [];
+    let elemO3 = [];
+    let elemSO2 = [];
+   
     let provincia_año2 = [];
 
-    let total_popu = [];
-    let hombres = [];
-    let mujeres = [];
-    let debajo16 = [];
-    let entre16y64 = [];
-    let mayor65 = [];
+    let periodo = [];
+    let fecha = [];
+    let empleadas_personas = [];
+    let inactivas_personas = [];
+    let desempleadas_personas = [];
 
     let result = "";
     let resultStatus = "";
@@ -52,21 +59,20 @@
                     const valores2 = await res2.json();
                     result2 = JSON.stringify(valores2, null, 2);
                     grafica2 = valores2;
-                    grafica2.sort((a, b) => (a.territory > b.territory) ? 1 : ((b.territory > a.territory) ? -1 : 0));
+                    grafica2.sort((a, b) => (a.region > b.region) ? 1 : ((b.region > a.region) ? -1 : 0));
                     grafica2.sort((a, b) => (a.period > b.period) ? 1 : ((b.period > a.period) ? -1 : 0));
                     grafica2.forEach(grafica2 =>{
                         console.log(grafica2);
-                        provincia_año2.push(grafica2.territory+"-"+grafica2.period);
-                        total_popu.push(grafica2["total_population"]);
-                        hombres.push(grafica2["man"]); 
-                        mujeres.push(grafica2["woman"]); 
-                        debajo16.push(grafica2["under_sixteen_years"]); 
-                        entre16y64.push(grafica2["from_sixteen_to_sixty_four_years"]); 
-                        mayor65.push(grafica2["sixty_five_and_over"]); 
+                        provincia_año2.push(grafica2.region+"-"+grafica2.period);
+                        periodo.push(grafica2["period"]);
+                        fecha.push(grafica2["date"]); 
+                        empleadas_personas.push(grafica2["employed_person"]); 
+                        inactivas_personas.push(grafica2["inactive_person"]); 
+                        desempleadas_personas.push(grafica2["unemployed_person"]); 
                         
-                        temp_max.push(0);
-                        temp_min.push(0);
-                        temp_med.push(0);
+                        elemNO2.push(0);
+                        elemO3.push(0);
+                        elemSO2.push(0);
                                        
                     });
                     
@@ -87,7 +93,7 @@
 
 
 <main>
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Evolución</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Desempleo</h1>
 
     <br><div style="text-align:center;">
         <strong >Número de datos: {grafica2.length}</strong>
@@ -98,12 +104,11 @@
           <tr style="font-weight: bold; text-decoration:underline">
             <th>Provincia</th>
             <th>Año</th>
-            <th>Población Total</th>
-            <th>Hombres</th>
-            <th>Mujeres</th>
-            <th>Por debajo de 16</th>
-            <th>Entre 15 y 64</th>
-            <th>Mayores de 65</th>
+            <th>Periodo</th>
+            <th>Fecha</th>
+            <th>Personas empleadas</th>
+            <th>Personas inactivas</th>
+            <th>Personas desempleadas</th>
           </tr>
         </thead>
         <tbody>
@@ -111,21 +116,20 @@
 
         {#each grafica2 as d}
           <tr>
-            <td>{d["territory"]}</td>
+            <td>{d["region"]}</td>
+            <td>{d["year"]}</td>
             <td>{d["period"]}</td>
-            <td>{d["total_population"]}</td>
-            <td>{d["man"]}</td>
-            <td>{d["woman"]}</td>
-            <td>{d["under_sixteen_years"]}</td>
-            <td>{d["from_sixteen_to_sixty_four_years"]}</td>
-            <td>{d["sixty_five_and_over"]}</td>
+            <td>{d["date"]}</td>
+            <td>{d["employed_person"]}</td>
+            <td>{d["inactive_person"]}</td>
+            <td>{d["unemployed_person"]}</td>
           </tr>
         {/each}
           
         </tbody>
     </Table>
     <p style="text-align:center">
-        Datos sobre la población en diversos años.
+        Datos sobre el empleo en diversos años.
     </p>
 <br>
 

@@ -40,8 +40,8 @@ app.use(paths, function(req, res) {
 });
 
 //Proxy Jorge:
-var paths2 = "/evolu";
-var apiServerHost2 = "https://sos2223-13.ew.r.appspot.com/api/v2/evolution";
+var paths2 = "/employ";
+var apiServerHost2 = "https://sos2223-13.appspot.com/api/v2/employment";
 
 app.use(paths2, function(req, res) {
     var url = apiServerHost2 + req.url;

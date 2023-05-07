@@ -1,7 +1,8 @@
 <script>
     import Externa1Jfr from "./externa1Jfr.svelte";
     import External2Jfr from "./external2Jfr.svelte";
-    import Proxy from "./proxy.svelte";
+    import UsoProxy from "./UsoProxy.svelte";
+    import UsoOcupacionJfr from "./usoOcupacionJfr.svelte";
 </script>
 
 
@@ -11,6 +12,8 @@
     <External2Jfr></External2Jfr>
     <hr style="margin-left: 100px; margin-right: 100px">
     <slot></slot>
-    <Proxy></Proxy>
+    <UsoProxy></UsoProxy>
+    <hr style="margin-left: 100px; margin-right: 100px">
+    <UsoOcupacionJfr></UsoOcupacionJfr>
     <hr style="margin-left: 100px; margin-right: 100px">
 </main>

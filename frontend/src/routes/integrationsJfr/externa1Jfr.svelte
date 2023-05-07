@@ -42,7 +42,7 @@
 
     let ejex = [];
 
-    
+    /*
 
     onMount(async () => {
         getDatos();
@@ -235,7 +235,7 @@
   });
 }
 
-    
+*/
 </script>
 
 <main>

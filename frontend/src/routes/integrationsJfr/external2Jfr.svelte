@@ -22,6 +22,8 @@
 
   let ejex = [];
 
+  /*
+
   onMount(async () => {
     getDatos();
   });
@@ -190,6 +192,8 @@
             }
         });
     }
+
+  */
 </script>
 
 <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Integraciones</h1>
