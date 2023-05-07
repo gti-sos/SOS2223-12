@@ -113,7 +113,7 @@
     async function loadChartMAS() {
         Highcharts.chart('container6', {
         chart: {
-            type: 'line'
+            type: 'bar'
         },
         title: {
             text: 'Bibliotecas y vientos',
