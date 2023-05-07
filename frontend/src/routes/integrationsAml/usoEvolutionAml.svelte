@@ -12,7 +12,7 @@
     //import { dev } from "$app/environment"; 
 
 
-    //let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
+    let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
     let API2 = "https://sos2223-12.ew.r.appspot.com/evol";//"http://localhost:12345/evol";// Llama a /evol que esté en el backend y accede a la API de luismi
 
     let grafica = [];
@@ -79,7 +79,7 @@
                 console.log("Error al cargar la gráfica"); 
             }
         
-        /*resultStatus = result = "";
+        resultStatus = result = "";
             const res = await fetch(API, {
                 method: "GET"
             });
@@ -117,13 +117,13 @@
             }else{
                 console.log("Error al cargar la gráfica");
             }
-            */
+            
             await delay(500);
-            //loadChart();
+            loadChart();
             
     }
 
-    /*async function loadChart(){  
+    async function loadChart(){  
         
         Highcharts.chart('container', {
         chart: {
@@ -175,11 +175,13 @@
             useHTML: true
         },
         plotOptions: {
-            column: {
-            pointPadding: 0.2,
-            borderWidth: 2,
-            borderColor: "#000"
+        area: {
+            lineWidth: 2,
+            marker: {
+                lineWidth: 1,
+                lineColor: '#666666'
             }
+        }
         },
         series: [{
             name: 'Temperatura Máxima',
@@ -195,27 +197,33 @@
 
         }, {
             name: 'Población Total',
-            data: total_popu
+            data: total_popu,
+            zIndex: 1
 
         }, {
             name: 'Hombres',
-            data: hombres
+            data: hombres,
+            zIndex: 5 
 
         }, {
             name: 'Mujeres',
-            data: mujeres
+            data: mujeres,
+            zIndex: 5
 
         }, {
             name: 'Debajo de 16 años',
-            data: debajo16
+            data: debajo16,
+            zIndex: 6
 
         }, {
             name: 'Entre 16 y 64 años',
-            data: entre16y64
+            data: entre16y64,
+            zIndex: 4
 
         }, {
             name: 'Mas de 65 años',
-            data: mayor65
+            data: mayor65,
+            zIndex: 6
         }],
         responsive: {
                 rules: [{
@@ -232,23 +240,23 @@
                 }]
             }
         });
-    }*/
+    }
 
 </script>
 
 <main>
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline">Datos: Evolución</h1>
-    <!--<br><div style="text-align:center;">
+    <br><div style="text-align:center;">
         <strong >Número de datos: {grafica.length+grafica2.length}</strong>
     </div>
     <br>
     <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
         <div id="container"></div>
         <p class="highcharts-description" style="text-align:center">
-            Gráfico de Columnas sobre las Estadísticas Agroclimáticas y Evolución.
+            Gráfico de área sobre las Estadísticas Agroclimáticas y Evolución.
         </p>
     </figure>
-    <br>-->
+    <!--<br>
     <br><div style="text-align:center;">
         <strong >Número de datos: {grafica2.length}</strong>
     </div>
@@ -286,7 +294,7 @@
     </Table>
     <p style="text-align:center">
         Datos sobre la población en diversos años.
-    </p>
+    </p>-->
 <br>
 
 </main>

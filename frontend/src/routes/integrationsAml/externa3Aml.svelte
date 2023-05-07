@@ -109,8 +109,7 @@
     <h2 style="font-size:40px; font-family: 'Times New Roman', Times, serif; text-align:center; font-weight: bold;">Gráfica de Ciudades GeoDB</h2>
     <h4 style="font-size:12px; font-family: 'Times New Roman', Times, serif; text-align:center; font-weight: bold;">Gráfica con Plotly</h4>
     <br><p style="text-align: center;">
-        El ID se muestra en formato línea, mientras que la latitud y longitud en formato barra,
-        <br>para ver estos dos últimos, pincha sobre el ID para dejar de visualizarlo.
+        Para ver la longitud y latitud, pincha sobre el ID para dejar de visualizarlo.
     </p>
     <div id='myDiv'></div>
     
