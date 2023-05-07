@@ -21,7 +21,6 @@
     let codigo_postal = [];
 
     let temperatura = [];
-    let viento = [];
 
     onMount(async () => {
         getDatos();
@@ -49,7 +48,7 @@
                 datos = data.data;
                 datos.forEach((element) => {
                     ejeX.push(element["wind_cdir_full"]);
-                    ratting.push(element["temp"]);
+                    temperatura.push(element["temp"]);
 
                     identificador.push(0);
                     id_localidad.push(0);
@@ -112,177 +111,109 @@
     }
 
     async function loadChartMAS() {
-        const ctx = document.getElementById("myChart3").getContext("2d");
-        const myChart3 = new Chart(ctx, {
-            type: "bubble",
-            data: {
-                labels: ejeX,
-                datasets: [
-                    {
-                        label: "Identificador",
-                        data: identificador.map((value, index) => {
-                            return {
-                                x: index,
-                                y: value,
-                                r: 10,
-                            };
-                        }),
-                        borderColor: "#000",
-                        backgroundColor: "red",
-                    },
-                    {
-                        label: "Id de la localidad",
-                        data: id_localidad.map((value, index) => {
-                            return {
-                                x: index,
-                                y: value,
-                                r: 10,
-                            };
-                        }),
-                        borderColor: "#000",
-                        backgroundColor: "blue",
-                    },
-                    {
-                        label: "Código postal",
-                        data: codigo_postal.map((value, index) => {
-                            return {
-                                x: index,
-                                y: value,
-                                r: 10,
-                            };
-                        }),
-                        borderColor: "#000",
-                        backgroundColor: "green",
-                    },
-                    {
-                        label: "viento",
-                        data: viento.map((value, index) => {
-                            return {
-                                x: index,
-                                y: value,
-                                r: 10,
-                            };
-                        }),
-                        borderColor: "#000",
-                        backgroundColor: "yellow",
-                    },
-                ],
+        Highcharts.chart('container6', {
+        chart: {
+            type: 'line'
+        },
+        title: {
+            text: 'Bibliotecas y vientos',
+            style: {
+                fontWeight: 'bold',
+                fontFamily: 'Times New Roman',
+                fontSize: 40,
             },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: "top",
-                        labels: {
-                            font: {
-                                weight: "bold",
-                            },
-                        },
-                    },
-                    title: {
-                        text: "Estadísticas bibliotecas y el tiempo",
-                        display: true,
-                        color: "black",
-                        font: {
-                            family: "Times New Roman",
-                            size: 40,
-                            weight: "bold",
-                        },
-                        padding: {
-                            bottom: 10,
-                        },
-                    },
-                    subtitle: {
-                        display: true,
-                        text: "Gráfica con Chart.js",
-                        color: "black",
-                        font: {
-                            size: 15,
-                            family: "Times New Roman",
-                            weight: "bold",
-                        },
-                        padding: {
-                            bottom: 20,
-                        },
-                    },
-                    tooltip: {
-                        mode: "index",
-                        intersect: false,
-                        callbacks: {
-                            label: function (context) {
-                                return (
-                                    context.dataset.label +
-                                    ": " +
-                                    context.parsed.y.toFixed(2)
-                                );
-                            },
-                        },
-                    },
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        display: true,
-                        title: {
-                            display: true,
-                            text: "Valor",
-                            font: {
-                                weight: "bold",
-                            },
-                        },
-                    },
-                    x: {
-                        display: true,
-                        title: {
-                            display: true,
-                            text: "wind_cdir_full | Provincia-Año",
-                            font: {
-                                weight: "bold",
-                            },
-                        },
-                    },
-                },
-                layout: {
-                    padding: {
-                        top: 50,
-                        left: 50,
-                        right: 50,
-                        bottom: 50,
-                    },
-                },
+        },
+        
+        subtitle: {
+            text: 'Gráfica con HighCharts',
+            style:{
+                fontFamily: 'Times New Roman',
+                fontWeight: 'bold',
+                fontSize: 12,
+                color: 'black'
             },
+        },
+        xAxis: {
+            title:{
+                text: "viento | Provincia-Año",
+                style: {
+                    fontWeight: 'bold'
+                }
+            },
+            categories: ejeX,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Valor',
+                style: {
+                    fontWeight: 'bold'
+                }
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y: 2f}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+            pointPadding: 0.2,
+            borderWidth: 2,
+            borderColor: "#000"
+            }
+        },
+        series: [{
+            name: 'Temperatura',
+            data: temperatura
+        },{
+            name: 'Identificador',
+            data: identificador
+
+        }, {
+            name: 'Id de la localidad',
+            data: id_localidad
+
+        }, {
+            name: 'Código postal',
+            data: codigo_postal
+
+        }],
+        responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 1000
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
         });
     }
 </script>
 
-<h1
-    style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold"
->
-    Integraciones
-</h1>
-<div
-    style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue"
->
-    Integración 1: Datos del viento.
-    <br />
+<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Integraciones</h1>
+<div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
+    Integración 2: Datos del tiempo.
+    <br>
 </div>
-<hr style="text-align: right; margin-left: 100px; margin-right: 100px;" />
-<svelte:head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.2"></script>
-</svelte:head>
+<hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 
 <main>
-    <h1
-        style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline;"
-    >
-        Datos: viento
-    </h1>
-    <br />
-    <div style="text-align:center;">
-        <strong>Número de datos: {datos.length + datos2.length}</strong>
-    </div>
-
-    <canvas id="myChart3" style="width: 20vw; height: 20vh;" />
-    <p style="text-align:center">Estadísticas biblootecas y el viento.</p>
-    <br />
+<figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
+    <div id="container6"></div>
+    <p class="highcharts-description" style="text-align:center">
+        Gráfica de las bibliotecas y el viento.
+    </p>
+</figure>
+<br>
 </main>
