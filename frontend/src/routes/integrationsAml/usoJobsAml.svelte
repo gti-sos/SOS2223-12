@@ -62,10 +62,10 @@
                         educ.push(grafica2["general_education"]); 
                         tot.push(grafica2["total"]); 
                         
-                        temp_max.push(0);
+                        /*temp_max.push(0);
                         temp_min.push(0);
                         temp_med.push(0);
-                                       
+                        */             
                     });
                     
                 }catch(error){
@@ -77,7 +77,7 @@
                 console.log("Error al cargar la gráfica"); 
             }
         
-        resultStatus = result = "";
+        /*resultStatus = result = "";
             const res = await fetch(API, {
                 method: "GET"
             });
@@ -113,7 +113,7 @@
                 
             }else{
                 console.log("Error al cargar la gráfica");
-            }
+            }*/
             
             await delay(500);
             //loadChartOtro();

@@ -4,7 +4,7 @@
     import Externa3Aml from "./externa3Aml.svelte";
     import Externa4Aml from "./externa4Aml.svelte";
     import Externa5Aml from "./externa5Aml.svelte";
-    import UsoEvolutionAml from "./usoEvolutionAml.svelte";
+    import IntegracionEvolutionAml from "./integracionEvolutionAml.svelte";
     import UsoJobsAml from "./usoJobsAml.svelte";
 </script>
 
@@ -14,6 +14,8 @@
     <hr style="margin-left: 100px; margin-right: 100px">
     <Externa2Aml></Externa2Aml>
     <hr style="margin-left: 100px; margin-right: 100px">
+    <IntegracionEvolutionAml></IntegracionEvolutionAml>
+    <hr style="margin-left: 100px; margin-right: 100px">
     <!--Titulo Usos-->
     <slot></slot>
     <hr style="margin-left: 100px; margin-right: 100px">
@@ -22,8 +24,6 @@
     <Externa4Aml></Externa4Aml>
     <hr style="margin-left: 100px; margin-right: 100px">
     <Externa5Aml></Externa5Aml>
-    <hr style="margin-left: 100px; margin-right: 100px">
-    <UsoEvolutionAml></UsoEvolutionAml>
     <hr style="margin-left: 100px; margin-right: 100px">
     <UsoJobsAml></UsoJobsAml>
 </main>

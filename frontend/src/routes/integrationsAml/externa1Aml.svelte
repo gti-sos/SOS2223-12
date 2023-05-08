@@ -3,6 +3,8 @@
     Integración 1: Datos Alpha Vantage.
     <br>
     Integración 2: Datos Búsqueda avanzada de películas.
+    <br>
+    Integración 3: Datos Evolución.
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 <svelte:head>
