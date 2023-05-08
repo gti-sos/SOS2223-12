@@ -41,8 +41,9 @@
     let tipo = [];
 
     let ejex = [];
-
     /*
+
+    
 
     onMount(async () => {
         getDatos();
@@ -125,6 +126,136 @@
             loadChartMAS();
            
     }
+
+    
+    async function loadChartMAS() {
+  const ctx = document.getElementById('myChart3').getContext('2d');
+  const myChart3 = new Chart(ctx, {
+    type: 'bubble',
+    data: {
+      labels: ejex,
+      datasets: [{
+        label: 'NO2',
+        data: elemNO2.map((elem, index) => ({
+          x: index,
+          y: elem,
+          r: 10
+        })),
+        backgroundColor: 'red',
+        borderColor: 'transparent',
+      }, {
+        label: 'O3',
+        data: elemO3.map((elem, index) => ({
+          x: index,
+          y: elem,
+          r: 10
+        })),
+        backgroundColor: 'blue',
+        borderColor: 'transparent',
+      }, {
+        label: 'SO2',
+        data: elemSO2.map((elem, index) => ({
+          x: index,
+          y: elem,
+          r: 10
+        })),
+        backgroundColor: 'green',
+        borderColor: 'transparent',
+      }, {
+        label: 'ID',
+        data: idd.map((elem, index) => ({
+          x: index,
+          y: elem,
+          r: 10
+        })),
+        backgroundColor: 'yellow',
+        borderColor: 'transparent',
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+          labels: {
+            font: {
+              weight: 'bold'
+            }
+          }
+        },
+        title: {
+          text: 'Gráfica de Contaminación y Pokemon',
+          display: true,
+          color: 'black',
+          font: {
+            family: 'Times New Roman',
+            size: 40,
+            weight: 'bold',
+          },
+          padding: {
+            bottom: 10
+          }
+        },
+        subtitle: {
+          display: true,
+          text: 'Gráfica con Charts.js',
+          color: 'black',
+          font: {
+            size: 15,
+            family: 'Times New Roman',
+            weight: 'bold',
+          },
+          padding: {
+            bottom: 20
+          }
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            label: function(context) {
+              return context.dataset.label + ': ' + context.parsed.y.toFixed(2);
+            }
+          }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          display: true,
+          title: {
+            display: true,
+            text: 'Valor',
+            font: {
+              weight: 'bold',
+            },
+          },
+        },
+        x: {
+          display: true,
+          title: {
+            display: true,
+            text: 'Pokemon-Tipo | Provincia-Año',
+            font: {
+              weight: 'bold',
+            },
+          }
+        }
+      },
+      layout: {
+        padding: {
+          top: 50,
+          left: 200,
+          right: 200,
+        }
+      },
+    }
+  });
+}
+
+
+
+    /*
 
     async function loadChartMAS() {
   const ctx = document.getElementById('myChart3').getContext('2d');
@@ -239,8 +370,6 @@
 </script>
 
 <main>
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline;">Datos: aaaaaa</h1>
-    <br>
     <div style="text-align:center;">
         <strong >Número de datos: {datos.length+datos2.length}</strong>
     </div>

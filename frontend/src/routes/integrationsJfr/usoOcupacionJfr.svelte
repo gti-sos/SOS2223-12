@@ -122,9 +122,6 @@
     </p>
 
     <br>
-    <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
-    <div style="text-align:center">
-        <Button color="primary" href="/">Volver a Inicio</Button>
-    </div>
+    
 </main>
 
