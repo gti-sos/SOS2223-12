@@ -58,19 +58,23 @@
         var dataPointsIdentifier = [];
         var dataPointsLocalityId = [];
         var dataPointsPostcode = [];
+        var dataPointsModified = [];
 
         for (var i = 0; i < graph.length; i++) {
+            var modifiedDate = new Date(graph[i]["modified"]);
             dataPointsIdentifier.push({
                 x: modified[i],
                 y: identifier[i],
             });
             dataPointsLocalityId.push({
-                x: modified[i],
                 y: locality_id[i],
             });
             dataPointsPostcode.push({
                 x: modified[i],
                 y: postcode[i],
+            });
+            dataPointsModified.push({
+                x: modifiedDate.getFullYear(),
             });
         }
 
@@ -80,7 +84,9 @@
                 text: "Localización de bibliotecas en Sevilla",
             },
             axisX: {
-                valueFormatString: "####",
+                valueFormatString: modified,
+                intervalType: "year",
+                interval: 1,
             },
             axisY: {
                 includeZero: false,

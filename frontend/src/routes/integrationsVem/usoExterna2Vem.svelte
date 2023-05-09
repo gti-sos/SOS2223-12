@@ -21,6 +21,7 @@
     let codigo_postal = [];
 
     let temperatura = [];
+    let nubes = [];
 
     onMount(async () => {
         getDatos();
@@ -49,6 +50,7 @@
                 datos.forEach((element) => {
                     ejeX.push(element["wind_cdir_full"]);
                     temperatura.push(element["temp"]);
+                    nubes.push(element["clouds"]);
 
                     identificador.push(0);
                     id_localidad.push(0);
@@ -111,109 +113,116 @@
     }
 
     async function loadChartMAS() {
-        Highcharts.chart('container6', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Bibliotecas y vientos',
-            style: {
-                fontWeight: 'bold',
-                fontFamily: 'Times New Roman',
-                fontSize: 40,
+        Highcharts.chart("container6", {
+            chart: {
+                type: "bar",
             },
-        },
-        
-        subtitle: {
-            text: 'Gráfica con HighCharts',
-            style:{
-                fontFamily: 'Times New Roman',
-                fontWeight: 'bold',
-                fontSize: 12,
-                color: 'black'
-            },
-        },
-        xAxis: {
-            title:{
-                text: "viento | Provincia-Año",
-                style: {
-                    fontWeight: 'bold'
-                }
-            },
-            categories: ejeX,
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
             title: {
-                text: 'Valor',
+                text: "Vientos",
                 style: {
-                    fontWeight: 'bold'
-                }
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y: 2f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-            pointPadding: 0.2,
-            borderWidth: 2,
-            borderColor: "#000"
-            }
-        },
-        series: [{
-            name: 'Temperatura',
-            data: temperatura
-        },{
-            name: 'Identificador',
-            data: identificador
+                    fontWeight: "bold",
+                    fontFamily: "Times New Roman",
+                    fontSize: 40,
+                },
+            },
 
-        }, {
-            name: 'Id de la localidad',
-            data: id_localidad
-
-        }, {
-            name: 'Código postal',
-            data: codigo_postal
-
-        }],
-        responsive: {
-                rules: [{
-                    condition: {
-                        maxWidth: 1000
+            subtitle: {
+                text: "Gráfica con HighCharts",
+                style: {
+                    fontFamily: "Times New Roman",
+                    fontWeight: "bold",
+                    fontSize: 12,
+                    color: "black",
+                },
+            },
+            xAxis: {
+                title: {
+                    text: "viento",
+                    style: {
+                        fontWeight: "bold",
                     },
-                    chartOptions: {
-                        legend: {
-                            layout: 'horizontal',
-                            align: 'center',
-                            verticalAlign: 'bottom'
-                        }
-                    }
-                }]
-            }
+                },
+                categories: ejeX,
+                crosshair: true,
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: "Valor",
+                    style: {
+                        fontWeight: "bold",
+                    },
+                },
+            },
+            tooltip: {
+                headerFormat:
+                    '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat:
+                    '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y: 2f}</b></td></tr>',
+                footerFormat: "</table>",
+                shared: true,
+                useHTML: true,
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 2,
+                    borderColor: "#000",
+                },
+            },
+            series: [
+                {
+                    name: "Temperatura",
+                    data: temperatura,
+                },
+                {
+                    name: "Nubes",
+                    data: nubes,
+                },
+            ],
+            responsive: {
+                rules: [
+                    {
+                        condition: {
+                            maxWidth: 1000,
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: "horizontal",
+                                align: "center",
+                                verticalAlign: "bottom",
+                            },
+                        },
+                    },
+                ],
+            },
         });
     }
 </script>
 
-<h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold">Integraciones</h1>
-<div style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue">
-    Integración 2: Datos del tiempo.
-    <br>
+<h1
+    style="text-align: center; font-family:'Times New Roman', Times, serif; font-size:50px; font-weight:bold"
+>
+    Usos
+</h1>
+<div
+    style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue"
+>
+    Uso 1: Datos del viento.
+    <br />
 </div>
-<hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
+<hr style="text-align: right; margin-left: 100px; margin-right: 100px;" />
 
 <main>
-<figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
-    <div id="container6"></div>
-    <p class="highcharts-description" style="text-align:center">
-        Gráfica de las bibliotecas y el viento.
-    </p>
-</figure>
-<br>
+    <figure
+        class="highcharts-figure"
+        style="margin-left: 25px; margin-right:25px"
+    >
+        <div id="container6" />
+        <p class="highcharts-description" style="text-align:center">
+            Gráfica de las temperaturas y nubes segun el viento.
+        </p>
+    </figure>
+    <br />
 </main>
