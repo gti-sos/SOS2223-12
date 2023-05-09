@@ -7,8 +7,6 @@
 
 <main>
     
-    <Externa1Vem></Externa1Vem>
-    <hr style="margin-left: 100px; margin-right: 100px">
     <Integracion1Vem></Integracion1Vem>
     <hr style="margin-left: 100px; margin-right: 100px">
     <UsoExterna2Vem></UsoExterna2Vem>
