@@ -202,11 +202,11 @@
     </h1>
 
     <figure
-        class="highcharts-figure"
+        class="asalariados-figure"
         style="margin-left: 25px; margin-right:25px"
     >
         <div id="chart" />
-        <p class="highcharts-description" style="text-align:center">
+        <p class="asalaraidos-description" style="text-align:center">
             Gráfico de Columnas sobre las Bibliotecas y los asalariados.
         </p>
     </figure>

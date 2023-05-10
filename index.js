@@ -49,8 +49,8 @@ app.use(paths2, function(req, res) {
 });
 
 //Proxy Victor:
-var paths3 = "/evolut";
-var apiServerHost3 = "https://sos2223-13.ew.r.appspot.com/api/v2/evolution";
+var paths3 = "/localen";
+var apiServerHost3 = "https://sos2223-13.appspot.com/api/v2/localentities";
 
 app.use(paths3, function(req, res) {
     var url = apiServerHost3 + req.url;
