@@ -10,7 +10,7 @@
 
     let ejeX = [];
 
-    let API = "https://sos2223-12.ew.r.appspot.com/api/v2/library";
+    //let API = "https://sos2223-12.ew.r.appspot.com/api/v2/library";
 
     let datos2 = [];
     let result2 = "";
@@ -50,7 +50,7 @@
                 datos.forEach((element) => {
                     ejeX.push(element["wind_cdir_full"]);
                     temperatura.push(element["temp"]);
-                    nubes.push(element["clouds"]);
+                    nubes.push(element["clouds"])
 
                     identificador.push(0);
                     id_localidad.push(0);
@@ -64,56 +64,13 @@
         } else {
             console.log("Error al devolver la gráfica");
         }
-        resultStatus2 = result2 = "";
-        const res2 = await fetch(API, {
-            method: "GET",
-        });
-
-        if (res2.ok) {
-            try {
-                const valores2 = await res2.json();
-                result2 = JSON.stringify(valores2, null, 2);
-
-                datos2 = valores2;
-                datos2.sort((a, b) =>
-                    a.province_name > b.province_name
-                        ? 1
-                        : b.province_name > a.province_name
-                        ? -1
-                        : 0
-                );
-                datos2.sort((a, b) =>
-                    a.modified > b.modified
-                        ? 1
-                        : b.modified > a.modified
-                        ? -1
-                        : 0
-                );
-                datos2.forEach((datos2) => {
-                    console.log(datos2);
-
-                    identificador.push(datos2["identifier"]);
-                    id_localidad.push(datos2["locality_id"]);
-                    codigo_postal.push(datos2["postcode"]);
-                    ejeX.push(datos2.province_name + "-" + datos2.modified);
-
-                    ratting.push(0);
-                });
-            } catch (error) {
-                console.log(`Error devolviendo la gráfica: ${error}`);
-            }
-            const status2 = await res2.status;
-            resultStatus2 = status2;
-        } else {
-            console.log("Error al cargar la gráfica");
-        }
 
         await delay(500);
         loadChartMAS();
     }
 
     async function loadChartMAS() {
-        Highcharts.chart("container6", {
+        Highcharts.chart("container11", {
             chart: {
                 type: "bar",
             },
@@ -209,20 +166,17 @@
 <div
     style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue"
 >
-    Uso 1: Datos del viento.
+    Uso 1: Datos del tiempo.
     <br />
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;" />
 
 <main>
-    <figure
-        class="highcharts-figure"
-        style="margin-left: 25px; margin-right:25px"
-    >
-        <div id="container6" />
+    <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
+        <div id="container11"></div>
         <p class="highcharts-description" style="text-align:center">
-            Gráfica de las temperaturas y nubes segun el viento.
+            Datos de las nubes y las temperaturas según el viento.
         </p>
     </figure>
-    <br />
+    <br>
 </main>

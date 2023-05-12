@@ -8,7 +8,7 @@
 
 
     //let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
-    let API2 = "http://localhost:12345/localen";//"https://sos2223-12.ew.r.appspot.com/afil";//"http://localhost:12345/evol";// Llama a /evol que esté en el backend y accede a la API de luismi
+    let API2 = "http://localhost:12345/localen";//"https://sos2223-12.ew.r.appspot.com/localen";//"http://localhost:12345/evol";// Llama a /evol que esté en el backend y accede a la API de luismi
 
     let grafica = [];
     let grafica2 = [];
