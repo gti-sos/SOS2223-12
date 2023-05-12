@@ -1,9 +1,8 @@
 <svelte:head>
     <title>SOS2223-12-Sobre</title>
 </svelte:head>
-<h1><strong>Acerca de:</strong></h1>
-<a href="https://github.com/gti-sos/SOS2223">Github SOS2223</a>
-<a href="https://github.com/gti-sos/SOS2223-12">Github SOS2223-12</a>
+<h1><strong>Vídeos Explicativos:</strong></h1>
+<a style="font-family:'Times New Roman', Times, serif; font-size:30px" href="https://youtu.be/wmmom6mXBk8">· Vídeo Agroclimáticas</a>
     <br>
     <div style="text-align:center">
         <Button color="primary" href="/">Volver a Inicio</Button>
