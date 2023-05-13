@@ -6,7 +6,7 @@
     //import { dev } from "$app/environment";
 
     let API = "https://sos2223-12.ew.r.appspot.com/api/v2/library";
-    let API2 = "https://sos2223-15.appspot.com/api/v2/salary-stats";
+    let API2 = "https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats";
 
     let grafica = [];
     let grafica2 = [];
@@ -17,9 +17,9 @@
 
     let provincia_año2 = [];
 
-    let salario_medio = [];
-    let desv_tipica = [];
-    let genero = [];
+    let casa = [];
+    let precio_medio = [];
+    let turista = [];
 
     let result = "";
     let resultStatus = "";
@@ -42,23 +42,23 @@
                 result2 = JSON.stringify(valores2, null, 2);
                 grafica2 = valores2;
                 grafica2.sort((a, b) =>
-                    a.province > b.province
+                    a.territory > b.territory
                         ? 1
-                        : b.province > a.province
+                        : b.territory > a.territory
                         ? -1
                         : 0
                 );
                 grafica2.sort((a, b) =>
-                    a.year > b.year ? 1 : b.year > a.year ? -1 : 0
+                    a.period > b.period ? 1 : b.period > a.period ? -1 : 0
                 );
                 grafica2.forEach((grafica2) => {
                     console.log(grafica2);
                     provincia_año2.push(
-                        grafica2.province + "-" + grafica2.year
+                        grafica2.territory + "-" + grafica2.period
                     );
-                    salario_medio.push(grafica2["average_salary"]);
-                    desv_tipica.push(grafica2["standard_deviation"]);
-                    genero.push(grafica2["gender"]);
+                    casa.push(grafica2["finished_house"]);
+                    precio_medio.push(grafica2["half_price_m_two"]);
+                    turista.push(grafica2["tourist"]);
 
                     identificador.push(0);
                     id_localidad.push(0);
@@ -107,9 +107,9 @@
                     provincia_año2.push(
                         grafica.province_name + "-" + grafica.modified
                     );
-                    salario_medio.push(0);
-                    desv_tipica.push(0);
-                    genero.push(0);
+                    casa.push(0);
+                    precio_medio.push(0);
+                    turista.push(0);
                 });
             } catch (error) {
                 console.log(`Error devolviendo la gráfica: ${error}`);
@@ -140,13 +140,17 @@
                     data: codigo_postal,
                 },
                 {
-                    name: "Salario medio",
-                    data: salario_medio,
+                    name: "Casas finalizadas",
+                    data: casa,
                 },
                 {
-                    name: "Desviación tipica",
-                    data: desv_tipica,
+                    name: "Precio medio m^2",
+                    data: precio_medio,
                 },
+                {
+                    name: "Turistas",
+                    data: turista
+                }
             ],
             chart: {
                 type: "bar",
@@ -198,7 +202,7 @@
     <h1
         style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 45px; text-decoration:underline"
     >
-        Datos: Asalariados
+        Datos: Economía 
     </h1>
 
     <figure
@@ -207,7 +211,7 @@
     >
         <div id="chart" />
         <p class="asalaraidos-description" style="text-align:center">
-            Gráfico de Columnas sobre las Bibliotecas y los asalariados.
+            Gráfico de Columnas sobre las Bibliotecas y los datos de economía.
         </p>
     </figure>
     <br />

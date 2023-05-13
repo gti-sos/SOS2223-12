@@ -166,7 +166,6 @@
 <div
     style="text-align: center; font-family:'Times New Roman', Times, serif; font-weight: bold; font-size:20px; color:blue"
 >
-    Uso 1: Datos del tiempo.
     <br />
 </div>
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;" />
