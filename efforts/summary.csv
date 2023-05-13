@@ -1,0 +1,77 @@
+﻿Project,Client,Description,Duration
+SOS2223-12,,#9 Clonando el repositorio de grupo en local.,00:16:48
+SOS2223-12,,#80 video comentado,01:06:57
+SOS2223-12,,#8 Creando cuenta en Postman,00:16:10
+SOS2223-12,,#79 uso de biblioteca Highcharts,01:20:59
+SOS2223-12,,#78 Integracion API alumno de SOS,01:01:05
+SOS2223-12,,#77 Integraciones externas,01:29:18
+SOS2223-12,,#76 Grafica de la biblioteca Highcharts.,00:44:25
+SOS2223-12,,#75 Grafica de Chartist.js,18:56:46
+SOS2223-12,,#74 Integración 1 -> API de SOS,02:16:29
+SOS2223-12,,#73 Gráfica con otra Biblioteca (Chart.js).,01:32:02
+SOS2223-12,,#72 Gráfica HighCharts.,03:16:56
+SOS2223-12,,#71 Paginacion listado,00:23:03
+SOS2223-12,,#70 Recarga automatica,00:38:48
+SOS2223-12,,#7 No incluir la carpeta node_modules.,02:26:51
+SOS2223-12,,#69 Busqueda recursos,02:03:45
+SOS2223-12,,#67 Recarga de manera automatizada,00:19:40
+SOS2223-12,,#66 Paginación,01:29:24
+SOS2223-12,,#65 Filtros,01:12:37
+SOS2223-12,,#64 Paginación.,01:01:49
+SOS2223-12,,#63 Sin datos json.,00:26:52
+SOS2223-12,,#62 Buscar recursos por búsquedas.,01:47:08
+SOS2223-12,,#61 Front-end svelte,01:31:51
+SOS2223-12,,#60 mensaje informativo para el usuario,01:23:51
+SOS2223-12,,#6 Añadir 10 ejemplos de datos.,00:15:56
+SOS2223-12,,#58 documentación de la API v2,00:18:55
+SOS2223-12,,#57 Api v2,01:09:23
+SOS2223-12,,#56 Front-end Svelte,01:45:35
+SOS2223-12,,#55 Elementos comprensibles para usuarios,00:29:20
+SOS2223-12,,#54 Mensaje informativo al usuario del estado de la operación.,01:53:23
+SOS2223-12,,#53 Crear recursos en Frontend.,00:45:52
+SOS2223-12,,#52 Elementos comprensibles para usuarios.,00:28:38
+SOS2223-12,,#51 Uso correcto de los recursos,00:46:24
+SOS2223-12,,#50 Buen uso de los recursos,01:41:12
+SOS2223-12,,#5 Creación cuenta POSTMAN.,00:17:23
+SOS2223-12,,#49 Extender la colección de llamadas de POSTMAN,00:48:18
+SOS2223-12,,#48 script de lanzamiento llamado test-FFFF  en package.json,00:33:40
+SOS2223-12,,#47 añadir un script de lanzamiento llamado test-FFFF,01:11:20
+SOS2223-12,,#46 Extender la colección de llamadas de POSTMAN,01:17:11
+SOS2223-12,,#45 PUT/GET/DELETE de recursos.,01:00:52
+SOS2223-12,,#44 Extender Colección de POSTMAN.,01:27:55
+SOS2223-12,,#43 Devolver Objeto o Array,00:32:38
+SOS2223-12,,#42 Borrar tareas de feedbacks anteriores,00:46:52
+SOS2223-12,,#41 Paginación,02:19:42
+SOS2223-12,,#40 NeDB,01:54:50
+SOS2223-12,,#4 Introducir 5 ejemplos completos y reales de datos,00:33:06
+SOS2223-12,,#39 ruta /api/v1/FFFFF/docs,00:51:12
+SOS2223-12,,#38 Ruta /docs,00:20:34
+SOS2223-12,,#37 Persistencia NeDB,01:57:25
+SOS2223-12,,#36 Búsquedas.,01:38:30
+SOS2223-12,,#35 Implementar paginación.,01:01:09
+SOS2223-12,,#34 Base de Datos NeDB.,00:40:14
+SOS2223-12,,#33 API con buenas prácticas,01:00:47
+SOS2223-12,,#32 Implementación metodos tabla azul,01:47:46
+SOS2223-12,,#31 Ruta loadInitialData,01:28:17
+SOS2223-12,,#30 Colecciones de PostMan,00:17:40
+SOS2223-12,,#3 Creación milestone,00:30:57
+SOS2223-12,,#29 Colección en POSTMAN.,03:36:02
+SOS2223-12,,#28 Desarrollar llamadas en postman,00:43:15
+SOS2223-12,,#27 Desplegar API REST funcional,01:34:57
+SOS2223-12,,#26 GET con los 10 datos iniciales.,00:34:41
+SOS2223-12,,#25 Desplegar API REST funcional en Google Cloud.,00:42:52
+SOS2223-12,,#24 Verificar que la pestaña individual de la ficha de trabajo,00:31:03
+SOS2223-12,,#23 Sincronizando repositorio de grupo,00:15:12
+SOS2223-12,,"#22 Replicar el algotimo ""index.jfr.js""",02:27:44
+SOS2223-12,,#21 Replicar el algoritmo del archivo “index-YYY.js”,02:08:36
+SOS2223-12,,"#20 Crear milestone ""F04""",00:33:07
+SOS2223-12,,#2 ISSUE commit push readme,00:30:30
+SOS2223-12,,#19 Tener una ruta dinámica “/cool”,00:21:29
+SOS2223-12,,#18 Replicar Algoritmo.,02:03:16
+SOS2223-12,,#17 Crear 3 issues.,00:44:25
+SOS2223-12,,"#16 Realizar tracking, de, al menos, 15 min.",00:16:43
+SOS2223-12,,#13 Código de una aplicacion en nodjs,02:29:29
+SOS2223-12,,#12 Añadir 10 ejemplos reales de datos,00:19:55
+SOS2223-12,,#11 Codigo de aplicación en index-YYY.js,02:43:38
+SOS2223-12,,#10 Crear cuenta en POSTMAN,00:16:33
+SOS2223-12,,,00:00:01
