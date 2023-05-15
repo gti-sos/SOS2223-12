@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>SOS2223-12-Bibliotecas</title>
+    <title>SOS2223-12-Datos-Bibliotecas</title>
 </svelte:head>
 <script>
     // @ts-nocheck
@@ -439,7 +439,7 @@
         </tr>
 
         {#each librarys as library}
-            <tr>
+            <tr class="datosLib">
                 <td>{library.province_name}</td>
                 <td>{library.modified}</td>
                 <td>{library.identifier}</td>

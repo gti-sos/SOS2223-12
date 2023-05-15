@@ -1,5 +1,5 @@
 <svelte:head>
-    <title>SOS2223-12-Contaminaciones</title>
+    <title>SOS2223-12-Datos-Contaminaciones</title>
 </svelte:head>
 <script>
     // @ts-nocheck
@@ -346,7 +346,7 @@
             </tr>
         
         {#each pollutions as pollution }
-          <tr>
+          <tr class="datosPol">
             <td><a href="/pollutions/{pollution.province}/{pollution.year}">{pollution.province}</a></td>
             <td>{pollution.year}</td>
             <td>{pollution.NO2}</td>
