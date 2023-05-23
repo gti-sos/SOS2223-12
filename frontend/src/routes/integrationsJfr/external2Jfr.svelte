@@ -204,6 +204,14 @@
 <hr style="text-align: right; margin-left: 100px; margin-right: 100px;">
 
 <main>
+  <div style="text-align:center;">
+    <strong>Número de datos: {datos.length + datos2.length}</strong>
+  </div>
+  <h4
+    style="font-size:12px; font-family: 'Times New Roman', Times, serif; text-align:center; font-weight: bold;"
+  >
+    Gráfica con HighCharts
+  </h4>
 <figure class="highcharts-figure" style="margin-left: 25px; margin-right:25px">
     <div id="container6"></div>
     <p class="highcharts-description" style="text-align:center">
