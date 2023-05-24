@@ -15,7 +15,7 @@
 
 
     //let API = "https://sos2223-12.ew.r.appspot.com/api/v2/pollutions";
-    let API2 = "http://sos2223-14.appspot.com/api/v2/apartment-occupancy-surveys";
+    let API2 = "https://sos2223-14.appspot.com/api/v2/apartment-occupancy-surveys";
 
     //let grafica = [];
     let grafica2 = [];
