@@ -18,6 +18,7 @@ test('navigate to agroclimatic page', async ({ page }) => {
     await expect(page).toHaveTitle("SOS2223-12-Datos-Agroclimáticas");
 
     await page.waitForTimeout(1000);
+    
 
     // Comprobación de que hay datos
     await expect((await page.locator(".datosAgro").all()).length).toBeGreaterThan(0);
