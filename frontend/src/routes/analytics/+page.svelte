@@ -17,6 +17,7 @@
     let API = "https://sos2223-12.ew.r.appspot.com/api/v2/agroclimatic";
     let API2 = "https://sos2223-12.ew.r.appspot.com/api/v2/pollutions";
     let API3 = "https://sos2223-12.ew.r.appspot.com/api/v2/library";
+    
     let graph = [];
     let graph2 = [];
     let graph3 = [];
