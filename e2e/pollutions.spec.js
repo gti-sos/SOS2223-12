@@ -16,6 +16,8 @@ test('navigate to pollutions page', async ({ page }) => {
     // Expects the URL to contain intro.
     await expect(page).toHaveTitle("SOS2223-12-Datos-Contaminaciones");
 
+    await page.waitForTimeout(1000);
+
     // Comprobación de que hay datos
     await expect((await page.locator(".datosPol").all()).length).toBeGreaterThan(0);
 });

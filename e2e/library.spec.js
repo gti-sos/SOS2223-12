@@ -16,6 +16,8 @@ test('navigate to library page', async ({ page }) => {
     // Expects the URL to contain intro.
     await expect(page).toHaveTitle("SOS2223-12-Datos-Bibliotecas");
 
+    await page.waitForTimeout(1000);
+
     // Comprobación de que hay datos
     await expect((await page.locator(".datosLib").all()).length).toBeGreaterThan(0);
 });
