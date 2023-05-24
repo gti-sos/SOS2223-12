@@ -58,12 +58,12 @@
                     grafica2.forEach(grafica2 =>{
                         console.log(grafica2);
                         provincia_año2.push(grafica2.territory+"-"+grafica2.period);
-                        total_popu.push(grafica2["total_population"]);
-                        hombres.push(grafica2["man"]); 
-                        mujeres.push(grafica2["woman"]); 
-                        debajo16.push(grafica2["under_sixteen_years"]); 
-                        entre16y64.push(grafica2["from_sixteen_to_sixty_four_years"]); 
-                        mayor65.push(grafica2["sixty_five_and_over"]); 
+                        total_popu.push(parseFloat(grafica2["total_population"]));
+                        hombres.push(parseFloat(grafica2["man"])); 
+                        mujeres.push(parseFloat(grafica2["woman"])); 
+                        debajo16.push(parseFloat(grafica2["under_sixteen_years"])); 
+                        entre16y64.push(parseFloat(grafica2["from_sixteen_to_sixty_four_years"])); 
+                        mayor65.push(parseFloat(grafica2["sixty_five_and_over"])); 
                         
                         temp_max.push(0);
                         temp_min.push(0);
@@ -96,9 +96,9 @@
                     grafica.forEach(grafica =>{
                         console.log(grafica);
                         
-                        temp_max.push(grafica["maximun_temperature"]);
-                        temp_min.push(grafica["minimun_temperature"]);
-                        temp_med.push(grafica["medium_temperature"]);
+                        temp_max.push(parseFloat(grafica["maximun_temperature"]));
+                        temp_min.push(parseFloat(grafica["minimun_temperature"]));
+                        temp_med.push(parseFloat(grafica["medium_temperature"]));
                         provincia_año2.push(grafica.province+"-"+grafica.year);
                         total_popu.push(0);
                         hombres.push(0); 

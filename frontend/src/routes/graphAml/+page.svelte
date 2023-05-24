@@ -45,9 +45,9 @@
                     graph.forEach(graph =>{
                         console.log(graph);
                         provincia_año.push(graph.province+"-"+graph.year);
-                        temp_max.push(graph["maximun_temperature"]);
-                        temp_min.push(graph["minimun_temperature"]);
-                        temp_med.push(graph["medium_temperature"]);
+                        temp_max.push(parseFloat(graph["maximun_temperature"]));
+                        temp_min.push(parseFloat(graph["minimun_temperature"]));
+                        temp_med.push(parseFloat(graph["medium_temperature"]));
                         
                     });
                     await delay(500);

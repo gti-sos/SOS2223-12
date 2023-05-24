@@ -89,9 +89,9 @@
                     datos2.forEach(datos2 =>{
                         console.log(datos2);
                         
-                        temp_max.push(datos2["maximun_temperature"]);
-                        temp_min.push(datos2["minimun_temperature"]);
-                        temp_med.push(datos2["medium_temperature"]);
+                        temp_max.push(parseFloat(datos2["maximun_temperature"]));
+                        temp_min.push(parseFloat(datos2["minimun_temperature"]));
+                        temp_med.push(parseFloat(datos2["medium_temperature"]));
                         simb_reg_mon_prov_año.push(datos2.province+"-"+datos2.year);
                         
                         resu.push(0);

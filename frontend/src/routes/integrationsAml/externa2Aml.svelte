@@ -85,9 +85,9 @@
                         console.log(datosOtro2);
                         categoria.push(datosOtro2.province+"-"+datosOtro2.year);
 
-                        temp_max.push(datosOtro2["maximun_temperature"]);
-                        temp_min.push(datosOtro2["minimun_temperature"]);
-                        temp_med.push(datosOtro2["medium_temperature"]);
+                        temp_max.push(parseFloat(datosOtro2["maximun_temperature"]));
+                        temp_min.push(parseFloat(datosOtro2["minimun_temperature"]));
+                        temp_med.push(parseFloat(datosOtro2["medium_temperature"]));
                         
                         
                         id_pelis.push(0);
