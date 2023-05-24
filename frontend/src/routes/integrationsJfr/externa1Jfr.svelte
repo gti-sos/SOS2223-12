@@ -23,7 +23,7 @@
 
   let ejex = [];
 
-  /*
+  
 
   onMount(async () => {
     getDatos();
@@ -162,7 +162,7 @@
           },
           subtitle: {
             display: true,
-            text: "Gráfica con Charts.js",
+            text: "",
             color: "black",
             font: {
               size: 15,
@@ -218,7 +218,7 @@
       },
     });
   }
-  */
+  
 </script>
 
 <h1
@@ -264,7 +264,7 @@
 
   <canvas id="myChart3" style="width: 20vw; height: 20vh;" />
   <p class="highcharts-description" style="text-align:center">
-    Gráfica de contaminación en Andalucía y duración de clips de directo.
+    Gráfica de contaminación en Andalucía y Pokemon.
 </p>
   <p style="text-align:center" />
   

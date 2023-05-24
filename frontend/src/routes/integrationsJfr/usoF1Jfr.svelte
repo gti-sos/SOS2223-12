@@ -22,7 +22,7 @@
   let posicion = [];
   let paradas = [];
 
-  /*
+  
 
   onMount(async () => {
     getDatos3();
@@ -90,7 +90,7 @@
 
     Plotly.newPlot("myDiv", dataPlot, layout, config);
   }
-  */
+  
 </script>
 <br />
 <svelte:head>
