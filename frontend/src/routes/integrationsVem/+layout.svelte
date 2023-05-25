@@ -8,6 +8,8 @@
 
 
 <main>
+    <Externa1Vem></Externa1Vem>
+    <hr style="margin-left: 100px; margin-right: 100px">
     <Integracion></Integracion>
     <hr style="margin-left: 100px; margin-right: 100px">
     <slot></slot>
