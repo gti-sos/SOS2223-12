@@ -4,9 +4,9 @@
 <h1><strong>Vídeos Explicativos:</strong></h1>
 <a style="font-family:'Times New Roman', Times, serif; font-size:30px" href="https://youtu.be/wmmom6mXBk8">· Vídeo Agroclimáticas</a>
     <br>
-<a style="font-family:'Times New Roman', Times, serif; font-size:30px" href="./about">· Vídeo Librerías</a>
+<a style="font-family:'Times New Roman', Times, serif; font-size:30px" href="./about">· Vídeo Bibliotecas</a>
     <br>
-<a style="font-family:'Times New Roman', Times, serif; font-size:30px" href="./about">· Vídeo Contaminaciones</a>
+<a style="font-family:'Times New Roman', Times, serif; font-size:30px" href="https://youtu.be/xoOLFnPa7Os">· Vídeo Contaminaciones</a>
     <br>
     <div style="text-align:center">
         <Button color="primary" href="/">Volver a Inicio</Button>

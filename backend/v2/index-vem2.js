@@ -644,6 +644,9 @@ function loadBackend_vem2 (app){
         const locality_id = request.body.locality_id;
         const postcode = request.body.postcode;
 
+        if (!isNaN(province_name) || isNaN(modified) || isNaN(identifier) || isNaN(locality_id) || isNaN(postcode)) {
+            return response.status(400).json("Uno o más campos no son números");
+        }
         db.find({},function(err,filteredList){
 
             if(err){
