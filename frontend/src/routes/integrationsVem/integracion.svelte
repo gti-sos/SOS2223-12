@@ -101,9 +101,9 @@
                 grafica.forEach((grafica) => {
                     console.log(grafica);
 
-                    identificador.push(grafica["identifier"]);
-                    id_localidad.push(grafica["locality_id"]);
-                    codigo_postal.push(grafica["postcode"]);
+                    identificador.push(parseInt(grafica["identifier"]));
+                    id_localidad.push(parseInt(grafica["locality_id"]));
+                    codigo_postal.push(parseInt(grafica["postcode"]));
                     provincia_año2.push(
                         grafica.province_name + "-" + grafica.modified
                     );

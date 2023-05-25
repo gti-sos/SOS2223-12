@@ -81,9 +81,9 @@
         datos2.forEach((datos2) => {
           console.log(datos2.length);
 
-          elemNO2.push(datos2["NO2"]);
-          elemO3.push(datos2["O3"]);
-          elemSO2.push(datos2["SO2"]);
+          elemNO2.push(parseFloat(datos2["NO2"]));
+          elemO3.push(parseFloat(datos2["O3"]));
+          elemSO2.push(parseFloat(datos2["SO2"]));
           ejex.push(datos2.province + "-" + datos2.year);
           calorias.push(0);
         });

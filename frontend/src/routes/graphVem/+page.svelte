@@ -42,9 +42,9 @@
                 graph.forEach((graph) => {
                     console.log(graph);
                     provincia_año.push(graph.province_name + "-" + graph.modified);
-                    identifier.push(graph["identifier"]);
-                    locality_id.push(graph["locality_id"]);
-                    postcode.push(graph["postcode"]);
+                    identifier.push(parseInt(graph["identifier"]));
+                    locality_id.push(parseInt(graph["locality_id"]));
+                    postcode.push(parseInt(graph["postcode"]));
                 });
                 await delay(500);
                 loadChart();

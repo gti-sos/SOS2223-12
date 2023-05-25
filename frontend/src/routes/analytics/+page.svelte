@@ -99,9 +99,9 @@
                         console.log(graph2);
                         provincia_año.push(graph.province+"-"+graph.year);
                         
-                        No2.push(graph2["NO2"]);
-                        o3.push(graph2["O3"]);
-                        So2.push(graph2["SO2"]);
+                        No2.push(parseFloat(graph2["NO2"]));
+                        o3.push(parseFloat(graph2["O3"]));
+                        So2.push(parseFloat(graph2["SO2"]));
                     });
                     
                 }catch(error){
@@ -125,9 +125,9 @@
                     graph3.sort((a, b) => (a.modified > b.modified) ? 1 : ((b.modified > a.modified) ? -1 : 0));
                     graph3.forEach(graph3 =>{
                         console.log(graph3);
-                        indenti.push(graph3["identifier"]);
-                        locali.push(graph3["locality_id"]);
-                        codigo_post.push(graph3["postcode"]);
+                        indenti.push(parseInt(graph3["identifier"]));
+                        locali.push(parseInt(graph3["locality_id"]));
+                        codigo_post.push(parseInt(graph3["postcode"]));
                     });
                     
                 }catch(error){

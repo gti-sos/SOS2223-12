@@ -45,9 +45,9 @@
                     graph.forEach(graph =>{
                         console.log(graph);
                         provincia_año.push(graph.province+"-"+graph.year);
-                        NO2.push(graph["NO2"]);
-                        O3.push(graph["O3"]);
-                        SO2.push(graph["SO2"]);
+                        NO2.push(parseFloat(graph["NO2"]));
+                        O3.push(parseFloat(graph["O3"]));
+                        SO2.push(parseFloat(graph["SO2"]));
                         
                     });
                     await delay(500);

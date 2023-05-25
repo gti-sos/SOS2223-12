@@ -89,9 +89,9 @@
                 datos2.forEach((datos2) => {
                     console.log(datos2);
 
-                    identificador.push(datos2["identifier"]);
-                    id_localidad.push(datos2["locality_id"]);
-                    codigo_postal.push(datos2["postcode"]);
+                    identificador.push(parseInt(datos2["identifier"]));
+                    id_localidad.push(parseInt(datos2["locality_id"]));
+                    codigo_postal.push(parseInt(datos2["postcode"]));
                     ejeX.push(
                         datos2.province_name + "-" + datos2.modified
                     );
