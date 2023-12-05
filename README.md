@@ -2,8 +2,8 @@
 
 - **Team:**
    - [Álvaro Maraver Lerma](https://github.com/AlvaroMaraverLerma) (fuente de datos: Agroclimatic)
-   - [Jorge Figueroa Romero](https://github.com/jorfigrom) (fuente de datos: Library)
-   - [Víctor Egea Moncayo](https://github.com/victoregea) (fuente de datos: Pollutions)
+   - [Jorge Figueroa Romero](https://github.com/jorfigrom) (fuente de datos: Pollutions)
+   - [Víctor Egea Moncayo](https://github.com/victoregea) (fuente de datos: Library)
 
 - **Project description:** Our project will consist of an analysis of the climate and air pollution in different libraries of Andalucia.
 
